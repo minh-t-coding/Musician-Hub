@@ -11,6 +11,7 @@ public abstract class Post {
 		owner = null;
 		inappropriate = false;
 		content = "";
+		likes = 0;
 	}
 	
 	//getters and setters
@@ -49,4 +50,5 @@ public abstract class Post {
 	public void removeLike() {
 		this.likes--;
 	}
+	
 }

@@ -3,18 +3,18 @@ package posts;
 import java.util.*;
 
 public class StatusUpdate extends Post{
-	private ArrayList<Comment> comments;
+	private ArrayList<Post> comments; //list of comments from other users
 	
 	public StatusUpdate() {
 		comments = null;
 	}
 
-	public ArrayList<Comment> getComments() {
+	public ArrayList<Post> getComments() {
 		return comments;
 	}
 
-	public void addComments(Comment comments) {
-		this.comments.add(comments);
+	public void addComment(Post comment) {
+		this.comments.add(comment);
 	}
 	
 }
