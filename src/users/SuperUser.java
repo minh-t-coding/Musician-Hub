@@ -21,9 +21,24 @@ public abstract class SuperUser {
 		this.username = name;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+	
 	public abstract ArrayList<SuperUser> memberLookup(String lookupUser);
 	
 	public abstract void changePassword(String newPass);
+
+	
 	
 	
 }
