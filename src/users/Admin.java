@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Admin extends SuperUser{
 
+
 	@Override
 	public ArrayList<SuperUser> memberLookup(String lookupUser) {
 		// TODO Auto-generated method stub
@@ -15,5 +16,4 @@ public class Admin extends SuperUser{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
