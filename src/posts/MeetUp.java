@@ -33,7 +33,7 @@ public class MeetUp extends Post{
 		this.comments.add(comment);
 	}
 
-	public ArrayList<Musician> getCanGo() {
+	public ArrayList<Musician> getMusicians() {
 		return canGo;
 	}
 
