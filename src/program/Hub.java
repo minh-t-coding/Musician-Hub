@@ -90,7 +90,7 @@ public class Hub {
 		input = new Scanner (System.in);
 		String password = input.nextLine();
 		String newDB = username + ":{" + type + "," + password + "," + realName + "}";
-		System.out.println(newDB);
+		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
 			    new File("Database.txt"), 
 			    true /* append = true */)); 
