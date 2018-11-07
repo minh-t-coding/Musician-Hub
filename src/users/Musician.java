@@ -54,5 +54,15 @@ public class Musician extends SuperUser{
 		
 	}
 
+	public void createMeetUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void changeMusicPreference() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

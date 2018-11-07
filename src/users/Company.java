@@ -12,6 +12,13 @@ public class Company extends SuperUser{
 		this.password = password;
 	}
 
+	public void createAdvertisement() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 
 }
