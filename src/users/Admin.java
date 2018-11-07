@@ -48,7 +48,6 @@ public class Admin extends SuperUser {
 					e.printStackTrace();
 				}
 			}
-			System.out.println(old);
 		}
 	
 	public void takeAwayAdmin(Admin admin) throws FileNotFoundException {
@@ -72,6 +71,7 @@ public class Admin extends SuperUser {
 				}
 				line = br.readLine();
 			}
+
 			
 		}
 		catch (IOException e) {
