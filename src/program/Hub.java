@@ -63,8 +63,65 @@ public class Hub {
 		System.out.println("Username does not exist.");
 		return null;
 	}
-	public SuperUser createAccount() {
-		System.out.println("yooo x 2");
+	public SuperUser createAccount() throws FileNotFoundException {
+		System.out.println("Please specify what type of account is going to be created: \n");
+		Scanner input = new Scanner (System.in);
+		String type = input.nextLine();
+		while(type.equals("admin")) {
+			System.out.println("Cannot create admin account, try again: \n");
+			input = new Scanner (System.in);
+			type = input.nextLine();
+		}
+		
+		
+		System.out.println("Please enter your full name or company name\n");
+		input = new Scanner (System.in);
+		String realName = input.nextLine();
+		System.out.println("Please enter a username \n");
+		input = new Scanner (System.in);
+		String username = input.nextLine();
+		while(!checkAvailability(username)) {
+			System.out.println("Username is already taken! Choose another: \n");
+			input = new Scanner (System.in);
+			username = input.nextLine();
+		}
+		
+		System.out.println("Please enter a password: \n");
+		input = new Scanner (System.in);
+		String password = input.nextLine();
+		String newDB = username + ":{" + type + "," + password + "," + realName + "}";
+		System.out.println(newDB);
+		PrintWriter pw = new PrintWriter(new FileOutputStream(
+			    new File("Database.txt"), 
+			    true /* append = true */)); 
+		pw.append(newDB);
+		pw.close();
+		if(type.equals("musician")) {
+			Musician m = new Musician();
+			m.setUsername(username);
+			m.setPassword(password);
+			m.setRealName(realName);
+			return m;
+		}
+		else if(type.equals("company")) {
+			Company m = new Company();
+			m.setUsername(username);
+			m.setPassword(password);
+			m.setRealName(realName);
+			return m;
+		}
 		return null;
+		
+		
+	}
+	public Boolean checkAvailability(String user) throws FileNotFoundException {
+		File database = new File("Database.txt");
+		Scanner inputFile = new Scanner(database);
+		while(inputFile.hasNext()) {
+			if(inputFile.nextLine().split(":")[0] == user) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
