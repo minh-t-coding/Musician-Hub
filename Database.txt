@@ -3,5 +3,4 @@ confrodog:{admin,youacuck,Connor Musick}
 mel:{admin,pleasework,Mel Nguyen}
 randomUser:{musician,yeahboi,John Smith}
 googs:{company,hairydued,Google}
-bijakssss:{musician,pleaseplas,connor bijak}
-aliakokok:{company,idontknowwhatimdoing,SIckAkoglu}
+metrocon:{musician,help,jimmy johns}

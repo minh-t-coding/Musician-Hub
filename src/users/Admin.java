@@ -48,15 +48,44 @@ public class Admin extends SuperUser {
 					e.printStackTrace();
 				}
 			}
-			//System.out.println(old);
-			
+		}
+	
+	public void takeAwayAdmin(Admin admin) throws FileNotFoundException {
+		Musician mus = new Musician();
+		mus.setUsername(admin.getUsername());
+		mus.setPassword(admin.getPassword());
+		mus.setRealName(admin.getRealName());
+		File db = new File("Database.txt");
+		String old = "";
+		BufferedReader br = new BufferedReader(new FileReader(db));
+		try {
+			String line = br.readLine();
+			while (line != null) {
+				if(line.startsWith(admin.getUsername())) {
+					String newStr = line.replaceFirst("admin", "musician");
+					old = old + newStr+ System.lineSeparator();
+				}
+				
+				else {
+					old = old + line+ System.lineSeparator();
+				}
+				line = br.readLine();
+			}
+
 			
 		}
-
-	@Override
-	public ArrayList<SuperUser> memberLookup(String lookupUser) {
-		// TODO Auto-generated method stub
-		return null;
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				br.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(old);
 	}
 
 }
