@@ -114,5 +114,10 @@ public class Musician extends SuperUser{
 		
 	}
 
+	public void changeMusicPreference() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

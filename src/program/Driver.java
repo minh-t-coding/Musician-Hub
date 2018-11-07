@@ -66,7 +66,7 @@ public class Driver {
 						signedInUser.changeName();
 					}
 					else if(decision == 'f') {
-						signedInUser.changeMusicPreference();
+						((Musician) signedInUser).changeMusicPreference();
 					}
 					else {
 						System.out.println("not a command\n");
@@ -91,7 +91,7 @@ public class Driver {
 				Scanner key2 = new Scanner(System.in);
 				session = key2.next().charAt(0);
 				if(session == 'a') {
-					((Company)signedInUser).createAdvertisement();
+					((Company) signedInUser).createAdvertisement();
 				}
 				else if(session == 'l') {
 					newHub.memberLookup();
