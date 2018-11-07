@@ -2,7 +2,6 @@ package users;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class SuperUser {
 	protected String username;
@@ -27,6 +26,9 @@ public abstract class SuperUser {
 		return password;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String getRealName() {
 		return realName;
@@ -49,8 +51,9 @@ public abstract class SuperUser {
 			String line = reader.readLine();
 			
 			while (line != null) {
+				System.out.println(line);
 				if (line.startsWith(this.username)) {
-					line.replace(this.password, newPass);
+					line = line.replace(this.password, newPass);
 				}
 				oldContent = oldContent + line + System.lineSeparator();
 				line = reader.readLine();
@@ -71,4 +74,7 @@ public abstract class SuperUser {
 			e.printStackTrace();
 		}
 	}
+  }
 }
+
+
