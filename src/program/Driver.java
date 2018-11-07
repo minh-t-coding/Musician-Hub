@@ -31,5 +31,10 @@ public class Driver {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		Admin a = new Admin();
+		a.setUsername("miranda");
+		a.setPassword("yo");
+		a.makeNewAdmin(x);
 	}
 }
