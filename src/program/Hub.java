@@ -33,8 +33,7 @@ public class Hub {
 				String temp = line.split(":")[1]; //splits the line from file at the colon
 				String type = temp.split(",")[0].substring(1, temp.split(",")[0].length());
 				String fullName = temp.split(",")[2].substring(0, temp.split(",")[2].length()-1);
-				inputFile.close();
-				scanned.close();
+				
 				if(type.equals("musician")) {
 					Musician nm = new Musician();
 					nm.setUsername(user);
@@ -63,8 +62,7 @@ public class Hub {
 				
 			}
 		}
-		inputFile.close();
-		scanned.close();
+		
 		System.out.println("Username does not exist.");
 		return null;
 	}
@@ -96,7 +94,7 @@ public class Hub {
 		input = new Scanner (System.in);
 		String password = input.nextLine();
 		//Writing to the file...
-		String newDB = username + ":{" + type + "," + password + "," + realName + "}";
+		String newDB = username + ":{" + type + "," + password + "," + realName + "}\n";
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
 			    new File("Database.txt"), 
 			    true /* append = true */)); 
@@ -125,11 +123,11 @@ public class Hub {
 		Scanner inputFile = new Scanner(database);
 		while(inputFile.hasNext()) {
 			if(inputFile.nextLine().split(":")[0] == user) {
-				inputFile.close();
+				
 				return false;
 			}
 		}
-		inputFile.close();
+		
 		return true;
 	}
 }
