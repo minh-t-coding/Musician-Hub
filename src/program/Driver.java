@@ -10,10 +10,11 @@ public class Driver {
 		
 		Hub newHub = new Hub();
 		
-		SuperUser signedInUser;
-		
+		SuperUser signedInUser = null;
 		Scanner keyboard = new Scanner (System.in);
-		System.out.println("Welcome to Musician Hub! \n Type s for sign-in (if you already have an account)"
+		do {
+		
+		System.out.println("Welcome to Musician Hub! \nType s for sign-in (if you already have an account)"
 				+ " or c to create an account\n");
 
 		char option = keyboard.next().charAt(0);
@@ -24,7 +25,29 @@ public class Driver {
 		else if (option == 'c') {
 			signedInUser = newHub.createAccount();
 		}
+		}while(signedInUser == null);
 		
+		//main menu...
+		System.out.println("Redirecting to main menu\n");
+		char session = 'y';
+		while(session != 'l') {
+			System.out.println("The Musicians Hub. Press 'p' to create a new post, 'f' to change"
+					+ " your account features, or 'l' to log out.");
+			keyboard = new Scanner(System.in);
+			session = keyboard.next().charAt(0);
+			if(session == 'p') {
+				
+			}
+			else if(session == 'f') {
+				
+			}
+			else {
+				continue;
+			}
+		}
+		System.out.println("Logged out successfully! Have a good day!");
+		
+		//testing functionality...
 		Musician x = new Musician();
 		x.setUsername("mel");
 		x.setPassword("truffle69");

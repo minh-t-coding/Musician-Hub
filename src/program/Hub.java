@@ -47,9 +47,8 @@ public class Hub {
 						return a;
 					}
 					else if(type.equals("company")) {
-						Company c = new Company();
-						c.setUsername(user);
-						c.setPassword(passw);
+						Company c = new Company(user,passw);
+						
 						c.setRealName(fullName);
 						return c;
 					}
@@ -89,14 +88,15 @@ public class Hub {
 		System.out.println("Please enter a password: \n");
 		input = new Scanner (System.in);
 		String password = input.nextLine();
+		//Writing to the file...
 		String newDB = username + ":{" + type + "," + password + "," + realName + "}";
-		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
 			    new File("Database.txt"), 
 			    true /* append = true */)); 
 		pw.append(newDB);
 		pw.close();
 		if(type.equals("musician")) {
+			
 			Musician m = new Musician();
 			m.setUsername(username);
 			m.setPassword(password);
@@ -104,9 +104,7 @@ public class Hub {
 			return m;
 		}
 		else if(type.equals("company")) {
-			Company m = new Company();
-			m.setUsername(username);
-			m.setPassword(password);
+			Company m = new Company(username,password);
 			m.setRealName(realName);
 			return m;
 		}
