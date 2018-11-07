@@ -40,7 +40,7 @@ public class Musician extends SuperUser{
 		Scanner scanned = new Scanner (System.in);
 		String status = scanned.nextLine();
 		update.setContent(status);
-		update.setOwner(this.getUsername());
+		update.setOwner(this);
 		String content = this.getUsername() + ":" + LocalDateTime.now() + ":status\n"
 				+"==================================================================\n"
 				+ status + "\n==================================================================\n";
