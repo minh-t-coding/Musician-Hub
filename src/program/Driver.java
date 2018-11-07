@@ -1,7 +1,11 @@
 package program;
 
 import java.io.FileNotFoundException;
+
+import java.time.*;
+
 import java.io.IOException;
+
 import java.util.Scanner;
 import posts.*;
 import users.*;
@@ -34,8 +38,7 @@ public class Driver {
 		char session = 'y';
 		
 		while(session != 'l') {
-			System.out.println("The Musicians Hub."); 
-			
+			System.out.println("The Musicians Hub.");
 			if(signedInUser instanceof Musician) {
 				char decision = 'z';
 				System.out.println("Welcome Musician! Would you like to:\n"
@@ -47,8 +50,9 @@ public class Driver {
 				Scanner key2 = new Scanner(System.in);
 				char option = key2.next().charAt(0);
 				
-				if(option == 's') {
-					//((Musician)signedInUser).createStatusUpdate();
+
+				if(session == 's') {
+					((Musician)signedInUser).createStatusUpdate();
 				}
 				else if(option == 'f') {
 					System.out.println("What profile aspect would you like to change: \n"
@@ -68,7 +72,9 @@ public class Driver {
 						//signedInUser.changeName();
 					}
 					else if(decision == 'f') {
-						//((Musician)signedInUser).changeMusicPreference();
+
+						((Musician) signedInUser).changeMusicPreference();
+
 					}
 					else {
 						System.out.println("not a command\n");
@@ -77,11 +83,12 @@ public class Driver {
 				else if(option == 'l'){
 					newHub.memberLookup();
 				}
-				else if(option ==  'm') {
-					//((Musician)signedInUser).createMeetUp();
-				}
+
+				else if(session ==  'm') {
+					((Musician)signedInUser).createMeetUp();
 				else if(option == 'x') {
 					session = 'l';
+
 				}
 				else {
 					continue;
@@ -97,7 +104,8 @@ public class Driver {
 				Scanner key2 = new Scanner(System.in);
 				char option = key2.next().charAt(0);
 				if(option == 'a') {
-					//((Company)signedInUser).createAdvertisement();
+					((Company)signedInUser).createAdvertisement();
+
 				}
 				else if(option == 'l') {
 					newHub.memberLookup();
@@ -194,11 +202,12 @@ public class Driver {
 		}
 		Musician user = new Musician("randomUser","yeahboi");
 		
-		Admin a = new Admin("miranda", "yo");
+		Admin a = new Admin("mirandahampton", "miranda11");
 		//a.makeNewAdmin(x);
 
 		a.makeNewAdmin(user);
 	*/
 		}
 	
+
 }

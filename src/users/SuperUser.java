@@ -1,5 +1,6 @@
 package users;
 
+import posts.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,11 +9,13 @@ public abstract class SuperUser {
 	protected String username;
 	protected String password;
 	protected String realName;
+	protected ArrayList<Post> posts;
 	
 	public SuperUser() {
 		this.username = "No Username";
 		this.password = "No Password";
 		this.realName = "No RealName";
+		this.posts = new ArrayList<Post>();
 	}
 
 	public String getUsername() {
@@ -39,6 +42,10 @@ public abstract class SuperUser {
 		this.realName = realName;
 	}
 	
+	public void AddPost(Post post) {
+		this.posts.add(post);
+	}
+	
 	public void changePassword() throws FileNotFoundException {
 		System.out.println("Enter new password: \n");
 		Scanner input = new Scanner (System.in);
@@ -56,6 +63,7 @@ public abstract class SuperUser {
 				//System.out.println(line);
 				if (line.startsWith(this.username)) {
 					line = line.replace(this.password, newPass);
+					this.setPassword(newPass);
 				}
 				oldContent = oldContent + line + System.lineSeparator();
 				line = reader.readLine();
@@ -77,6 +85,18 @@ public abstract class SuperUser {
 		}
 	}
   }
+
+	public void changeUserName() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void changeName() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }
 
 
