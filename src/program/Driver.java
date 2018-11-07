@@ -32,7 +32,7 @@ public class Driver {
 		char session = 'y';
 		while(session != 'l') {
 			System.out.println("The Musicians Hub. Press 'p' to create a new post, 'f' to change"
-					+ " your account features, or 'l' to log out.");
+					+ " your account features, 'm' to manage posts/advertisements, or 'l' to log out.");
 			keyboard = new Scanner(System.in);
 			session = keyboard.next().charAt(0);
 			if(session == 'p') {
@@ -45,6 +45,7 @@ public class Driver {
 				continue;
 			}
 		}
+		keyboard.close();
 		System.out.println("Logged out successfully! Have a good day!");
 		
 		//testing functionality...

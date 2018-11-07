@@ -18,7 +18,7 @@ public class Hub {
 			String line = inputFile.nextLine(); //gets entire line as string
 			String user = line.split(":")[0];	//will automatically get username
 			if (user.toLowerCase().equals(username.toLowerCase())) {
-				String passw = line.split(",")[1];
+				String passw = line.split(",")[1];	//password on file
 				System.out.println("Please enter your password: \n");
 				scanned = new Scanner (System.in);
 				String password = scanned.nextLine();
@@ -28,12 +28,13 @@ public class Hub {
 					scanned = new Scanner (System.in);
 					password = scanned.nextLine();
 				}
-				scanned.close();
+				
 				System.out.println("Sign-in successful!\n");
 				String temp = line.split(":")[1]; //splits the line from file at the colon
 				String type = temp.split(",")[0].substring(1, temp.split(",")[0].length());
 				String fullName = temp.split(",")[2].substring(0, temp.split(",")[2].length()-1);
-				
+				inputFile.close();
+				scanned.close();
 				if(type.equals("musician")) {
 					Musician nm = new Musician();
 					nm.setUsername(user);
@@ -76,11 +77,12 @@ public class Hub {
 			input = new Scanner (System.in);
 			type = input.nextLine();
 		}
-		
+		input.close();
 		
 		System.out.println("Please enter your full name or company name\n");
 		input = new Scanner (System.in);
 		String realName = input.nextLine();
+		input.close();
 		System.out.println("Please enter a username \n");
 		input = new Scanner (System.in);
 		String username = input.nextLine();
@@ -89,7 +91,7 @@ public class Hub {
 			input = new Scanner (System.in);
 			username = input.nextLine();
 		}
-		
+		input.close();
 		System.out.println("Please enter a password: \n");
 		input = new Scanner (System.in);
 		String password = input.nextLine();
@@ -100,6 +102,7 @@ public class Hub {
 			    true /* append = true */)); 
 		pw.append(newDB);
 		pw.close();
+		input.close();
 		if(type.equals("musician")) {
 			
 			Musician m = new Musician();
@@ -122,9 +125,11 @@ public class Hub {
 		Scanner inputFile = new Scanner(database);
 		while(inputFile.hasNext()) {
 			if(inputFile.nextLine().split(":")[0] == user) {
+				inputFile.close();
 				return false;
 			}
 		}
+		inputFile.close();
 		return true;
 	}
 }
