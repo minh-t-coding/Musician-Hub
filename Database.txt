@@ -1,4 +1,4 @@
-mirandahampton: {admin, miranda11}
-confrodog: {admin, youacuck}
-mel: {admin, truffle69}
-randomUser: {musician, yeahboi}
+mirandahampton:{admin,miranda11}
+confrodog:{admin,youacuck}
+mel:{admin,truffle69}
+randomUser:{musician,yeahboi}
