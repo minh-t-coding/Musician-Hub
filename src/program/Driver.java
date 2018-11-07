@@ -6,7 +6,7 @@ import posts.*;
 import users.*;
 
 public class Driver {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		Hub newHub = new Hub();
 		
