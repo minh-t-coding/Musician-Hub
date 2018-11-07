@@ -1,13 +1,9 @@
 package users;
-<<<<<<< HEAD
-//test
-=======
 
 import java.util.ArrayList;
 
->>>>>>> dcb0d504a55f07a26876af859080688a2928ce7a
-public class Musician extends SuperUser{
-	private String musicGenre;
+public class Admin extends SuperUser{
+
 
 	@Override
 	public ArrayList<SuperUser> memberLookup(String lookupUser) {
@@ -20,5 +16,4 @@ public class Musician extends SuperUser{
 		// TODO Auto-generated method stub
 		
 	}
-	
 }
