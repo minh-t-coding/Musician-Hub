@@ -47,7 +47,7 @@ public class Admin extends SuperUser {
 					e.printStackTrace();
 				}
 			}
-			System.out.println(old);
+			//System.out.println(old);
 			
 			
 		}

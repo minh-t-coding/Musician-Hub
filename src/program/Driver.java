@@ -48,7 +48,7 @@ public class Driver {
 				continue;
 			}
 		}
-		System.out.println("Logged out successfully! Have a good day!");
+		System.out.println("Logged out successfully! Have a good day!\n");
 		
 		//testing functionality...
 		Musician x = new Musician();
