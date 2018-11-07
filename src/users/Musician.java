@@ -4,11 +4,7 @@ import java.util.*;
 
 import posts.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.*;
 
 public class Musician extends SuperUser{
@@ -34,22 +30,40 @@ public class Musician extends SuperUser{
 	
 	public void createStatusUpdate() throws FileNotFoundException {
 		StatusUpdate update = new StatusUpdate();
-		File posts = new File("posts.txt");
-		FileWriter writer = null;
 		System.out.println("Status Update: \n");
 		Scanner scanned = new Scanner (System.in);
 		String status = scanned.nextLine();
 		update.setContent(status);
 		update.setOwner(this);
-		String content = this.getUsername() + ":" + LocalDateTime.now() + ":status\n"
-				+"==================================================================\n"
-				+ status + "\n==================================================================\n";
+		File posts = new File("posts.txt");
+		BufferedReader bf = null;
+		FileWriter writer = null;
+		String oldContent ="";
 		try {
+			bf = new BufferedReader(new FileReader(posts));
+			String line = bf.readLine();
+			while(line!= null) {
+				oldContent = oldContent + line + System.lineSeparator();
+				line = bf.readLine();
+			}
+			String content = this.getUsername() + ":" + LocalDateTime.now() + ":status" + System.lineSeparator()
+					+"=================================================================="+ System.lineSeparator()
+					+ status + System.lineSeparator()+ "==================================================================\n"
+					+ System.lineSeparator();
+			oldContent = oldContent + content;
 			writer = new FileWriter(posts);
-			writer.write(content);
+			writer.write(oldContent);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
+		}
+		finally {
+			try {
+				writer.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
