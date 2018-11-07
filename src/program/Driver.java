@@ -50,20 +50,19 @@ public class Driver {
 		}
 		System.out.println("Logged out successfully! Have a good day!");
 		
+		Musician x = new Musician("mel","truffle69");
+	
 		//testing functionality...
-		Musician x = new Musician();
-		x.setUsername("mel");
-		x.setPassword("truffle69");
 		try {
-			x.changePassword("pleasework");
+			x.changePassword("newpasswordisGREAT");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		Musician user = new Musician("randomUser","yeahboi");
 		
-		Admin a = new Admin();
-		a.setUsername("miranda");
-		a.setPassword("yo");
+		Admin a = new Admin("miranda", "yo");
+		//a.makeNewAdmin(x);
+
 		a.makeNewAdmin(user);
 	}
 }

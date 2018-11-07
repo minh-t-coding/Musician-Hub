@@ -1,7 +1,7 @@
 package program;
 import java.util.*;
-
 import users.*;
+
 
 import java.io.*;
 
@@ -115,7 +115,6 @@ public class Hub {
 			return m;
 		}
 		return null;
-		
 		
 	}
 	public Boolean checkAvailability(String user) throws FileNotFoundException {

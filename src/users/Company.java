@@ -18,10 +18,5 @@ public class Company extends SuperUser{
 		return null;
 	}
 
-	@Override
-	public void changePassword(String newPass) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
