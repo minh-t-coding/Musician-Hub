@@ -1,6 +1,8 @@
 package users;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class SuperUser {
 	protected String username;
@@ -36,9 +38,37 @@ public abstract class SuperUser {
 	
 	public abstract ArrayList<SuperUser> memberLookup(String lookupUser);
 	
-	public abstract void changePassword(String newPass);
-
-	
-	
-	
+	public void changePassword(String newPass) throws FileNotFoundException {
+		String oldContent = "";
+		File database = new File("Database.txt");
+		BufferedReader reader = null;
+		FileWriter writer = null;
+		
+		try {
+			reader = new BufferedReader(new FileReader(database));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				if (line.startsWith(this.username)) {
+					line.replace(this.password, newPass);
+				}
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+		}
+		
+		writer = new FileWriter(database);
+		writer.write(oldContent);
+	}
+	catch (IOException e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			reader.close();
+			writer.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
