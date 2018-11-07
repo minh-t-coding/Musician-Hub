@@ -14,9 +14,27 @@ public class Hub {
 		
 		File database = new File("Database.txt");
 		Scanner inputFile = new Scanner(database);
+		Boolean exists = false;
 		while(inputFile.hasNext()) {
-			
+			String line = inputFile.nextLine();
+			String user = line.split(":")[0];
+			if (user.toLowerCase().equals(username.toLowerCase())) {
+				exists = true;
+				String passw = line.split(",")[1].substring(0, line.split(",")[1].length() -1);
+				if(passw.toLowerCase().equals(password.toLowerCase())){
+					if(line.split(":{")[1].split(",")[0] == "musician") {
+						
+					}
+					else if(line.split(":{")[1].split(",")[0] == "admin"){
+						
+					}
+					else if(line.split(":{")[1].split(",")[0] == "company") {
+						
+					}
+				}
+			}
 		}
+		System.out.println("Username does not exist.");
 	}
 	public void createAccount() {
 		System.out.println("yooo x 2");
