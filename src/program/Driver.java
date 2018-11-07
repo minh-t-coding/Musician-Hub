@@ -11,11 +11,7 @@ public class Driver {
 		
 		Hub newHub = new Hub();
 		
-		Scanner keyboard = new Scanner (System.in);
-		System.out.println("Welcome to Musician Hub! \n Type s for sign-in (if you already have an account)"
-				+ " or c to create an account\n");
-
-		char option = keyboard.next().charAt(0);
+		SuperUser signedInUser = null;
 		
 		
 		do {
@@ -45,8 +41,6 @@ public class Driver {
 			
 			if(session == 'p') {
 				System.out.println("Posting");
-				LocalDateTime time = LocalDateTime.now();
-				System.out.println(time);
 			}
 			else if(session == 'f') {
 				System.out.println("changing features");
@@ -55,15 +49,13 @@ public class Driver {
 				continue;
 			}
 		}
-		else if (option == 'c') {
-			newHub.createAccount();
-		}
+		System.out.println("Logged out successfully! Have a good day!");
 		
-		Musician x = new Musician();
-		x.setUsername("mel");
-		x.setPassword("truffle69");
+		Musician x = new Musician("mel","truffle69");
+	
+		//testing functionality...
 		try {
-			x.changePassword("pleasework");
+			x.changePassword("newpasswordisGREAT");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

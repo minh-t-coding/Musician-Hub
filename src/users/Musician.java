@@ -24,12 +24,6 @@ public class Musician extends SuperUser{
 		this.setMusicGenre("None");
 	}
 	
-	@Override
-	public ArrayList<SuperUser> memberLookup(String lookupUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public String getMusicGenre() {
 		return musicGenre;
 	}

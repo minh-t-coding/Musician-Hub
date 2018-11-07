@@ -14,6 +14,7 @@ public class Admin extends SuperUser {
 	}
 
 	public void makeNewAdmin(Musician mus) throws FileNotFoundException {
+
 			Admin admin = new Admin();
 			admin.setUsername(mus.getUsername());
 			admin.setPassword(mus.getPassword());
@@ -87,16 +88,4 @@ public class Admin extends SuperUser {
 		System.out.println(old);
 	}
 
-	
-	@Override
-	public ArrayList<SuperUser> memberLookup(String lookupUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void changePassword(String newPass) {
-		// TODO Auto-generated method stub
-
-	}
 }

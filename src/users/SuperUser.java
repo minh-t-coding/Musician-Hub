@@ -2,6 +2,7 @@ package users;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class SuperUser {
 	protected String username;
@@ -38,9 +39,10 @@ public abstract class SuperUser {
 		this.realName = realName;
 	}
 	
-	public abstract ArrayList<SuperUser> memberLookup(String lookupUser);
-	
-	public void changePassword(String newPass) throws FileNotFoundException {
+	public void changePassword() throws FileNotFoundException {
+		System.out.println("Enter new password: \n");
+		Scanner input = new Scanner (System.in);
+		String newPass = input.nextLine();
 		String oldContent = "";
 		File database = new File("Database.txt");
 		BufferedReader reader = null;
@@ -51,7 +53,7 @@ public abstract class SuperUser {
 			String line = reader.readLine();
 			
 			while (line != null) {
-				System.out.println(line);
+				//System.out.println(line);
 				if (line.startsWith(this.username)) {
 					line = line.replace(this.password, newPass);
 				}
