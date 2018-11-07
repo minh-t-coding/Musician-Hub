@@ -88,11 +88,4 @@ public class Admin extends SuperUser {
 		System.out.println(old);
 	}
 
-	
-	@Override
-	public ArrayList<SuperUser> memberLookup(String lookupUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
