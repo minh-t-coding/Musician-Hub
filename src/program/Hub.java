@@ -93,7 +93,7 @@ public class Hub {
 		input = new Scanner (System.in);
 		String password = input.nextLine();
 		//Writing to the file...
-		String newDB = username + ":{" + type + "," + password + "," + realName + "}";
+		String newDB = username + ":{" + type + "," + password + "," + realName + "}\n";
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
 			    new File("Database.txt"), 
 			    true /* append = true */)); 
@@ -120,9 +120,37 @@ public class Hub {
 		Scanner inputFile = new Scanner(database);
 		while(inputFile.hasNext()) {
 			if(inputFile.nextLine().split(":")[0] == user) {
+				inputFile.close();
 				return false;
 			}
 		}
+		inputFile.close();
 		return true;
+	}
+	
+	public void memberLookup(String user) throws FileNotFoundException{
+		File database = new File("Database.txt");
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(database));
+			String line = reader.readLine();
+			while (line != null) {
+				if (line.toLowerCase().startsWith(user.toLowerCase())) {
+					System.out.println(line.split(":")[0]);
+				}
+				line = reader.readLine();
+			}
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				reader.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
