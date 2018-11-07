@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.io.*;
 
 public class Admin extends SuperUser{
+	
+	public Admin(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 
-	public makeNewAdmin(Musician mus) {
+	public void makeNewAdmin(Musician mus) {
 		
 	}
 
