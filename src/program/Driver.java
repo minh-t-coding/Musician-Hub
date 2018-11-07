@@ -1,6 +1,7 @@
 package program;
 
 import java.io.FileNotFoundException;
+import java.time.*;
 import java.util.Scanner;
 import posts.*;
 import users.*;
@@ -145,9 +146,12 @@ public class Driver {
 		}
 		Musician user = new Musician("randomUser","yeahboi");
 		
-		Admin a = new Admin("miranda", "yo");
+		Admin a = new Admin("mirandahampton", "miranda11");
 		//a.makeNewAdmin(x);
 
 		a.makeNewAdmin(user);
+		
+		
+		
 	}
 }
