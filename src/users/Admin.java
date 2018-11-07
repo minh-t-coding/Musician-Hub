@@ -5,10 +5,10 @@ import java.io.*;
 
 public class Admin extends SuperUser{
 
-		public Admin(){
-			this.username = "";
-			this.realName = "";
-		}
+	public Admin(){
+		this.username = "";
+		this.realName = "";
+	}
 		
 		public makeNewAdmin(Musician mus) {
 			Admin admin = new Admin();
