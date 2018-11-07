@@ -23,18 +23,15 @@ public class Driver {
 			newHub.createAccount();
 		}
 		
-		Musician x = new Musician();
-		x.setUsername("mel");
-		x.setPassword("truffle69");
+		Musician x = new Musician("mel","truffle69");
+	
 		try {
-			x.changePassword("pleasework");
+			x.changePassword("newpasswordisGREAT");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		Admin a = new Admin();
-		a.setUsername("miranda");
-		a.setPassword("yo");
-		a.makeNewAdmin(x);
+		Admin a = new Admin("miranda", "yo");
+		//a.makeNewAdmin(x);
 	}
 }

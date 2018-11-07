@@ -51,7 +51,7 @@ public abstract class SuperUser {
 			String line = reader.readLine();
 			
 			while (line != null) {
-				System.out.println(line);
+				//System.out.println(line);
 				if (line.startsWith(this.username)) {
 					line = line.replace(this.password, newPass);
 				}

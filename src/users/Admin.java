@@ -10,7 +10,7 @@ public class Admin extends SuperUser {
 		this.password = password;
 	}
 
-	public makeNewAdmin(Musician mus) {
+	public void makeNewAdmin(Musician mus) {
 			Admin admin = new Admin();
 			File db = new File("Database.txt");
 			String old = "";
@@ -42,9 +42,4 @@ public class Admin extends SuperUser {
 		return null;
 	}
 
-	@Override
-	public void changePassword(String newPass) {
-		// TODO Auto-generated method stub
-
-	}
 }
