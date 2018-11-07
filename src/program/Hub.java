@@ -128,7 +128,11 @@ public class Hub {
 		return true;
 	}
 	
-	public void memberLookup(String user) throws FileNotFoundException{
+	public void memberLookup() throws FileNotFoundException{
+		System.out.println("Input the username to search: \n");
+		Scanner input = new Scanner (System.in);
+		String user = input.nextLine();
+		
 		File database = new File("Database.txt");
 		BufferedReader reader = null;
 		try {
