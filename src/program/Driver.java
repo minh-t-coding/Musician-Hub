@@ -41,6 +41,7 @@ public class Driver {
 			
 			if(session == 'p') {
 				System.out.println("Posting");
+				((Musician)signedInUser).createStatusUpdate();
 			}
 			else if(session == 'f') {
 				System.out.println("changing features");
@@ -55,7 +56,7 @@ public class Driver {
 	
 		//testing functionality...
 		try {
-			x.changePassword("newpasswordisGREAT");
+			x.changePassword();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
