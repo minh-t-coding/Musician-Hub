@@ -9,56 +9,61 @@ public class Hub {
 	
 	public SuperUser signIn() throws FileNotFoundException {
 		System.out.println("Please enter your username: \n");
-		Scanner scannedUsername = new Scanner (System.in);
-		String username = scannedUsername.nextLine();
-		System.out.println("Please enter your password: \n");
-		Scanner scannedPassword = new Scanner (System.in);
-		String password = scannedUsername.nextLine();
+		Scanner scanned = new Scanner (System.in);
+		String username = scanned.nextLine();
 		
 		File database = new File("Database.txt");
 		Scanner inputFile = new Scanner(database);
-		Boolean exists = false;
-		while(inputFile.hasNext()) {
-			String line = inputFile.nextLine();
-			String user = line.split(":")[0];
+		while(inputFile.hasNext()) {	//checks every line until it can't
+			String line = inputFile.nextLine(); //gets entire line as string
+			String user = line.split(":")[0];	//will automatically get username
 			if (user.toLowerCase().equals(username.toLowerCase())) {
-				exists = true;
-				String passw = line.split(",")[1].substring(0, line.split(",")[1].length());
-				
-				if(passw.toLowerCase().equals(password.toLowerCase())){
-					System.out.println("Sign-in successful!\n");
-					String temp = line.split(":")[1]; //splits the line from file at the colon
-					//System.out.println(temp.split(",")[0].substring(1, temp.split(",")[0].length()));
-					String type = temp.split(",")[0].substring(1, temp.split(",")[0].length());
-					String fullName = temp.split(",")[2].substring(0, temp.split(",")[2].length()-1);
-					
-					if(type.equals("musician")) {
-						Musician nm = new Musician();
-						nm.setUsername(user);
-						nm.setPassword(passw);
-						nm.setRealName(fullName);
-						return nm;
-					}
-					else if(type.equals("admin")){
-						Admin a = new Admin();
-						a.setUsername(user);
-						a.setPassword(passw);
-						a.setRealName(fullName);
-						return a;
-					}
-					else if(type.equals("company")) {
-						Company c = new Company(user,passw);
-						
-						c.setRealName(fullName);
-						return c;
-					}
-					else {
-						System.out.println("code is messed up.");
-						return null;
-					}
+				String passw = line.split(",")[1];
+				System.out.println("Please enter your password: \n");
+				scanned = new Scanner (System.in);
+				String password = scanned.nextLine();
+				//checks password validility
+				while(!passw.equals(password)) {
+					System.out.println("Incorrect password, try again: ");
+					scanned = new Scanner (System.in);
+					password = scanned.nextLine();
 				}
+				scanned.close();
+				System.out.println("Sign-in successful!\n");
+				String temp = line.split(":")[1]; //splits the line from file at the colon
+				String type = temp.split(",")[0].substring(1, temp.split(",")[0].length());
+				String fullName = temp.split(",")[2].substring(0, temp.split(",")[2].length()-1);
+				
+				if(type.equals("musician")) {
+					Musician nm = new Musician();
+					nm.setUsername(user);
+					nm.setPassword(passw);
+					nm.setRealName(fullName);
+					return nm;
+				}
+				else if(type.equals("admin")){
+					Admin a = new Admin();
+					a.setUsername(user);
+					a.setPassword(passw);
+					a.setRealName(fullName);
+					return a;
+				}
+				else if(type.equals("company")) {
+					Company c = new Company(user,passw);
+					
+					c.setRealName(fullName);
+					return c;
+				}
+				else {
+					System.out.println("code/database is messed up.");
+					return null;
+				}
+				
+				
 			}
 		}
+		inputFile.close();
+		scanned.close();
 		System.out.println("Username does not exist.");
 		return null;
 	}
