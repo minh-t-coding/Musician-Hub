@@ -1,7 +1,14 @@
 package program;
 import java.util.*;
 
+<<<<<<< HEAD
+import users.Admin;
+import users.Company;
+import users.Musician;
+import users.SuperUser;
+=======
 import users.*;
+>>>>>>> 1a5d29e7e2ba9c5c071fd4cdacdd73c7ed66a215
 
 import java.io.*;
 
@@ -111,6 +118,7 @@ public class Hub {
 		return null;
 		
 		
+>>>>>>> 1a5d29e7e2ba9c5c071fd4cdacdd73c7ed66a215
 	}
 	public Boolean checkAvailability(String user) throws FileNotFoundException {
 		File database = new File("Database.txt");
