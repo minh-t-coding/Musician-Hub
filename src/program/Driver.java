@@ -10,6 +10,8 @@ public class Driver {
 		
 		Hub newHub = new Hub();
 		
+		SuperUser signedInUser;
+		
 		Scanner keyboard = new Scanner (System.in);
 		System.out.println("Welcome to Musician Hub! \n Type s for sign-in (if you already have an account)"
 				+ " or c to create an account\n");
@@ -17,10 +19,11 @@ public class Driver {
 		char option = keyboard.next().charAt(0);
 		
 		if (option == 's') {
-			newHub.signIn();
+			signedInUser = newHub.signIn();
+			System.out.println(signedInUser);
 		}
 		else if (option == 'c') {
-			newHub.createAccount();
+			signedInUser = newHub.createAccount();
 		}
 		
 		Musician x = new Musician();
