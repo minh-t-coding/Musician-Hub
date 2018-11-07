@@ -39,10 +39,10 @@ public class Driver {
 			session = key2.next().charAt(0);
 			
 			if(session == 'p') {
-				
+				System.out.println("Posting");
 			}
 			else if(session == 'f') {
-				
+				System.out.println("changing features");
 			}
 			else {
 				continue;
