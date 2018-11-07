@@ -56,6 +56,7 @@ public abstract class SuperUser {
 				//System.out.println(line);
 				if (line.startsWith(this.username)) {
 					line = line.replace(this.password, newPass);
+					this.setPassword(newPass);
 				}
 				oldContent = oldContent + line + System.lineSeparator();
 				line = reader.readLine();
@@ -77,6 +78,18 @@ public abstract class SuperUser {
 		}
 	}
   }
+
+	public void changeUserName() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void changeName() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }
 
 
