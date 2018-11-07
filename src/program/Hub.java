@@ -117,6 +117,9 @@ public class Hub {
 		return null;
 		
 	}
+	public void changeAccountFeature(SuperUser signedInUser) {
+		
+	}
 	public Boolean checkAvailability(String user) throws FileNotFoundException {
 		File database = new File("Database.txt");
 		Scanner inputFile = new Scanner(database);
