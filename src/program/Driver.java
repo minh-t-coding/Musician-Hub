@@ -34,8 +34,7 @@ public class Driver {
 		char session = 'y';
 		
 		while(session != 'l') {
-			System.out.println("The Musicians Hub."); 
-			
+			System.out.println("The Musicians Hub.");
 			if(signedInUser instanceof Musician) {
 				char decision = 'z';
 				System.out.println("Welcome Musician! Would you like to:\n"
@@ -47,7 +46,7 @@ public class Driver {
 				session = key2.next().charAt(0);
 				
 				if(session == 's') {
-					((Musician) signedInUser).createStatusUpdate();
+					((Musician)signedInUser).createStatusUpdate();
 				}
 				else if(session == 'f') {
 					System.out.println("What profile aspect would you like to change: \n"
@@ -77,7 +76,7 @@ public class Driver {
 					newHub.memberLookup();
 				}
 				else if(session ==  'm') {
-					((Musician) signedInUser).createMeetUp();
+					((Musician)signedInUser).createMeetUp();
 				}
 				else {
 					continue;
@@ -140,7 +139,7 @@ public class Driver {
 	
 		//testing functionality...
 		try {
-			x.changePassword("newpasswordisGREAT");
+			x.changePassword();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
