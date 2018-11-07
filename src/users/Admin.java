@@ -1,6 +1,7 @@
 package users;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.io.*;
 
 public class Admin extends SuperUser {
@@ -86,6 +87,28 @@ public class Admin extends SuperUser {
 			}
 		}
 		System.out.println(old);
+	}
+	public void deleteUser() throws IOException {
+		System.out.println("Enter the username of the user to be deleted: \n");
+		Scanner key = new Scanner (System.in);
+		String wanted = key.nextLine();
+		File inputFile = new File("Database.txt");
+		File tempFile = new File("myTempFile.txt");
+
+		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+		String currentLine;
+
+		while((currentLine = reader.readLine()) != null) {
+		    // trim newline when comparing with lineToRemove
+		    String trimmedLine = currentLine.trim();
+		    if(trimmedLine.startsWith(wanted)) continue;
+		    writer.write(currentLine + System.getProperty("line.separator"));
+		}
+		writer.close(); 
+		reader.close(); 
+		boolean successful = tempFile.renameTo(inputFile);
 	}
 
 }
