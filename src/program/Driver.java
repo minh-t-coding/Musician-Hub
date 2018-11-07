@@ -22,5 +22,14 @@ public class Driver {
 		else if (option == 'c') {
 			newHub.createAccount();
 		}
+		
+		Musician x = new Musician();
+		x.setUsername("mel");
+		x.setPassword("truffle69");
+		try {
+			x.changePassword("pleasework");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
