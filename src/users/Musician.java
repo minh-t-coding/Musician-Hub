@@ -35,6 +35,7 @@ public class Musician extends SuperUser{
 		String status = scanned.nextLine();
 		update.setContent(status);
 		update.setOwner(this);
+		this.AddPost(update);
 		File posts = new File("posts.txt");
 		BufferedReader bf = null;
 		FileWriter writer = null;
@@ -80,6 +81,7 @@ public class Musician extends SuperUser{
 		update.setOwner(this);
 		update.setDate(details.split(",")[0]);
 		update.setLocation(details.split(",")[1]);
+		this.AddPost(update);
 		File posts = new File("posts.txt");
 		BufferedReader bf = null;
 		FileWriter writer = null;

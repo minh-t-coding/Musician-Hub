@@ -23,6 +23,7 @@ public class Company extends SuperUser{
 		String status = scanned.nextLine();
 		update.setContent(status);
 		update.setOwner(this);
+		this.AddPost(update);
 		File posts = new File("posts.txt");
 		BufferedReader bf = null;
 		FileWriter writer = null;
