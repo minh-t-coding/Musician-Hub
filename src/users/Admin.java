@@ -3,14 +3,14 @@ package users;
 import java.util.ArrayList;
 import java.io.*;
 
-public class Admin extends SuperUser{
+public class Admin extends SuperUser {
 
-	public Admin(){
-		this.username = "";
-		this.realName = "";
+	public Admin(String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
-		
-		public makeNewAdmin(Musician mus) {
+
+	public makeNewAdmin(Musician mus) {
 			Admin admin = new Admin();
 			File db = new File("Database.txt");
 			String old = "";
@@ -45,6 +45,6 @@ public class Admin extends SuperUser{
 	@Override
 	public void changePassword(String newPass) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
