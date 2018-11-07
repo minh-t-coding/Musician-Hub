@@ -77,12 +77,12 @@ public class Hub {
 			input = new Scanner (System.in);
 			type = input.nextLine();
 		}
-		input.close();
+		//input.close();
 		
 		System.out.println("Please enter your full name or company name\n");
 		input = new Scanner (System.in);
 		String realName = input.nextLine();
-		input.close();
+		//input.close();
 		System.out.println("Please enter a username \n");
 		input = new Scanner (System.in);
 		String username = input.nextLine();
@@ -91,7 +91,7 @@ public class Hub {
 			input = new Scanner (System.in);
 			username = input.nextLine();
 		}
-		input.close();
+		//input.close();
 		System.out.println("Please enter a password: \n");
 		input = new Scanner (System.in);
 		String password = input.nextLine();
@@ -102,7 +102,7 @@ public class Hub {
 			    true /* append = true */)); 
 		pw.append(newDB);
 		pw.close();
-		input.close();
+		//input.close();
 		if(type.equals("musician")) {
 			
 			Musician m = new Musician();
