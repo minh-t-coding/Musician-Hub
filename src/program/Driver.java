@@ -127,7 +127,8 @@ public class Driver {
 				Scanner key2 = new Scanner(System.in);
 				session = key2.next().charAt(0);
 				if(session == 'm') {
-					((Admin) signedInUser).makeNewAdmin();
+					//The admin changes a specific musician to admin, so this will be available upon member lookup
+					//((Admin) signedInUser).makeNewAdmin();
 				}
 			}
 			

@@ -1,5 +1,6 @@
 package users;
 
+import posts.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,11 +9,13 @@ public abstract class SuperUser {
 	protected String username;
 	protected String password;
 	protected String realName;
+	protected ArrayList<Post> posts;
 	
 	public SuperUser() {
 		this.username = "No Username";
 		this.password = "No Password";
 		this.realName = "No RealName";
+		this.posts = new ArrayList<Post>();
 	}
 
 	public String getUsername() {
@@ -37,6 +40,10 @@ public abstract class SuperUser {
 
 	public void setRealName(String realName) {
 		this.realName = realName;
+	}
+	
+	public void AddPost(Post post) {
+		this.posts.add(post);
 	}
 	
 	public void changePassword() throws FileNotFoundException {
