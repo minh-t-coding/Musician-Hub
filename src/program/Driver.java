@@ -31,10 +31,11 @@ public class Driver {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		Musician user = new Musician("randomUser","yeahboi");
 		
 		Admin a = new Admin();
 		a.setUsername("miranda");
 		a.setPassword("yo");
-		a.makeNewAdmin(x);
+		a.makeNewAdmin(user);
 	}
 }
