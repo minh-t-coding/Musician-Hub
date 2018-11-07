@@ -1,4 +1,4 @@
-mirandahampton:{admin,miranda11}
-confrodog:{admin,youacuck}
-mel:{admin,pleasework}
-randomUser:{musician,yeahboi}
+mirandahampton:{admin,miranda11,Miranda Hampton}
+confrodog:{admin,youacuck,Connor Musick}
+mel:{admin,pleasework,Mel Nguyen}
+randomUser:{musician,yeahboi,Yeah Boi}

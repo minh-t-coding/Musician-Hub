@@ -20,7 +20,6 @@ public class Driver {
 		
 		if (option == 's') {
 			signedInUser = newHub.signIn();
-			System.out.println(signedInUser);
 		}
 		else if (option == 'c') {
 			signedInUser = newHub.createAccount();
