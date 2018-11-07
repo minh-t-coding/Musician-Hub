@@ -57,6 +57,10 @@ public class Hub {
 						return null;
 					}
 				}
+				else {
+					System.out.println("Password is incorrect.");
+					return null;
+				}
 			}
 		}
 		System.out.println("Username does not exist.");
