@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Musician extends SuperUser{
 	private String musicGenre;
 	
+	public Musician() {
+		
+	}
+	
 	public Musician(String username, String password) {
 		this.username = username;
 		this.password = password;
