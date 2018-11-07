@@ -34,23 +34,106 @@ public class Driver {
 		char session = 'y';
 		
 		while(session != 'l') {
-			System.out.println("The Musicians Hub. Press 'p' to create a new post, 'f' to change"
-					+ " your account features, or 'l' to log out.");
-			Scanner key2 = new Scanner(System.in);
-			session = key2.next().charAt(0);
+			System.out.println("The Musicians Hub.");
+			if(signedInUser instanceof Musician) {
+				char decision = 'z';
+				System.out.println("Welcome Musician! Would you like to:\n"
+						+ "Post Status Update (press 's')\n"
+						+ "Post a MeetUp (press 'm')\n"
+						+ "Lookup member (press 'l')\n"
+						+ "Update profile (press 'f')\n");
+				Scanner key2 = new Scanner(System.in);
+				session = key2.next().charAt(0);
+				
+				if(session == 's') {
+					((Musician)signedInUser).createStatusUpdate();
+				}
+				else if(session == 'f') {
+					System.out.println("What profile aspect would you like to change: \n"
+							+ "Username (press 'u')\n"
+							+ "Password (press 'p')\n"
+							+ "Name (press 'n')\n"
+							+ "Favorite Music (press 'f')\n");
+					Scanner key = new Scanner (System.in);
+					decision = key.next().charAt(0);
+					if(decision == 'u') {
+						signedInUser.changeUserName();
+					}
+					else if(decision == 'p') {
+						signedInUser.changePassword();
+					}
+					else if(decision == 'n') {
+						signedInUser.changeName();
+					}
+					else if(decision == 'f') {
+						signedInUser.changeMusicPreference();
+					}
+					else {
+						System.out.println("not a command\n");
+					}
+				}
+				else if(session == 'l'){
+					newHub.memberLookup();
+				}
+				else if(session ==  'm') {
+					((Musician)signedInUser).createMeetUp();
+				}
+				else {
+					continue;
+				}
+			}
+			else if(signedInUser instanceof Company) {
+				char decision = 'z';
+				System.out.println("Welcome Company! Would you like to:\n"
+						+ "Post an Advertisement (press 'a')\n"
+						+ "Lookup member (press 'l')\n"
+						+ "Update profile (press 'f')\n");
+				Scanner key2 = new Scanner(System.in);
+				session = key2.next().charAt(0);
+				if(session == 'a') {
+					((Company)signedInUser).createAdvertisement();
+				}
+				else if(session == 'l') {
+					newHub.memberLookup();
+				}
+				else if(session == 'f') {
+					System.out.println("What profile aspect would you like to change: \n"
+							+ "Username (press 'u')\n"
+							+ "Password (press 'p')\n"
+							+ "Name (press 'n')\n"
+							);
+					Scanner key = new Scanner (System.in);
+					decision = key.next().charAt(0);
+					if(decision == 'u') {
+						signedInUser.changeUserName();
+					}
+					else if(decision == 'p') {
+						signedInUser.changePassword();
+					}
+					else if(decision == 'n') {
+						signedInUser.changeName();
+					}
+					else {
+						System.out.println("not a command\n");
+					}
+				}
+			}
+			else if(signedInUser instanceof Admin) {
+				char decision = 'z';
+				System.out.println("Welcome Admin! Would you like to:\n"
+						+ "Lookup member (press 'l')\n"
+						+ "Update profile (press 'f')\n"
+						+ "Make a user an admin (press 'm')\n");
+				Scanner key2 = new Scanner(System.in);
+				session = key2.next().charAt(0);
+				if(session == 'm') {
+					((Admin) signedInUser).makeNewAdmin();
+				}
+			}
 			
-			if(session == 'p') {
-				System.out.println("Posting");
-				((Musician)signedInUser).createStatusUpdate();
-			}
-			else if(session == 'f') {
-				System.out.println("changing features");
-			}
-			else {
-				continue;
-			}
+			
 		}
-		System.out.println("Logged out successfully! Have a good day!");
+		System.out.println("Logged out successfully! Have a good day!\n");
 		
 		Musician x = new Musician("mel","truffle69");
 	
