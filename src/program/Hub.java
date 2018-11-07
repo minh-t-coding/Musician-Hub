@@ -31,6 +31,7 @@ public class Hub {
 					//System.out.println(temp.split(",")[0].substring(1, temp.split(",")[0].length()));
 					String type = temp.split(",")[0].substring(1, temp.split(",")[0].length());
 					String fullName = temp.split(",")[2].substring(0, temp.split(",")[2].length()-1);
+					
 					if(type.equals("musician")) {
 						Musician nm = new Musician();
 						nm.setUsername(user);
@@ -38,14 +39,14 @@ public class Hub {
 						nm.setRealName(fullName);
 						return nm;
 					}
-					else if(temp.split(",")[0] == "admin"){
+					else if(type.equals("admin")){
 						Admin a = new Admin();
 						a.setUsername(user);
 						a.setPassword(passw);
 						a.setRealName(fullName);
 						return a;
 					}
-					else if(temp.split(",")[0] == "company") {
+					else if(type.equals("company")) {
 						Company c = new Company();
 						c.setUsername(user);
 						c.setPassword(passw);
