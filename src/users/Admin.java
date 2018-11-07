@@ -1,9 +1,13 @@
 package users;
 
 import java.util.ArrayList;
+import java.io.*;
 
 public class Admin extends SuperUser{
 
+	public makeNewAdmin(Musician mus) {
+		
+	}
 
 	@Override
 	public ArrayList<SuperUser> memberLookup(String lookupUser) {
