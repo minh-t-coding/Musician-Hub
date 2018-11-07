@@ -38,8 +38,6 @@ public abstract class SuperUser {
 		this.realName = realName;
 	}
 	
-	public abstract ArrayList<SuperUser> memberLookup(String lookupUser);
-	
 	public void changePassword(String newPass) throws FileNotFoundException {
 		String oldContent = "";
 		File database = new File("Database.txt");

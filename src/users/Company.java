@@ -9,11 +9,6 @@ public class Company extends SuperUser{
 		this.password = password;
 	}
 
-	@Override
-	public ArrayList<SuperUser> memberLookup(String lookupUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }

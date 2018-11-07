@@ -53,10 +53,4 @@ public class Admin extends SuperUser {
 			
 		}
 
-	@Override
-	public ArrayList<SuperUser> memberLookup(String lookupUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
