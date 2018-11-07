@@ -1,6 +1,7 @@
 package program;
 
 import java.io.FileNotFoundException;
+import java.time.*;
 import java.util.Scanner;
 import posts.*;
 import users.*;
@@ -16,8 +17,43 @@ public class Driver {
 
 		char option = keyboard.next().charAt(0);
 		
-		if (option == 's') {
-			newHub.signIn();
+		
+		do {
+			
+			System.out.println("Welcome to Musician Hub! \nType s for sign-in (if you already have an account)"
+					+ " or c to create an account\n");
+			Scanner key = new Scanner (System.in);
+			char option = key.next().charAt(0);
+			
+			if (option == 's') {
+				signedInUser = newHub.signIn();
+			}
+			else if (option == 'c') {
+				signedInUser = newHub.createAccount();
+			}
+		}while(signedInUser == null);
+		
+		//main menu...
+		System.out.println("Redirecting to main menu\n");
+		char session = 'y';
+		
+		while(session != 'l') {
+			System.out.println("The Musicians Hub. Press 'p' to create a new post, 'f' to change"
+					+ " your account features, or 'l' to log out.");
+			Scanner key2 = new Scanner(System.in);
+			session = key2.next().charAt(0);
+			
+			if(session == 'p') {
+				System.out.println("Posting");
+				LocalDateTime time = LocalDateTime.now();
+				System.out.println(time);
+			}
+			else if(session == 'f') {
+				System.out.println("changing features");
+			}
+			else {
+				continue;
+			}
 		}
 		else if (option == 'c') {
 			newHub.createAccount();
@@ -33,9 +69,12 @@ public class Driver {
 		}
 		Musician user = new Musician("randomUser","yeahboi");
 		
-		Admin a = new Admin();
-		a.setUsername("miranda");
-		a.setPassword("yo");
+		Admin a = new Admin("mirandahampton", "miranda11");
+		//a.makeNewAdmin(x);
+
 		a.makeNewAdmin(user);
+		
+		
+		
 	}
 }
