@@ -91,9 +91,46 @@ public class Driver {
 				Scanner key2 = new Scanner(System.in);
 				session = key2.next().charAt(0);
 				if(session == 'a') {
-					
+					signedInUser.createAdvertisement();
+				}
+				else if(session == 'l') {
+					newHub.memberLookup();
+				}
+				else if(session == 'f') {
+					System.out.println("What profile aspect would you like to change: \n"
+							+ "Username (press 'u')\n"
+							+ "Password (press 'p')\n"
+							+ "Name (press 'n')\n"
+							);
+					Scanner key = new Scanner (System.in);
+					decision = key.next().charAt(0);
+					if(decision == 'u') {
+						signedInUser.changeUserName();
+					}
+					else if(decision == 'p') {
+						signedInUser.changePassword();
+					}
+					else if(decision == 'n') {
+						signedInUser.changeName();
+					}
+					else {
+						System.out.println("not a command\n");
+					}
 				}
 			}
+			else if(signedInUser instanceof Admin) {
+				char decision = 'z';
+				System.out.println("Welcome Admin! Would you like to:\n"
+						+ "Lookup member (press 'l')\n"
+						+ "Update profile (press 'f')\n"
+						+ "Make a user an admin (press 'm')\n");
+				Scanner key2 = new Scanner(System.in);
+				session = key2.next().charAt(0);
+				if(session == 'm') {
+					((Admin) signedInUser).makeNewAdmin();
+				}
+			}
+			
 			
 		}
 		System.out.println("Logged out successfully! Have a good day!\n");
