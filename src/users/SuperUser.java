@@ -86,14 +86,84 @@ public abstract class SuperUser {
 	}
   }
 
-	public void changeUserName() {
-		// TODO Auto-generated method stub
+	public void changeUserName() throws FileNotFoundException {
+		System.out.println("Enter new username: \n");
+		Scanner input = new Scanner (System.in);
+		String newUserName = input.nextLine();
+		String oldContent = "";
+		File database = new File("Database.txt");
+		BufferedReader reader = null;
+		FileWriter writer = null;
 		
+		try {
+			reader = new BufferedReader(new FileReader(database));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				//System.out.println(line);
+				if (line.startsWith(this.username)) {
+					line = line.replace(this.username, newUserName);
+					this.setPassword(newUserName);
+				}
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+		}
+		
+		writer = new FileWriter(database);
+		writer.write(oldContent);
+	}
+	catch (IOException e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			reader.close();
+			writer.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	}
 
 	public void changeName() {
-		// TODO Auto-generated method stub
+		System.out.println("Enter new Name: \n");
+		Scanner input = new Scanner (System.in);
+		String newName = input.nextLine();
+		String oldContent = "";
+		File database = new File("Database.txt");
+		BufferedReader reader = null;
+		FileWriter writer = null;
 		
+		try {
+			reader = new BufferedReader(new FileReader(database));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				//System.out.println(line);
+				if (line.startsWith(this.username)) {
+					line = line.replace(this.realName, newName);
+					this.setPassword(newName);
+				}
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+		}
+		
+		writer = new FileWriter(database);
+		writer.write(oldContent);
+	}
+	catch (IOException e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			reader.close();
+			writer.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	}
 
 	
