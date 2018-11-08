@@ -15,7 +15,6 @@ public class Company extends SuperUser{
 		this.username = username;
 		this.password = password;
 	}
-
 	public void createAdvertisement() throws FileNotFoundException {
 		Advertisement update = new Advertisement();
 		System.out.println("Advertisement: \n");
