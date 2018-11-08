@@ -1,17 +1,39 @@
 package program;
 
-import java.io.FileNotFoundException;
+import java.io.*;
+
 import java.time.*;
-import java.util.Scanner;
+import java.util.*;
 import posts.*;
 import users.*;
 
+
 public class Driver {
-	public static void main(String[] args) throws FileNotFoundException {
-		
+	public static void main(String[] args) throws IOException {
 		Hub newHub = new Hub();
-		
 		SuperUser signedInUser = null;
+		ArrayList<SuperUser> users = new ArrayList<SuperUser>();
+		ArrayList<Post> posts = new ArrayList<Post>();
+		
+		File userDB = new File("Database.txt");
+		File postDB = new File("posts.txt");
+		try {
+			BufferedReader ubr = new BufferedReader(new FileReader(userDB));
+			BufferedReader pbr = new BufferedReader(new FileReader(postDB));
+			String uline = ubr.readLine();
+			String pline = pbr.readLine();
+			while(uline != null) {
+				
+			}
+			while(pline != null) {
+				Post newpost = new Post();
+				
+				
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		
 		do {
@@ -41,14 +63,16 @@ public class Driver {
 						+ "Post Status Update (press 's')\n"
 						+ "Post a MeetUp (press 'm')\n"
 						+ "Lookup member (press 'l')\n"
-						+ "Update profile (press 'f')\n");
+						+ "Update profile (press 'f')\n"
+						+ "Logout (press 'x')\n");
 				Scanner key2 = new Scanner(System.in);
-				session = key2.next().charAt(0);
+				char option = key2.next().charAt(0);
 				
+
 				if(session == 's') {
 					((Musician)signedInUser).createStatusUpdate();
 				}
-				else if(session == 'f') {
+				else if(option == 'f') {
 					System.out.println("What profile aspect would you like to change: \n"
 							+ "Username (press 'u')\n"
 							+ "Password (press 'p')\n"
@@ -57,26 +81,33 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						signedInUser.changeUserName();
+						//signedInUser.changeUserName();
 					}
 					else if(decision == 'p') {
 						signedInUser.changePassword();
 					}
 					else if(decision == 'n') {
-						signedInUser.changeName();
+						//signedInUser.changeName();
 					}
 					else if(decision == 'f') {
+
 						((Musician) signedInUser).changeMusicPreference();
+
 					}
 					else {
 						System.out.println("not a command\n");
 					}
 				}
-				else if(session == 'l'){
+				else if(option == 'l'){
 					newHub.memberLookup();
 				}
+
 				else if(session ==  'm') {
 					((Musician)signedInUser).createMeetUp();
+				}
+				else if(option == 'x') {
+					session = 'l';
+
 				}
 				else {
 					continue;
@@ -87,16 +118,18 @@ public class Driver {
 				System.out.println("Welcome Company! Would you like to:\n"
 						+ "Post an Advertisement (press 'a')\n"
 						+ "Lookup member (press 'l')\n"
-						+ "Update profile (press 'f')\n");
+						+ "Update profile (press 'f')\n"
+						+ "Logout (press 'x')\n");
 				Scanner key2 = new Scanner(System.in);
-				session = key2.next().charAt(0);
-				if(session == 'a') {
-					((Company) signedInUser).createAdvertisement();
+				char option = key2.next().charAt(0);
+				if(option == 'a') {
+					((Company)signedInUser).createAdvertisement();
+
 				}
-				else if(session == 'l') {
+				else if(option == 'l') {
 					newHub.memberLookup();
 				}
-				else if(session == 'f') {
+				else if(option == 'f') {
 					System.out.println("What profile aspect would you like to change: \n"
 							+ "Username (press 'u')\n"
 							+ "Password (press 'p')\n"
@@ -105,17 +138,24 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						signedInUser.changeUserName();
+						//signedInUser.changeUserName();
 					}
 					else if(decision == 'p') {
 						signedInUser.changePassword();
 					}
 					else if(decision == 'n') {
-						signedInUser.changeName();
+						//signedInUser.changeName();
 					}
+			
 					else {
 						System.out.println("not a command\n");
 					}
+				}
+				else if(option == 'x') {
+					session = 'l';
+				}
+				else {
+					continue;
 				}
 			}
 			else if(signedInUser instanceof Admin) {
@@ -123,19 +163,54 @@ public class Driver {
 				System.out.println("Welcome Admin! Would you like to:\n"
 						+ "Lookup member (press 'l')\n"
 						+ "Update profile (press 'f')\n"
-						+ "Make a user an admin (press 'm')\n");
+						+ "Make a user an admin (press 'm')\n"
+						+ "Delete user (press 'd')\n"
+						+ "Logout (press 'x')\n");
 				Scanner key2 = new Scanner(System.in);
-				session = key2.next().charAt(0);
-				if(session == 'm') {
-					//The admin changes a specific musician to admin, so this will be available upon member lookup
+				char option = key2.next().charAt(0);
+				if(option == 'm') {
 					//((Admin) signedInUser).makeNewAdmin();
+				}
+				else if(option == 'l') {
+					newHub.memberLookup();
+				}
+				else if(option == 'f') {
+					System.out.println("What profile aspect would you like to change: \n"
+							+ "Username (press 'u')\n"
+							+ "Password (press 'p')\n"
+							+ "Name (press 'n')\n"
+							);
+					Scanner key = new Scanner (System.in);
+					decision = key.next().charAt(0);
+					if(decision == 'u') {
+						//signedInUser.changeUserName();
+					}
+					else if(decision == 'p') {
+						signedInUser.changePassword();
+					}
+					else if(decision == 'n') {
+						//signedInUser.changeName();
+					}
+					else {
+						System.out.println("not a command\n");
+					}
+				}
+				else if(option == 'd') {
+					
+					((Admin) signedInUser).deleteUser();
+				}
+				else if(option == 'x') {
+					session = 'l';
+				}
+				else {
+					continue;
 				}
 			}
 			
 			
 		}
 		System.out.println("Logged out successfully! Have a good day!\n");
-		
+	/*	
 		Musician x = new Musician("mel","truffle69");
 	
 		//testing functionality...
@@ -150,8 +225,8 @@ public class Driver {
 		//a.makeNewAdmin(x);
 
 		a.makeNewAdmin(user);
-		
-		
-		
-	}
+	*/
+		}
+	
+
 }
