@@ -4,4 +4,4 @@ mel:{admin,pleasework,Mel Nguyen}
 randomUser:{musician,yeahboi,John Smith}
 metrocon:{musician,help,jimmy johns}
 shouldawon:{musician,DonaldTrump,illary Blinton}
-amazonMusic:{c,wearethebestcompany,Amazon}
+amazonPublic:{company,freeforall,Amazon}

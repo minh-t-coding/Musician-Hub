@@ -68,13 +68,15 @@ public class Hub {
 		System.out.println("Please specify what type of account is going to be created ('m' for musician, 'c' for "
 				+ "company): \n");
 		Scanner input = new Scanner (System.in);
-		char type = input.next().charAt(0);
-		
+		char inputChar = input.next().charAt(0);
+		String type = null;
 		//maybe check for incorrect input
-		if(type == 'm') {
+		if(inputChar == 'm') {
 			System.out.println("Please enter your full name: \n");
+			type = "musician";
 		}else {
 			System.out.println("Please enter your companie's name: \n");
+			type = "company";
 		}
 		input = new Scanner (System.in);
 		String realName = input.nextLine();
@@ -97,7 +99,7 @@ public class Hub {
 		pw.append(newDB);
 		pw.close();
 		//input.close();
-		if(type == 'm') {
+		if(inputChar == 'm') {
 			
 			Musician m = new Musician();
 			m.setUsername(username);
@@ -105,7 +107,7 @@ public class Hub {
 			m.setRealName(realName);
 			return m;
 		}
-		else if(type == 'c') {
+		else if(inputChar == 'c') {
 			Company m = new Company(username,password);
 			m.setRealName(realName);
 			return m;
