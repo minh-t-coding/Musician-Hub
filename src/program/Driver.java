@@ -2,16 +2,18 @@ package program;
 
 import java.io.FileNotFoundException;
 import java.time.*;
-import java.util.Scanner;
+import java.util.*;
 import posts.*;
 import users.*;
+
 
 public class Driver {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		Hub newHub = new Hub();
-		
 		SuperUser signedInUser = null;
+		ArrayList<SuperUser> users = new ArrayList<SuperUser>();
+		ArrayList<Post> posts = new ArrayList<Post>();
 		
 		
 		do {
