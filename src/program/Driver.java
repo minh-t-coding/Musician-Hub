@@ -12,7 +12,7 @@ import users.*;
 
 public class Driver {
 	public static void main(String[] args) throws IOException {
-		
+		while(true) {
 		Hub newHub = new Hub();
 		
 		SuperUser signedInUser = null;
@@ -212,7 +212,7 @@ public class Driver {
 	
 		*/
 		
-	
+		}
 	
 }
 }
