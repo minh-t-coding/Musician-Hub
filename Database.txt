@@ -3,3 +3,6 @@ confrodog:{admin,youacuck,Connor Musick}
 mel:{admin,pleasework,Mel Nguyen}
 randomUser:{musician,yeahboi,John Smith}
 metrocon:{musician,help,jimmy johns}
+shouldawon:{musician,DonaldTrump,illary Blinton}
+amazonPublic:{company,freeforall,Amazon}
+biebs:{musician,igetbitches,Justin Beiber}

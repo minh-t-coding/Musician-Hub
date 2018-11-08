@@ -10,6 +10,8 @@ import users.*;
 
 public class Driver {
 	public static void main(String[] args) throws IOException {
+		while(true) {
+
 		Hub newHub = new Hub();
 		SuperUser signedInUser = null;
 		ArrayList<SuperUser> users = new ArrayList<SuperUser>();
@@ -69,7 +71,7 @@ public class Driver {
 				char option = key2.next().charAt(0);
 				
 
-				if(session == 's') {
+				if(option == 's') {
 					((Musician)signedInUser).createStatusUpdate();
 				}
 				else if(option == 'f') {
@@ -81,13 +83,13 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						//signedInUser.changeUserName();
+						signedInUser.changeUserName();
 					}
 					else if(decision == 'p') {
 						signedInUser.changePassword();
 					}
 					else if(decision == 'n') {
-						//signedInUser.changeName();
+						signedInUser.changeName();
 					}
 					else if(decision == 'f') {
 
@@ -102,7 +104,8 @@ public class Driver {
 					newHub.memberLookup();
 				}
 
-				else if(session ==  'm') {
+				else if(option ==  'm') {
+					
 					((Musician)signedInUser).createMeetUp();
 				}
 				else if(option == 'x') {
@@ -138,13 +141,13 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						//signedInUser.changeUserName();
+						signedInUser.changeUserName();
 					}
 					else if(decision == 'p') {
 						signedInUser.changePassword();
 					}
 					else if(decision == 'n') {
-						//signedInUser.changeName();
+						signedInUser.changeName();
 					}
 			
 					else {
@@ -225,8 +228,13 @@ public class Driver {
 		//a.makeNewAdmin(x);
 
 		a.makeNewAdmin(user);
-	*/
+	
+		*/
+		
 		}
 	
-
 }
+}
+
+
+
