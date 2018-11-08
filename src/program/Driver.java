@@ -1,21 +1,41 @@
 package program;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 
 import java.time.*;
-
-import java.io.IOException;
-
-import java.util.Scanner;
+import java.util.*;
 import posts.*;
 import users.*;
+
 
 public class Driver {
 	public static void main(String[] args) throws IOException {
 		while(true) {
+
 		Hub newHub = new Hub();
-		
 		SuperUser signedInUser = null;
+		ArrayList<SuperUser> users = new ArrayList<SuperUser>();
+		ArrayList<Post> posts = new ArrayList<Post>();
+		
+		File userDB = new File("Database.txt");
+		File postDB = new File("posts.txt");
+		try {
+			BufferedReader ubr = new BufferedReader(new FileReader(userDB));
+			BufferedReader pbr = new BufferedReader(new FileReader(postDB));
+			String uline = ubr.readLine();
+			String pline = pbr.readLine();
+			while(uline != null) {
+				
+			}
+			while(pline != null) {
+				Post newpost = new Post();
+				
+				
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		
 		do {
@@ -88,7 +108,6 @@ public class Driver {
 					
 					((Musician)signedInUser).createMeetUp();
 				}
-					
 				else if(option == 'x') {
 					session = 'l';
 
