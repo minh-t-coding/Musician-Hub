@@ -65,20 +65,19 @@ public class Hub {
 		return null;
 	}
 	public SuperUser createAccount() throws FileNotFoundException {
-		System.out.println("Please specify what type of account is going to be created: \n");
+		System.out.println("Please specify what type of account is going to be created ('m' for musician, 'c' for "
+				+ "company): \n");
 		Scanner input = new Scanner (System.in);
-		String type = input.nextLine();
-		while(type.equals("admin")) {
-			System.out.println("Cannot create admin account, try again: \n");
-			input = new Scanner (System.in);
-			type = input.nextLine();
-		}
-		//input.close();
+		char type = input.next().charAt(0);
 		
-		System.out.println("Please enter your full name or company name\n");
+		//maybe check for incorrect input
+		if(type == 'm') {
+			System.out.println("Please enter your full name: \n");
+		}else {
+			System.out.println("Please enter your companie's name: \n");
+		}
 		input = new Scanner (System.in);
 		String realName = input.nextLine();
-		//input.close();
 		System.out.println("Please enter a username \n");
 		input = new Scanner (System.in);
 		String username = input.nextLine();
@@ -87,7 +86,6 @@ public class Hub {
 			input = new Scanner (System.in);
 			username = input.nextLine();
 		}
-		//input.close();
 		System.out.println("Please enter a password: \n");
 		input = new Scanner (System.in);
 		String password = input.nextLine();
@@ -99,7 +97,7 @@ public class Hub {
 		pw.append(newDB);
 		pw.close();
 		//input.close();
-		if(type.equals("musician")) {
+		if(type == 'm') {
 			
 			Musician m = new Musician();
 			m.setUsername(username);
@@ -107,7 +105,7 @@ public class Hub {
 			m.setRealName(realName);
 			return m;
 		}
-		else if(type.equals("company")) {
+		else if(type == 'c') {
 			Company m = new Company(username,password);
 			m.setRealName(realName);
 			return m;
