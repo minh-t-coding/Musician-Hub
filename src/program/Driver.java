@@ -16,7 +16,7 @@ public class Driver {
 		SuperUser signedInUser = null;
 		ArrayList<SuperUser> users = new ArrayList<SuperUser>();
 		ArrayList<Post> posts = new ArrayList<Post>();
-		
+		/*
 		File userDB = new File("Database.txt");
 		File postDB = new File("posts.txt");
 		try {
@@ -36,7 +36,7 @@ public class Driver {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		*/
 		
 		do {
 			
@@ -79,7 +79,7 @@ public class Driver {
 							+ "Username (press 'u')\n"
 							+ "Password (press 'p')\n"
 							+ "Name (press 'n')\n"
-							+ "Favorite Music (press 'f')\n");
+							/*+"Favorite Music (press 'f')\n"*/);
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
