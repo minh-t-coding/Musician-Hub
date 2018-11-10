@@ -98,32 +98,14 @@ public class Hub {
 		return true;
 	}
 	
-	public void memberLookup() throws FileNotFoundException{
+	public void memberLookup(){
 		System.out.println("Input the username to search: \n");
 		Scanner input = new Scanner (System.in);
 		String user = input.nextLine();
 		
-		File database = new File("Database.txt");
-		BufferedReader reader = null;
-		try {
-			reader = new BufferedReader(new FileReader(database));
-			String line = reader.readLine();
-			while (line != null) {
-				if (line.toLowerCase().startsWith(user.toLowerCase())) {
-					System.out.println(line.split(":")[0]);
-				}
-				line = reader.readLine();
-			}
-		}
-		catch (IOException e){
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				reader.close();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
+		for (SuperUser u : allUsers) {
+			if(u.getUsername().startsWith(user)) {
+				System.out.println(u.getUsername());
 			}
 		}
 	}

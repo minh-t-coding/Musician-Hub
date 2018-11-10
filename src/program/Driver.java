@@ -89,8 +89,10 @@ public class Driver {
 						signedInUser.changeName();
 					}
 					else if(decision == 'f') {
-
-						((Musician) signedInUser).changeMusicPreference();
+						System.out.println("Whats your new favorite kind of music: \n");
+						Scanner n = new Scanner(System.in);
+						String s = n.nextLine();
+						((Musician) signedInUser).setMusicGenre(s);
 
 					}
 					else {

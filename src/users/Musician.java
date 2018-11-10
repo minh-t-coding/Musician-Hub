@@ -10,6 +10,7 @@ import java.time.*;
 
 public class Musician extends SuperUser{
 	private String musicGenre;
+	private ArrayList<Instrument> instrumentsPlayed;
 	
 	public Musician() {
 		musicGenre = "None";
@@ -29,7 +30,14 @@ public class Musician extends SuperUser{
 		this.musicGenre = musicGenre;
 	}
 	
-	public void createStatusUpdate() throws FileNotFoundException {
+	public ArrayList<Instrument> getInstrumentsPlayed() {
+		return instrumentsPlayed;
+	}
+	public void addInstrument(Instrument i) {
+		instrumentsPlayed.add(i);
+	}
+	
+	public void createStatusUpdate(){
 		StatusUpdate update = new StatusUpdate();
 		System.out.println("Status Update: \n");
 		Scanner scanned = new Scanner (System.in);
@@ -40,7 +48,7 @@ public class Musician extends SuperUser{
 		Hub.addPost(update);
 	}
 	
-	public void createMeetUp() throws FileNotFoundException {
+	public void createMeetUp(){
 		MeetUp update = new MeetUp();
 		System.out.println("Enter the Date and Location of meetup seperated by comma(,): \n");
 		Scanner scanned = new Scanner (System.in);
@@ -54,11 +62,6 @@ public class Musician extends SuperUser{
 		update.setLocation(details.split(",")[1]);
 		this.AddPost(update);
 		Hub.addPost(update);
-	}
-
-	public void changeMusicPreference() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	
