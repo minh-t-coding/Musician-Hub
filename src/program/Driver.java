@@ -76,17 +76,27 @@ public class Driver {
 							+ "Username (press 'u')\n"
 							+ "Password (press 'p')\n"
 							+ "Name (press 'n')\n"
-							+"Favorite Music (press 'f')\n");
+							+ "Favorite Music (press 'f')\n");
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						signedInUser.changeUserName();
+						System.out.println("Enter new username: \n");
+						Scanner input = new Scanner (System.in);
+						String newUserName = input.nextLine();
+						signedInUser.setUsername(newUserName);
+						
 					}
 					else if(decision == 'p') {
-						signedInUser.changePassword();
+						System.out.println("Enter new password: \n");
+						Scanner input = new Scanner (System.in);
+						String newPass = input.nextLine();
+						signedInUser.setPassword(newPass);;
 					}
 					else if(decision == 'n') {
-						signedInUser.changeName();
+						System.out.println("Enter new Name: \n");
+						Scanner input = new Scanner (System.in);
+						String newName = input.nextLine();
+						signedInUser.setRealName(newName);
 					}
 					else if(decision == 'f') {
 						System.out.println("Whats your new favorite kind of music: \n");
@@ -140,13 +150,23 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						signedInUser.changeUserName();
+						System.out.println("Enter new username: \n");
+						Scanner input = new Scanner (System.in);
+						String newUserName = input.nextLine();
+						signedInUser.setUsername(newUserName);
+						
 					}
 					else if(decision == 'p') {
-						signedInUser.changePassword();
+						System.out.println("Enter new password: \n");
+						Scanner input = new Scanner (System.in);
+						String newPass = input.nextLine();
+						signedInUser.setPassword(newPass);;
 					}
 					else if(decision == 'n') {
-						signedInUser.changeName();
+						System.out.println("Enter new Name: \n");
+						Scanner input = new Scanner (System.in);
+						String newName = input.nextLine();
+						signedInUser.setRealName(newName);
 					}
 			
 					else {
@@ -185,13 +205,23 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						//signedInUser.changeUserName();
+						System.out.println("Enter new username: \n");
+						Scanner input = new Scanner (System.in);
+						String newUserName = input.nextLine();
+						signedInUser.setUsername(newUserName);
+						
 					}
 					else if(decision == 'p') {
-						signedInUser.changePassword();
+						System.out.println("Enter new password: \n");
+						Scanner input = new Scanner (System.in);
+						String newPass = input.nextLine();
+						signedInUser.setPassword(newPass);;
 					}
 					else if(decision == 'n') {
-						//signedInUser.changeName();
+						System.out.println("Enter new Name: \n");
+						Scanner input = new Scanner (System.in);
+						String newName = input.nextLine();
+						signedInUser.setRealName(newName);
 					}
 					else {
 						System.out.println("not a command\n");

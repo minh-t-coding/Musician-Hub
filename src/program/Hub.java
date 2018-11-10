@@ -89,7 +89,7 @@ public class Hub {
 		return null;
 		
 	}
-	public Boolean checkAvailability(String user){
+	public static Boolean checkAvailability(String user){
 		for(SuperUser u : allUsers) {
 			if(user.equals(u.getUsername())) {
 				return false;
