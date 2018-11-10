@@ -10,32 +10,29 @@ import users.*;
 
 public class Driver {
 	public static void main(String[] args) throws IOException {
-		while(true) {
-
+		//while(true) {
+		
 		Hub newHub = new Hub();
+		newHub.loadData();
 		SuperUser signedInUser = null;
-		ArrayList<SuperUser> users = new ArrayList<SuperUser>();
-		ArrayList<Post> posts = new ArrayList<Post>();
 		/*
-		File userDB = new File("Database.txt");
-		File postDB = new File("posts.txt");
-		try {
-			BufferedReader ubr = new BufferedReader(new FileReader(userDB));
-			BufferedReader pbr = new BufferedReader(new FileReader(postDB));
-			String uline = ubr.readLine();
-			String pline = pbr.readLine();
-			while(uline != null) {
-				
-			}
-			while(pline != null) {
-				Post newpost = new Post();
-				
-				
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		Admin connor = new Admin();
+		Admin miranda = new Admin();
+		Admin mel = new Admin();
+		
+		connor.setUsername("aaa");
+		miranda.setUsername("boopbopp");
+		mel.setUsername("mellyboi");
+		connor.setPassword("test");
+		miranda.setPassword("isuck");
+		mel.setPassword("truffles69");
+		connor.setRealName("connor");
+		miranda.setRealName("miranda");
+		mel.setRealName("mel");
+		newHub.allUsers.add(connor);
+		newHub.allUsers.add(miranda);
+		newHub.allUsers.add(mel);
+		newHub.saveData();
 		*/
 		
 		do {
@@ -79,7 +76,7 @@ public class Driver {
 							+ "Username (press 'u')\n"
 							+ "Password (press 'p')\n"
 							+ "Name (press 'n')\n"
-							/*+"Favorite Music (press 'f')\n"*/);
+							+"Favorite Music (press 'f')\n");
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
@@ -213,25 +210,10 @@ public class Driver {
 			
 		}
 		System.out.println("Logged out successfully! Have a good day!\n");
-	/*	
-		Musician x = new Musician("mel","truffle69");
-	
-		//testing functionality...
-		try {
-			x.changePassword();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		Musician user = new Musician("randomUser","yeahboi");
 		
-		Admin a = new Admin("mirandahampton", "miranda11");
-		//a.makeNewAdmin(x);
-
-		a.makeNewAdmin(user);
-	
-		*/
 		
-		}
+		
+		//}
 	
 }
 }

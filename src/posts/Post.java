@@ -1,7 +1,9 @@
 package posts;
+import java.io.Serializable;
+
 import users.*;
 
-public abstract class Post {
+public abstract class Post implements Serializable{
 	protected SuperUser owner;
 	protected Boolean inappropriate;
 	protected String content;

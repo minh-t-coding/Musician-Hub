@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class SuperUser {
+public abstract class SuperUser implements Serializable{
 	protected String username;
 	protected String password;
 	protected String realName;
@@ -165,6 +165,7 @@ public abstract class SuperUser {
 		}
 	}
 	}
+	
 
 	
 }
