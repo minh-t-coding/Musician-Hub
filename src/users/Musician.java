@@ -3,21 +3,23 @@ package users;
 import java.util.*;
 
 import posts.*;
+import program.Hub;
 
 import java.io.*;
 import java.time.*;
 
 public class Musician extends SuperUser{
 	private String musicGenre;
+	private ArrayList<Instrument> instrumentsPlayed;
 	
 	public Musician() {
-		
+		musicGenre = "None";
 	}
 	
 	public Musician(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.setMusicGenre("None");
+		this.musicGenre = "None";
 	}
 	
 	public String getMusicGenre() {
@@ -28,7 +30,14 @@ public class Musician extends SuperUser{
 		this.musicGenre = musicGenre;
 	}
 	
-	public void createStatusUpdate() throws FileNotFoundException {
+	public ArrayList<Instrument> getInstrumentsPlayed() {
+		return instrumentsPlayed;
+	}
+	public void addInstrument(Instrument i) {
+		instrumentsPlayed.add(i);
+	}
+	
+	public void createStatusUpdate(){
 		StatusUpdate update = new StatusUpdate();
 		System.out.println("Status Update: \n");
 		Scanner scanned = new Scanner (System.in);
@@ -36,40 +45,10 @@ public class Musician extends SuperUser{
 		update.setContent(status);
 		update.setOwner(this);
 		this.AddPost(update);
-		File posts = new File("posts.txt");
-		BufferedReader bf = null;
-		FileWriter writer = null;
-		String oldContent ="";
-		try {
-			bf = new BufferedReader(new FileReader(posts));
-			String line = bf.readLine();
-			while(line!= null) {
-				oldContent = oldContent + line + System.lineSeparator();
-				line = bf.readLine();
-			}
-			String content = this.getUsername() + ":" + LocalDateTime.now() + ":status" + System.lineSeparator()
-					+"=================================================================="+ System.lineSeparator()
-					+ status + System.lineSeparator()+ "==================================================================\n"
-					+ System.lineSeparator();
-			oldContent = oldContent + content;
-			writer = new FileWriter(posts);
-			writer.write(oldContent);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				writer.close();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
+		Hub.addPost(update);
 	}
 	
-	public void createMeetUp() throws FileNotFoundException {
+	public void createMeetUp(){
 		MeetUp update = new MeetUp();
 		System.out.println("Enter the Date and Location of meetup seperated by comma(,): \n");
 		Scanner scanned = new Scanner (System.in);
@@ -82,43 +61,7 @@ public class Musician extends SuperUser{
 		update.setDate(details.split(",")[0]);
 		update.setLocation(details.split(",")[1]);
 		this.AddPost(update);
-		File posts = new File("posts.txt");
-		BufferedReader bf = null;
-		FileWriter writer = null;
-		String oldContent ="";
-		try {
-			bf = new BufferedReader(new FileReader(posts));
-			String line = bf.readLine();
-			while(line!= null) {
-				oldContent = oldContent + line + System.lineSeparator();
-				line = bf.readLine();
-			}
-			String content = this.getUsername() + ":" + LocalDateTime.now() + ":meetup" + System.lineSeparator()
-					+"=================================================================="+ System.lineSeparator()
-					+ "Date: " + update.getDate() + " Location: " + update.getLocation() + System.lineSeparator()
-					+ status + System.lineSeparator()+ "==================================================================\n"
-					+ System.lineSeparator();
-			oldContent = oldContent + content;
-			writer = new FileWriter(posts);
-			writer.write(oldContent);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				writer.close();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-
-	public void changeMusicPreference() {
-		// TODO Auto-generated method stub
-		
+		Hub.addPost(update);
 	}
 
 	

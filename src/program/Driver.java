@@ -10,32 +10,29 @@ import users.*;
 
 public class Driver {
 	public static void main(String[] args) throws IOException {
-		while(true) {
-
+		//while(true) {
+		
 		Hub newHub = new Hub();
+		newHub.loadData();
 		SuperUser signedInUser = null;
-		ArrayList<SuperUser> users = new ArrayList<SuperUser>();
-		ArrayList<Post> posts = new ArrayList<Post>();
 		/*
-		File userDB = new File("Database.txt");
-		File postDB = new File("posts.txt");
-		try {
-			BufferedReader ubr = new BufferedReader(new FileReader(userDB));
-			BufferedReader pbr = new BufferedReader(new FileReader(postDB));
-			String uline = ubr.readLine();
-			String pline = pbr.readLine();
-			while(uline != null) {
-				
-			}
-			while(pline != null) {
-				Post newpost = new Post();
-				
-				
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		Admin connor = new Admin();
+		Admin miranda = new Admin();
+		Admin mel = new Admin();
+		
+		connor.setUsername("aaa");
+		miranda.setUsername("boopbopp");
+		mel.setUsername("mellyboi");
+		connor.setPassword("test");
+		miranda.setPassword("isuck");
+		mel.setPassword("truffles69");
+		connor.setRealName("connor");
+		miranda.setRealName("miranda");
+		mel.setRealName("mel");
+		newHub.allUsers.add(connor);
+		newHub.allUsers.add(miranda);
+		newHub.allUsers.add(mel);
+		newHub.saveData();
 		*/
 		
 		do {
@@ -79,21 +76,33 @@ public class Driver {
 							+ "Username (press 'u')\n"
 							+ "Password (press 'p')\n"
 							+ "Name (press 'n')\n"
-							/*+"Favorite Music (press 'f')\n"*/);
+							+ "Favorite Music (press 'f')\n");
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						signedInUser.changeUserName();
+						System.out.println("Enter new username: \n");
+						Scanner input = new Scanner (System.in);
+						String newUserName = input.nextLine();
+						signedInUser.setUsername(newUserName);
+						
 					}
 					else if(decision == 'p') {
-						signedInUser.changePassword();
+						System.out.println("Enter new password: \n");
+						Scanner input = new Scanner (System.in);
+						String newPass = input.nextLine();
+						signedInUser.setPassword(newPass);;
 					}
 					else if(decision == 'n') {
-						signedInUser.changeName();
+						System.out.println("Enter new Name: \n");
+						Scanner input = new Scanner (System.in);
+						String newName = input.nextLine();
+						signedInUser.setRealName(newName);
 					}
 					else if(decision == 'f') {
-
-						((Musician) signedInUser).changeMusicPreference();
+						System.out.println("Whats your new favorite kind of music: \n");
+						Scanner n = new Scanner(System.in);
+						String s = n.nextLine();
+						((Musician) signedInUser).setMusicGenre(s);
 
 					}
 					else {
@@ -141,13 +150,23 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						signedInUser.changeUserName();
+						System.out.println("Enter new username: \n");
+						Scanner input = new Scanner (System.in);
+						String newUserName = input.nextLine();
+						signedInUser.setUsername(newUserName);
+						
 					}
 					else if(decision == 'p') {
-						signedInUser.changePassword();
+						System.out.println("Enter new password: \n");
+						Scanner input = new Scanner (System.in);
+						String newPass = input.nextLine();
+						signedInUser.setPassword(newPass);;
 					}
 					else if(decision == 'n') {
-						signedInUser.changeName();
+						System.out.println("Enter new Name: \n");
+						Scanner input = new Scanner (System.in);
+						String newName = input.nextLine();
+						signedInUser.setRealName(newName);
 					}
 			
 					else {
@@ -186,13 +205,23 @@ public class Driver {
 					Scanner key = new Scanner (System.in);
 					decision = key.next().charAt(0);
 					if(decision == 'u') {
-						//signedInUser.changeUserName();
+						System.out.println("Enter new username: \n");
+						Scanner input = new Scanner (System.in);
+						String newUserName = input.nextLine();
+						signedInUser.setUsername(newUserName);
+						
 					}
 					else if(decision == 'p') {
-						signedInUser.changePassword();
+						System.out.println("Enter new password: \n");
+						Scanner input = new Scanner (System.in);
+						String newPass = input.nextLine();
+						signedInUser.setPassword(newPass);;
 					}
 					else if(decision == 'n') {
-						//signedInUser.changeName();
+						System.out.println("Enter new Name: \n");
+						Scanner input = new Scanner (System.in);
+						String newName = input.nextLine();
+						signedInUser.setRealName(newName);
 					}
 					else {
 						System.out.println("not a command\n");
@@ -213,25 +242,10 @@ public class Driver {
 			
 		}
 		System.out.println("Logged out successfully! Have a good day!\n");
-	/*	
-		Musician x = new Musician("mel","truffle69");
-	
-		//testing functionality...
-		try {
-			x.changePassword();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		Musician user = new Musician("randomUser","yeahboi");
 		
-		Admin a = new Admin("mirandahampton", "miranda11");
-		//a.makeNewAdmin(x);
-
-		a.makeNewAdmin(user);
-	
-		*/
 		
-		}
+		
+		//}
 	
 }
 }
