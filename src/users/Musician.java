@@ -11,6 +11,7 @@ import java.time.*;
 public class Musician extends SuperUser{
 	private String musicGenre;
 	private ArrayList<Instrument> instrumentsPlayed;
+	//maybe? private ArrayList<Musician> friendsList;
 	
 	public Musician() {
 		musicGenre = "None";
