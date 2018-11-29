@@ -5,6 +5,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class WelcomeScreen extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel mainArea;
 	private JLabel welcomeMessage;
 	private JButton loginButton;
@@ -47,7 +51,8 @@ public class WelcomeScreen extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			setVisible(false);
+			new LoginScreen();
 		}
 		
 	}
