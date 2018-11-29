@@ -4,14 +4,18 @@ import java.io.*;
 
 import java.time.*;
 import java.util.*;
+
+import gui.WelcomeScreen;
 import posts.*;
 import users.*;
 
 
 public class Driver {
 	public static void main(String[] args) throws IOException {
-		//while(true) {
 		
+		new WelcomeScreen();
+		//while(true) {
+		/*
 		Hub newHub = new Hub();
 		newHub.loadData();
 		SuperUser signedInUser = null;
@@ -33,7 +37,7 @@ public class Driver {
 		newHub.allUsers.add(miranda);
 		newHub.allUsers.add(mel);
 		newHub.saveData();
-		*/
+		
 		
 		do {
 			
@@ -246,7 +250,7 @@ public class Driver {
 		
 		
 		//}
-	
+	*/
 }
 }
 
