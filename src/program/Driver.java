@@ -5,7 +5,7 @@ import java.io.*;
 import java.time.*;
 import java.util.*;
 
-import gui.WelcomePage;
+import gui.WelcomeScreen;
 import posts.*;
 import users.*;
 
@@ -13,7 +13,7 @@ import users.*;
 public class Driver {
 	public static void main(String[] args) throws IOException {
 		
-		new WelcomePage();
+		new WelcomeScreen();
 		//while(true) {
 		/*
 		Hub newHub = new Hub();

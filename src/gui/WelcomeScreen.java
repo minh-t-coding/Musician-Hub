@@ -4,13 +4,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class WelcomePage extends JFrame{
+public class WelcomeScreen extends JFrame{
 	private JPanel mainArea;
 	private JLabel welcomeMessage;
 	private JButton loginButton;
 	private JButton createAccountButton;
 	
-	public WelcomePage() {
+	public WelcomeScreen() {
 		super("Welcome");
 		setSize(650,100);
 		
