@@ -3,9 +3,12 @@ package users;
 import posts.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class SuperUser implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4286721299698077473L;
 	protected String username;
 	protected String password;
 	protected String realName;
