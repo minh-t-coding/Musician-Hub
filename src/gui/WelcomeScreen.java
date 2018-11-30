@@ -16,9 +16,9 @@ public class WelcomeScreen extends JFrame{
 	
 	public WelcomeScreen() {
 		super("Welcome");
-		setSize(650,100);
-		
+		setSize(500,100);
 		getContentPane().setLayout( new BoxLayout(getContentPane(), BoxLayout.Y_AXIS) );
+		
 		buildGUI();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,18 +29,20 @@ public class WelcomeScreen extends JFrame{
 		mainArea.setBackground(Color.decode("#E0FFFF"));
 		mainArea.setAlignmentX(CENTER_ALIGNMENT);
 		mainArea.setLayout(new BoxLayout(mainArea, BoxLayout.Y_AXIS));
-		welcomeMessage = new JLabel("Welcome to the Musicians Hub! Kowabunga!");
+		
+		welcomeMessage = new JLabel("Welcome to the Musicians Hub!");
 		welcomeMessage.setFont(new Font("Monaco", Font.PLAIN, 20));
+		
 		JPanel buttonSpace = new JPanel();
 		buttonSpace.setBackground(Color.decode("#E0FFFF"));
 		buttonSpace.setLayout(new FlowLayout());
-		
 		loginButton = new JButton("Login");
 		loginButton.setPreferredSize(new Dimension(100,40));
 		loginButton.addActionListener(new loginButtonPress());
 		createAccountButton = new JButton("Create Account");
 		createAccountButton.setPreferredSize(new Dimension(150,40));
 		
+		//putting everything together
 		buttonSpace.add(loginButton);
 		buttonSpace.add(createAccountButton);
 		mainArea.add(welcomeMessage);
@@ -52,6 +54,7 @@ public class WelcomeScreen extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			setVisible(false);
+			dispose();
 			new LoginScreen();
 		}
 		

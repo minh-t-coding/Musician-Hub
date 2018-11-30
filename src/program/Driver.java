@@ -14,12 +14,13 @@ public class Driver {
 	public static void main(String[] args) throws IOException {
 		
 		new WelcomeScreen();
+		
+		
 		//while(true) {
 		/*
 		Hub newHub = new Hub();
 		newHub.loadData();
-		SuperUser signedInUser = null;
-		/*
+		
 		Admin connor = new Admin();
 		Admin miranda = new Admin();
 		Admin mel = new Admin();
@@ -38,7 +39,7 @@ public class Driver {
 		newHub.allUsers.add(mel);
 		newHub.saveData();
 		
-		
+		/*
 		do {
 			
 			System.out.println("Welcome to Musician Hub! \nType s for sign-in (if you already have an account)"
