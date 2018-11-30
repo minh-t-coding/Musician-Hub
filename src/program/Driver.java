@@ -13,11 +13,11 @@ import users.*;
 public class Driver {
 	public static void main(String[] args) throws IOException {
 		
-		//new WelcomeScreen();
+		new WelcomeScreen();
 		
 		
 		//while(true) {
-		
+		/*
 		Hub newHub = new Hub();
 		newHub.loadData();
 		
