@@ -1,26 +1,19 @@
 package gui;
 
-import java.awt.*;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import program.*;
-import users.*;
 
-public class LoginScreen extends JFrame{
-	private JTextField userInput;
-	private JTextField passInput;
+public class CreateAccountScreen extends JFrame{
 	
-	private Hub hub;
 	
-	public LoginScreen() {
-		super("Login");
+	
+	public CreateAccountScreen(){
+		super("Create Account");
 		setSize(350,300);
-		hub = new Hub();
-		hub.loadData();
-		
 		buildGUI();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -36,17 +29,17 @@ public class LoginScreen extends JFrame{
 		JPanel passField = new JPanel();
 		passField.setLayout(new FlowLayout());
 		JLabel username = new JLabel("Username: ");
-		userInput = new JTextField();
+		JTextField userInput = new JTextField();
 		userInput.setColumns(20);
 		JLabel password = new JLabel("Password: ");
-		passInput = new JTextField();
+		JTextField passInput = new JTextField();
 		passInput.setColumns(20);
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
 		JButton submit = new JButton("Submit");
-		submit.addActionListener(new submitListener());
+		//submit.addActionListener(new submitListener());
 		JButton cancel = new JButton("Cancel");
-		cancel.addActionListener(new cancelListener());
+		//cancel.addActionListener(new cancelListener());
 		
 		infoField.add(info);
 		userField.add(username);
@@ -65,15 +58,7 @@ public class LoginScreen extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String username = userInput.getText();
-			String password = passInput.getText();
-			SuperUser lookup = hub.memberLookup(username);
-			if(lookup != null) {
-				
-			}else {
-				JOptionPane.showMessageDialog(null, "Username does not exist." ,
-						"Error", JOptionPane.ERROR_MESSAGE);
-			}
+			
 		}
 	}
 	private class cancelListener implements ActionListener{
