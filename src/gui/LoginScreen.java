@@ -18,7 +18,7 @@ public class LoginScreen extends JFrame{
 	
 	public LoginScreen() {
 		super("Login");
-		setSize(300,300);
+		setSize(350,300);
 		hub = new Hub();
 		hub.loadData();
 		
@@ -28,28 +28,39 @@ public class LoginScreen extends JFrame{
 	}
 	public void buildGUI() {
 		JPanel mainArea = new JPanel();
+		mainArea.setLayout(new BoxLayout(mainArea, BoxLayout.Y_AXIS));
+		JPanel infoField = new JPanel();
+		infoField.setLayout(new FlowLayout());
 		JLabel info = new JLabel("Please enter your username and password:");
-		JPanel inputField = new JPanel();
-		inputField.setLayout(new BoxLayout(inputField, BoxLayout.Y_AXIS));
+		JPanel userField = new JPanel();
+		userField.setLayout(new FlowLayout());
+		JPanel passField = new JPanel();
+		passField.setLayout(new FlowLayout());
 		JLabel username = new JLabel("Username: ");
 		JTextField userInput = new JTextField();
+		userInput.setColumns(20);
 		JLabel password = new JLabel("Password: ");
 		JTextField passInput = new JTextField();
+		passInput.setColumns(20);
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
-		JButton submit = new JButton();
+		JButton submit = new JButton("Submit");
 		submit.addActionListener(new submitListener());
-		JButton cancel = new JButton();
+		JButton cancel = new JButton("Cancel");
+		cancel.addActionListener(new cancelListener());
 		
-		inputField.add(username);
-		inputField.add(userInput);
-		inputField.add(password);
-		inputField.add(passInput);
+		infoField.add(info);
+		userField.add(username);
+		userField.add(userInput);
+		passField.add(password);
+		passField.add(passInput);
 		buttonPanel.add(submit);
 		buttonPanel.add(cancel);
-		mainArea.add(info);
-		mainArea.add(inputField);
-		add(mainArea, BorderLayout.CENTER);
+		mainArea.add(infoField);
+		mainArea.add(userField);
+		mainArea.add(passField);
+		mainArea.add(buttonPanel);
+		add(mainArea);
 	}
 	private class submitListener implements ActionListener{
 
@@ -63,7 +74,9 @@ public class LoginScreen extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			setVisible(false);
+			dispose();
+			new WelcomeScreen();
 		}
 		
 	}
