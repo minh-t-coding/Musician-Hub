@@ -41,6 +41,7 @@ public class WelcomeScreen extends JFrame{
 		loginButton.addActionListener(new loginButtonPress());
 		createAccountButton = new JButton("Create Account");
 		createAccountButton.setPreferredSize(new Dimension(150,40));
+		createAccountButton.addActionListener(new createAccountButtonPress());
 		
 		//putting everything together
 		buttonSpace.add(loginButton);
@@ -56,6 +57,16 @@ public class WelcomeScreen extends JFrame{
 			setVisible(false);
 			dispose();
 			new LoginScreen();
+		}
+		
+	}
+	private class createAccountButtonPress implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setVisible(false);
+			dispose();
+			new CreateAccountScreen();
 		}
 		
 	}

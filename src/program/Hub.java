@@ -53,7 +53,6 @@ public class Hub {
 		Scanner input = new Scanner (System.in);
 		char inputChar = input.next().charAt(0);
 		String type = null;
-		//maybe check for incorrect input
 		if(inputChar == 'm') {
 			System.out.println("Please enter your full name: \n");
 			type = "musician";
@@ -98,16 +97,19 @@ public class Hub {
 		return true;
 	}
 	
-	public void memberLookup(){
+	public SuperUser memberLookup(String user){
+		/*
 		System.out.println("Input the username to search: \n");
 		Scanner input = new Scanner (System.in);
 		String user = input.nextLine();
-		
+		*/
 		for (SuperUser u : allUsers) {
+			//System.out.println(u.getUsername());//debug
 			if(u.getUsername().startsWith(user)) {
-				System.out.println(u.getUsername());
+				return u;
 			}
 		}
+		return null;
 	}
 	
 	public void loadData() {
