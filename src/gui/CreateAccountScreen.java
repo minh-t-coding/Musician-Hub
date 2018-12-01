@@ -10,7 +10,7 @@ import users.*;
 
 public class CreateAccountScreen extends JFrame{
 	private JTextField userInput;
-	private JTextField passInput;
+	private JPasswordField passInput;
 	private JTextField realNameInput;
 	private ButtonGroup buttonGroup;
 	private JRadioButton musician;
@@ -41,8 +41,9 @@ public class CreateAccountScreen extends JFrame{
 		userInput = new JTextField();
 		userInput.setColumns(20);
 		JLabel password = new JLabel("Password: ");
-		passInput = new JTextField();
+		passInput = new JPasswordField();
 		passInput.setColumns(20);
+		passInput.setEchoChar('*');
 		
 		JLabel realName = new JLabel("Real/Company Name: ");
 		realNameInput = new JTextField();
@@ -96,6 +97,7 @@ public class CreateAccountScreen extends JFrame{
 					account.setUsername(username);
 					account.setPassword(password);
 					account.setRealName(realName);
+					hub.addUser(account);
 					new MainHub(hub, account);
 				}
 				else {
@@ -103,6 +105,7 @@ public class CreateAccountScreen extends JFrame{
 					account.setUsername(username);
 					account.setPassword(password);
 					account.setRealName(realName);
+					hub.addUser(account);
 					new MainHub(hub, account);
 				}
 			}else {
