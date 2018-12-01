@@ -104,7 +104,7 @@ public class Hub {
 		String user = input.nextLine();
 		*/
 		for (SuperUser u : allUsers) {
-			System.out.println(u.getUsername());//debug
+			//System.out.println(u.getUsername());//debug
 			if(u.getUsername().startsWith(user)) {
 				return u;
 			}

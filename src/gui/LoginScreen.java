@@ -69,7 +69,14 @@ public class LoginScreen extends JFrame{
 			String password = passInput.getText();
 			SuperUser lookup = hub.memberLookup(username);
 			if(lookup != null) {
-				
+				if(password.equals(lookup.getPassword())){
+					setVisible(false);
+					dispose();
+					new MainHub(hub, lookup);
+				}else {
+					JOptionPane.showMessageDialog(null, "Password does not exist." ,
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}else {
 				JOptionPane.showMessageDialog(null, "Username does not exist." ,
 						"Error", JOptionPane.ERROR_MESSAGE);
