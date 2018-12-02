@@ -22,6 +22,7 @@ public class MainHub extends JFrame{
 	private JMenu lookup;
 	private JMenuItem exit;
 	private JMenuItem memberLookup;
+	private JMenu posts;
 	
 	private JTextField lookupName;
 	private JButton searchLookup;
@@ -38,29 +39,32 @@ public class MainHub extends JFrame{
 		setVisible(true);
 	}
 	public void buildGUI() {
-		//System.out.println(signedIn.getUsername());
-		signOut = new JMenu("Sign Out");		
+		menuBar = new JMenuBar();
+				
 		profileOptions = new JMenu("Profile");
-		
+		posts = new JMenu("Posts");
+		buildPosts();
 		showInfo = new JMenuItem("Show Information");
 		changeInfo = new JMenuItem("Edit Information");
 		
 		profileOptions.add(showInfo);
 		profileOptions.add(changeInfo);
-		
 		showInfo.addActionListener(new MenuListener());
 		changeInfo.addActionListener(new MenuListener());		
-		menuBar = new JMenuBar();
-		//signOut.addActionListener(new MenuListener());
-		menuBar.add(profileOptions);
+
+		signOut = new JMenu("Sign Out");
 		exit = new JMenuItem("Exit");
+		
 		lookup = new JMenu("Lookup");
 		memberLookup = new JMenuItem("Member Lookup");
-		exit.addActionListener(new MenuListener());
 		memberLookup.addActionListener(new MenuListener());
-		
-		signOut.add(exit);
 		lookup.add(memberLookup);
+		
+		exit.addActionListener(new MenuListener());
+		signOut.add(exit);
+		
+		menuBar.add(profileOptions);
+		menuBar.add(posts);
 		menuBar.add(lookup);
 		menuBar.add(signOut);
 		setJMenuBar(menuBar);
@@ -171,5 +175,17 @@ public class MainHub extends JFrame{
 		
 		int result = JOptionPane.showConfirmDialog(null, info, "Edit Information", JOptionPane.PLAIN_MESSAGE);
 	
+	}
+	public void buildPosts() {
+		if(signedIn instanceof Musician) {
+			JMenuItem status = new JMenuItem("Status Update");
+			JMenuItem meetup = new JMenuItem("Meetup");
+			posts.add(status);
+			posts.add(meetup);
+		}
+		else {
+			JMenuItem ad = new JMenuItem("Advertisement");
+			posts.add(ad);
+		}
 	}
 }
