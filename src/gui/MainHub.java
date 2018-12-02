@@ -36,6 +36,7 @@ public class MainHub extends JFrame{
 	private JFrame meetupFrame;
 	private JTextField dateText;
 	private JTextField locText;
+	private JTextField meetupInfo;
 	
 	public MainHub(Hub hub, SuperUser signedInUser){
 		super("Musicians Hub");
@@ -214,7 +215,7 @@ public class MainHub extends JFrame{
 	}
 	private void handleMeetup() {
 		meetupFrame = new JFrame("Meetup");
-		meetupFrame.setSize(300, 300);
+		meetupFrame.setSize(400, 400);
 		JPanel mainArea = new JPanel();
 		mainArea.setLayout(new BoxLayout(mainArea, BoxLayout.Y_AXIS));
 		JPanel infoField = new JPanel();
@@ -228,20 +229,23 @@ public class MainHub extends JFrame{
 		dateText = new JTextField();
 		dateText.setColumns(20);
 		JLabel location = new JLabel("Location: ");
-		locText = new JPasswordField();
+		locText = new JTextField();
 		locText.setColumns(20);
 		JPanel info2Field = new JPanel();
 		JLabel info2 = new JLabel("Anything else you would like to say?:");
-		
+		meetupInfo = new JTextField();
+		meetupInfo.setColumns(20);
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
 		JButton submit = new JButton("Submit");
-		submit.addActionListener(new submitListener());
+		submit.addActionListener(new meetupListener());
 		JButton cancel = new JButton("Cancel");
 		cancel.addActionListener(new cancelListener());
 		
 		infoField.add(info);
+		info2Field.add(info2);
+		
 		dateField.add(date);
 		dateField.add(dateText);
 		locField.add(location);
@@ -252,16 +256,21 @@ public class MainHub extends JFrame{
 		mainArea.add(dateField);
 		mainArea.add(locField);
 		mainArea.add(buttonPanel);
+		mainArea.add(info2Field);
+		mainArea.add(meetupInfo);
 		meetupFrame.add(mainArea);
 		meetupFrame.setVisible(true);
 	}
-	private class submitListener implements ActionListener{
+	private class meetupListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-
-			
+			String date = dateText.getText();
+			String location = locText.getText();
+			String info = meetupInfo.getText(); 
+			((Musician) signedIn).createMeetUp(info, date, location, session);
+			meetupFrame.setVisible(false);
+			meetupFrame.dispose();
 		}
 	}
 	private class cancelListener implements ActionListener{
