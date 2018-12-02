@@ -50,13 +50,13 @@ public class Musician extends SuperUser{
 		hub.addPost(update);
 	}
 	
-	public void createMeetUp(String input, Hub hub){
+	public void createMeetUp(String input, String date, String location, Hub hub){
 		MeetUp update = new MeetUp();
 		//date, location, info
 		update.setContent(input);
 		update.setOwner(this);
-		//update.setDate(details.split(",")[0]);
-		//update.setLocation(details.split(",")[1]);
+		update.setDate(date);
+		update.setLocation(location);
 		this.AddPost(update);
 		hub.addPost(update);
 	}
