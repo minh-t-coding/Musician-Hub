@@ -1,5 +1,0 @@
-mirandahampton:{admin,miranda11,Miranda Hampton}
-confrodog:{admin,youacuck,Connor Musick}
-mel:{admin,pleasework,Mel Nguyen}
-randomUser:{musician,yeahboi,John Smith}
-metrocon:{musician,help,jimmy johns}

@@ -109,6 +109,8 @@ public class Admin extends SuperUser {
 		writer.close(); 
 		reader.close(); 
 		boolean successful = tempFile.renameTo(inputFile);
+		
+		//should also delete all posts from post database???
 	}
 
 }
