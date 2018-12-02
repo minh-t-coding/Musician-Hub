@@ -38,31 +38,23 @@ public class Musician extends SuperUser{
 		instrumentsPlayed.add(i);
 	}
 	
-	public void createStatusUpdate(){
+	public void createStatusUpdate(String input, Hub hub){
 		StatusUpdate update = new StatusUpdate();
-		System.out.println("Status Update: \n");
-		Scanner scanned = new Scanner (System.in);
-		String status = scanned.nextLine();
-		update.setContent(status);
+		update.setContent(input);
 		update.setOwner(this);
 		this.AddPost(update);
-		Hub.addPost(update);
+		hub.addPost(update);
 	}
 	
-	public void createMeetUp(){
+	public void createMeetUp(String input, Hub hub){
 		MeetUp update = new MeetUp();
-		System.out.println("Enter the Date and Location of meetup seperated by comma(,): \n");
-		Scanner scanned = new Scanner (System.in);
-		String details = scanned.nextLine();
-		System.out.println("Enter the information for the MeetUp: \n");
-		scanned = new Scanner (System.in);
-		String status = scanned.nextLine();
-		update.setContent(status);
+		//date, location, info
+		update.setContent(input);
 		update.setOwner(this);
-		update.setDate(details.split(",")[0]);
-		update.setLocation(details.split(",")[1]);
+		//update.setDate(details.split(",")[0]);
+		//update.setLocation(details.split(",")[1]);
 		this.AddPost(update);
-		Hub.addPost(update);
+		hub.addPost(update);
 	}
 
 	

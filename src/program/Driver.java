@@ -15,11 +15,10 @@ public class Driver {
 		
 		new WelcomeScreen();
 		
-		
 		//while(true) {
 		/*
 		Hub newHub = new Hub();
-		newHub.loadData();
+		newHub = Hub.loadData();
 		
 		Admin connor = new Admin();
 		Admin miranda = new Admin();
@@ -37,7 +36,7 @@ public class Driver {
 		newHub.allUsers.add(connor);
 		newHub.allUsers.add(miranda);
 		newHub.allUsers.add(mel);
-		newHub.saveData();
+		Hub.saveData(newHub);
 		
 		/*
 		do {

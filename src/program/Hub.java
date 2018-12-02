@@ -7,19 +7,20 @@ import users.*;
 
 import java.io.*;
 
-public class Hub {
+public class Hub implements Serializable{
 	
-	public static ArrayList<SuperUser> allUsers;
-	public static ArrayList<Post> allPosts;
+	private static final long serialVersionUID = 2169290004287039387L;
+	public ArrayList<SuperUser> allUsers;
+	public  ArrayList<Post> allPosts;
 	
 	public Hub() {
 		allUsers = new ArrayList<SuperUser>();
 		allPosts = new ArrayList<Post>();
 	}
-	public static void addPost(Post p) {
+	public void addPost(Post p) {
 		allPosts.add(p);
 	}
-	public static void addUser(SuperUser u) {
+	public void addUser(SuperUser u) {
 		allUsers.add(u);
 	}
 	public SuperUser signIn(){
@@ -47,6 +48,7 @@ public class Hub {
 		System.out.println("Username does not exist.");
 		return null;
 	}
+	/*
 	public SuperUser createAccount() throws FileNotFoundException {
 		System.out.println("Please specify what type of account is going to be created ('m' for musician, 'c' for "
 				+ "company): \n");
@@ -88,8 +90,9 @@ public class Hub {
 		return null;
 		
 	}
-	public static Boolean checkAvailability(String user){
-		for(SuperUser u : allUsers) {
+	*/
+	public Boolean checkAvailability(String user, Hub hub){
+		for(SuperUser u : hub.allUsers) {
 			if(user.equals(u.getUsername())) {
 				return false;
 			}
@@ -105,36 +108,40 @@ public class Hub {
 		*/
 		for (SuperUser u : allUsers) {
 			//System.out.println(u.getUsername());//debug
-			if(u.getUsername().startsWith(user)) {
+			if(u.getUsername().equals(user)) {
 				return u;
 			}
 		}
 		return null;
 	}
-	
-	public void loadData() {
+	public ArrayList<SuperUser> findLikeUsers(String like){
+		ArrayList<SuperUser> likeUsers = new ArrayList<SuperUser>();
+		for (SuperUser u : allUsers) {
+			//System.out.println(u.getUsername());//debug
+			if(u.getUsername().startsWith(like)) {
+				likeUsers.add(u);
+			}
+		}
+		if(likeUsers.size() > 0) {
+			return likeUsers;
+		}
+		else {
+			return null;
+		}
+	}
+	public static Hub loadData() {
 		FileInputStream fileIn = null;
 		ObjectInputStream objIn = null;
-		
+		Hub newHub = new Hub();
 		try {
-			File f = new File("Users.ser");
+			File f = new File("Hub.ser");
 			if(f.exists() && !f.isDirectory()) { 
-				fileIn = new FileInputStream("Users.ser");
+				fileIn = new FileInputStream("Hub.ser");
 				objIn = new ObjectInputStream(fileIn);
-				allUsers = (ArrayList<SuperUser>) objIn.readObject();
+				newHub = (Hub) objIn.readObject();
 				fileIn.close();
 				objIn.close();
 			}
-			f = new File("Posts.ser");
-			
-			if(f.exists() && !f.isDirectory()) { 
-				fileIn = new FileInputStream("Posts.ser");
-				objIn = new ObjectInputStream(fileIn);
-				allPosts = (ArrayList<Post>) objIn.readObject();
-				fileIn.close();
-				objIn.close();
-			}
-			
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
@@ -143,23 +150,18 @@ public class Hub {
 		catch(ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
+		return newHub;
 	}
-	public void saveData() {
+	public static void saveData(Hub newHub) {
 		try {
 			FileOutputStream fileOut = null;
 			ObjectOutputStream objOut = null;
-			if(!allUsers.isEmpty()) {
-				fileOut = new FileOutputStream("Users.ser");
-				objOut = new ObjectOutputStream(fileOut);
-				objOut.writeObject(allUsers);
-				fileOut.close();
-			}
-			if(!allPosts.isEmpty()) {
-				fileOut = new FileOutputStream("Posts.ser");
-				objOut.writeObject(allPosts);
-				objOut.close();
-				fileOut.close();
-			}
+			
+			fileOut = new FileOutputStream("Hub.ser");
+			objOut = new ObjectOutputStream(fileOut);
+			objOut.writeObject(newHub);
+			fileOut.close();
+			
 		}
 		catch(IOException ex){
 			ex.printStackTrace();
