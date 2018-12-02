@@ -22,15 +22,20 @@ public class MainHub extends JFrame{
 	private JMenu lookup;
 	private JMenuItem exit;
 	private JMenuItem memberLookup;
+	private JMenu posts;
 	
 	private JTextField lookupName;
 	private JButton searchLookup;
 	private JButton cancelLookup;
 	private JTextArea lookupResults;
 	
+	private JMenuItem status;
+	private JMenuItem meetup;
+	private JMenuItem ad;
+	
 	public MainHub(Hub hub, SuperUser signedInUser){
 		super("Musicians Hub");
-		session = hub;
+		session = Hub.loadData();
 		signedIn = signedInUser;
 		setSize(700,900);
 		buildGUI();
@@ -38,29 +43,44 @@ public class MainHub extends JFrame{
 		setVisible(true);
 	}
 	public void buildGUI() {
-		//System.out.println(signedIn.getUsername());
-		signOut = new JMenu("Sign Out");		
+		menuBar = new JMenuBar();
+				
 		profileOptions = new JMenu("Profile");
-		
+		posts = new JMenu("Posts");
+		if(signedIn instanceof Musician) {
+			status = new JMenuItem("Status Update");
+			status.addActionListener(new MenuListener());
+			meetup = new JMenuItem("Meetup");
+			meetup.addActionListener(new MenuListener());
+			posts.add(status);
+			posts.add(meetup);
+		}
+		else if(signedIn instanceof Company){
+			ad = new JMenuItem("Advertisement");
+			meetup.addActionListener(new MenuListener());
+			posts.add(ad);
+		}
 		showInfo = new JMenuItem("Show Information");
 		changeInfo = new JMenuItem("Edit Information");
 		
 		profileOptions.add(showInfo);
 		profileOptions.add(changeInfo);
-		
 		showInfo.addActionListener(new MenuListener());
 		changeInfo.addActionListener(new MenuListener());		
-		menuBar = new JMenuBar();
-		//signOut.addActionListener(new MenuListener());
-		menuBar.add(profileOptions);
+
+		signOut = new JMenu("Sign Out");
 		exit = new JMenuItem("Exit");
+		
 		lookup = new JMenu("Lookup");
 		memberLookup = new JMenuItem("Member Lookup");
-		exit.addActionListener(new MenuListener());
 		memberLookup.addActionListener(new MenuListener());
-		
-		signOut.add(exit);
 		lookup.add(memberLookup);
+		
+		exit.addActionListener(new MenuListener());
+		signOut.add(exit);
+		
+		menuBar.add(profileOptions);
+		menuBar.add(posts);
 		menuBar.add(lookup);
 		menuBar.add(signOut);
 		setJMenuBar(menuBar);
@@ -70,15 +90,15 @@ public class MainHub extends JFrame{
 		{
 			JMenuItem source = (JMenuItem)(e.getSource());
 			if(source.equals(exit)) {
-				session.saveData();
+				Hub.saveData(session);
 				setVisible(false);
 				dispose();
 				new WelcomeScreen();
 			}
-			if(source.equals(showInfo)) {
+			else if(source.equals(showInfo)) {
 				handleShowInfo();
 			}
-			if(source.equals(changeInfo)) {
+			else if(source.equals(changeInfo)) {
 				handleChangeInfo();
 			}
 			else if(source.equals(memberLookup)) {
@@ -105,9 +125,14 @@ public class MainHub extends JFrame{
 				
 				lookupFrame.setVisible(true);
 			}
+			else if(source.equals(status)) {
+				handleStatusUpdate();
+			}
+			
 		}
 	
 	}
+	//handles search button for lookup
 	private class searchButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String lookup = lookupName.getText();
@@ -133,7 +158,7 @@ public class MainHub extends JFrame{
 			
 		}
 	}
-	
+	//cancel button for the lookup frame
 	private class cancelButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			lookupFrame.setVisible(false);
@@ -171,5 +196,10 @@ public class MainHub extends JFrame{
 		
 		int result = JOptionPane.showConfirmDialog(null, info, "Edit Information", JOptionPane.PLAIN_MESSAGE);
 	
+	}
+	private void handleStatusUpdate() {
+		String input = JOptionPane.showInputDialog(
+                null, "What do you have to say?");
+		((Musician) signedIn).createStatusUpdate(input, session);
 	}
 }

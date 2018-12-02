@@ -6,6 +6,7 @@ import java.io.*;
 
 public class Admin extends SuperUser {
 
+	private static final long serialVersionUID = 1364787774694265294L;
 	public Admin() {
 		
 	}
