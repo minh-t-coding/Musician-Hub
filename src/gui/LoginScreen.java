@@ -11,7 +11,7 @@ import users.*;
 
 public class LoginScreen extends JFrame{
 	private JTextField userInput;
-	private JTextField passInput;
+	private JPasswordField passInput;
 	
 	private Hub hub;
 	
@@ -39,8 +39,9 @@ public class LoginScreen extends JFrame{
 		userInput = new JTextField();
 		userInput.setColumns(20);
 		JLabel password = new JLabel("Password: ");
-		passInput = new JTextField();
+		passInput = new JPasswordField();
 		passInput.setColumns(20);
+		passInput.setEchoChar('*');//hides password
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
 		JButton submit = new JButton("Submit");
@@ -74,7 +75,7 @@ public class LoginScreen extends JFrame{
 					dispose();
 					new MainHub(hub, lookup);
 				}else {
-					JOptionPane.showMessageDialog(null, "Password does not exist." ,
+					JOptionPane.showMessageDialog(null, "Wrong Password." ,
 							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}else {
