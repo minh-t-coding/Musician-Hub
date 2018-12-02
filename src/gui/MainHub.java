@@ -35,7 +35,7 @@ public class MainHub extends JFrame{
 	
 	public MainHub(Hub hub, SuperUser signedInUser){
 		super("Musicians Hub");
-		session = Hub.loadData();
+		session = hub;
 		signedIn = signedInUser;
 		setSize(700,900);
 		buildGUI();
@@ -102,31 +102,13 @@ public class MainHub extends JFrame{
 				handleChangeInfo();
 			}
 			else if(source.equals(memberLookup)) {
-				lookupFrame = new JFrame();
-				lookupFrame.setSize(500,150);
-				lookupFrame.setLayout(new FlowLayout());
-				JLabel lookupDir = new JLabel("Please enter a username to lookup: ");
-				lookupName = new JTextField();
-				lookupName.setColumns(15);
-				JPanel buttonPanel = new JPanel();
-				buttonPanel.setLayout(new FlowLayout());
-				searchLookup = new JButton("Search");
-				searchLookup.addActionListener(new searchButton());
-				cancelLookup = new JButton("Cancel");
-				cancelLookup.addActionListener(new cancelButton());
-				buttonPanel.add(searchLookup);
-				buttonPanel.add(cancelLookup);
-				JPanel view = new JPanel();
-				
-				view.add(lookupDir);
-				view.add(lookupName);
-				lookupFrame.add(view);
-				lookupFrame.add(buttonPanel);
-				
-				lookupFrame.setVisible(true);
+				handleMemberLookup();
 			}
 			else if(source.equals(status)) {
 				handleStatusUpdate();
+			}
+			else if(source.equals(meetup)) {
+				handleMeetup();
 			}
 			
 		}
@@ -197,9 +179,37 @@ public class MainHub extends JFrame{
 		int result = JOptionPane.showConfirmDialog(null, info, "Edit Information", JOptionPane.PLAIN_MESSAGE);
 	
 	}
+	private void handleMemberLookup() {
+		lookupFrame = new JFrame();
+		lookupFrame.setSize(500,150);
+		lookupFrame.setLayout(new FlowLayout());
+		JLabel lookupDir = new JLabel("Please enter a username to lookup: ");
+		lookupName = new JTextField();
+		lookupName.setColumns(15);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout());
+		searchLookup = new JButton("Search");
+		searchLookup.addActionListener(new searchButton());
+		cancelLookup = new JButton("Cancel");
+		cancelLookup.addActionListener(new cancelButton());
+		buttonPanel.add(searchLookup);
+		buttonPanel.add(cancelLookup);
+		JPanel view = new JPanel();
+		
+		view.add(lookupDir);
+		view.add(lookupName);
+		lookupFrame.add(view);
+		lookupFrame.add(buttonPanel);
+		
+		lookupFrame.setVisible(true);
+	}
 	private void handleStatusUpdate() {
 		String input = JOptionPane.showInputDialog(
                 null, "What do you have to say?");
 		((Musician) signedIn).createStatusUpdate(input, session);
+	}
+	private void handleMeetup() {
+		JFrame meetupFrame = new JFrame("Meetup");
+		
 	}
 }

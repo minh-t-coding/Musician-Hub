@@ -19,7 +19,7 @@ public class CreateAccountScreen extends JFrame{
 	public CreateAccountScreen(){
 		super("Create Account");
 		hub = new Hub();
-		hub.loadData();
+		hub = Hub.loadData();
 		setSize(350,300);
 		buildGUI();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
