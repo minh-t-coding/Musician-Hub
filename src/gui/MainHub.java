@@ -82,6 +82,7 @@ public class MainHub extends JFrame{
 				handleChangeInfo();
 			}
 			else if(source.equals(memberLookup)) {
+				//handle lookup
 				lookupFrame = new JFrame();
 				lookupFrame.setSize(500,150);
 				lookupFrame.setLayout(new FlowLayout());
@@ -150,7 +151,9 @@ public class MainHub extends JFrame{
 		info.setLayout(new GridBagLayout());
 		
 		JTextField usernameField = new JTextField(10);
-		JTextField passwordField = new JTextField(10);
+		JPasswordField passwordField = new JPasswordField(10);
+		passwordField.setEchoChar('*');
+		JTextField realNameField = new JTextField(10);
 		
 		JLabel usernameLabel = new JLabel("Username: ");
 		usernameLabel.setLabelFor(usernameField);
@@ -158,18 +161,136 @@ public class MainHub extends JFrame{
 		JLabel passwordLabel = new JLabel("Password: ");
 		passwordLabel.setLabelFor(passwordField);
 		
+		JLabel realNameLabel = new JLabel("Real/Company Name: ");
+		realNameLabel.setLabelFor(realNameField);
+		
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.BASELINE_LEADING;
 		c.insets = new Insets(4,4,4,4);
 		
 		c.gridwidth = 1;
+		info.add(usernameLabel,c);
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		info.add(usernameField,c);
 		
+		c.gridwidth = 1;
+		info.add(passwordLabel,c);
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		info.add(passwordField,c);
 		
-		if (signedIn instanceof Musician) {
+		c.gridwidth = 1;
+		info.add(realNameLabel,c);
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		info.add(realNameField,c);
+		
+		if (signedIn instanceof Musician || signedIn instanceof Admin) {
+			JTextField genreField = new JTextField(10);
+			JLabel genreLabel = new JLabel("Music Genre: ");
+			genreLabel.setLabelFor(genreField);
 			
+			c.gridwidth = 1;
+			info.add(genreLabel,c);
+			c.gridwidth = GridBagConstraints.REMAINDER;
+			info.add(genreField,c);
+			
+			JLabel instrumentsLabel = new JLabel("Instruments: ");
+			JButton addInstrument = new JButton("Add");
+			JButton deleteInstrument = new JButton("Delete");
+			
+			info.add(instrumentsLabel,c);
+			info.add(addInstrument,c);
+			info.add(deleteInstrument,c);
+			
+			addInstrument.addActionListener(new addInstrumentButton());
+			deleteInstrument.addActionListener(new deleteInstrumentButton());
 		}
 		
 		int result = JOptionPane.showConfirmDialog(null, info, "Edit Information", JOptionPane.PLAIN_MESSAGE);
+	}
 	
+	public boolean isNumeric(String s) {  
+	    return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
+	} 
+	
+	private class addInstrumentButton implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JPanel popUp = new JPanel();
+			JTextField instrumentField = new JTextField();
+			JTextField yearsField = new JTextField();
+
+			popUp.setLayout(new GridLayout(2, 2));
+			popUp.add(new JLabel("Instrument name:"));
+			popUp.add(instrumentField);
+
+			popUp.add(new JLabel("# of years played:"));
+			popUp.add(yearsField);
+
+			int result = JOptionPane.showConfirmDialog(null, popUp, "Add Instrument", JOptionPane.OK_CANCEL_OPTION);
+			if (result == JOptionPane.OK_OPTION) {
+				String nameStr = instrumentField.getText();
+				String years = yearsField.getText();
+				if (nameStr != null) {
+					if (nameStr.trim().equals("")) {
+						JOptionPane.showMessageDialog(null, "Please enter an instrument name.",
+								"ERROR: No name entered", JOptionPane.ERROR_MESSAGE);
+					}
+					if (years.trim().equals("")) {
+						JOptionPane.showMessageDialog(null, "Please enter years played.", "ERROR: No number entered",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						if (!isNumeric(years)) {
+							JOptionPane.showMessageDialog(null, "Input \"" + years + "\" is not a valid number.",
+									"ERROR: Input years played", JOptionPane.ERROR_MESSAGE);
+						} else if (Integer.parseInt(years) < 0) {
+							JOptionPane.showMessageDialog(null, "Years played cannot be negative!",
+									"ERROR: Input years played", JOptionPane.ERROR_MESSAGE);
+						} else {
+							Instrument newInstrument = new Instrument();
+							newInstrument.setName(nameStr);
+							newInstrument.setYearsPlayed(Float.parseFloat(years));
+							((Musician) signedIn).addInstrument(newInstrument);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private class deleteInstrumentButton implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JTextField instField = new JTextField(10);
+			JLabel instLabel = new JLabel("Instrument to Remove: ");
+			instLabel.setLabelFor(instField);
+
+			JPanel popUp = new JPanel();
+			popUp.add(instLabel);
+			popUp.add(instField);
+			int result = JOptionPane.showConfirmDialog(null, popUp, "Remove Instrument", JOptionPane.OK_CANCEL_OPTION);
+
+			if (result == JOptionPane.OK_OPTION) {
+				String instStr = instField.getText();
+
+				if (instStr != null) {
+					if (instStr.trim().equals("")) {
+						JOptionPane.showMessageDialog(null, "Field was empty.", "ERROR: No instrument entered",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						Instrument toDelete = null;
+						for (Instrument ins : ((Musician) signedIn).getInstrumentsPlayed()) {
+							if (ins.getName().equals(instStr)) {
+								toDelete = ins;
+								((Musician) signedIn).removeInstrument(toDelete);
+								break;
+							}
+						}
+						if (toDelete == null) {
+							JOptionPane.showMessageDialog(null,
+									"Intrument \"" + instStr + "\" was not in your known instruments.",
+									"ERROR: Remove Instrument", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				}
+			}
+		}
 	}
 }

@@ -38,6 +38,10 @@ public class Musician extends SuperUser{
 		instrumentsPlayed.add(i);
 	}
 	
+	public void removeInstrument(Instrument i) {
+		instrumentsPlayed.remove(i);
+	}
+	
 	public void createStatusUpdate(){
 		StatusUpdate update = new StatusUpdate();
 		System.out.println("Status Update: \n");

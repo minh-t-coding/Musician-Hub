@@ -16,7 +16,7 @@ public class WelcomeScreen extends JFrame{
 	
 	public WelcomeScreen() {
 		super("Welcome");
-		setSize(500,100);
+		setSize(500,150);
 		getContentPane().setLayout( new BoxLayout(getContentPane(), BoxLayout.Y_AXIS) );
 		
 		buildGUI();
