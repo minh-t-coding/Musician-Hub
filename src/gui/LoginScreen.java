@@ -19,8 +19,12 @@ public class LoginScreen extends JFrame{
 		super("Login");
 		setSize(350,300);
 		hub = new Hub();
-		hub.loadData();
-		
+		hub = Hub.loadData();
+		/* for debugging
+		for(int i = 0;i<hub.allUsers.size(); i++) {
+			System.out.println(hub.allUsers.get(i).getUsername());
+		}*/
+		Hub testHub = hub;
 		buildGUI();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);

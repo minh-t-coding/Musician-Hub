@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import program.*;
 import users.*;
+import posts.*;
 
 public class MainHub extends JFrame{
 	private Hub session;
@@ -22,11 +23,20 @@ public class MainHub extends JFrame{
 	private JMenu lookup;
 	private JMenuItem exit;
 	private JMenuItem memberLookup;
+	private JPanel feed;
+	private ArrayList<JLabel> user;
+	private ArrayList<JTextArea> content;
+	private ArrayList<JPanel> likes;
+	private JMenu posts;
 	
 	private JTextField lookupName;
 	private JButton searchLookup;
 	private JButton cancelLookup;
 	private JTextArea lookupResults;
+	
+	private JMenuItem status;
+	private JMenuItem meetup;
+	private JMenuItem ad;
 	
 	public MainHub(Hub hub, SuperUser signedInUser){
 		super("Musicians Hub");
@@ -38,29 +48,82 @@ public class MainHub extends JFrame{
 		setVisible(true);
 	}
 	public void buildGUI() {
-		//System.out.println(signedIn.getUsername());
-		signOut = new JMenu("Sign Out");		
+		menuBar = new JMenuBar();
+				
 		profileOptions = new JMenu("Profile");
-		
+		posts = new JMenu("Posts");
+		if(signedIn instanceof Musician) {
+			status = new JMenuItem("Status Update");
+			status.addActionListener(new MenuListener());
+			meetup = new JMenuItem("Meetup");
+			meetup.addActionListener(new MenuListener());
+			posts.add(status);
+			posts.add(meetup);
+		}
+		else if(signedIn instanceof Company){
+			ad = new JMenuItem("Advertisement");
+			meetup.addActionListener(new MenuListener());
+			posts.add(ad);
+		}
 		showInfo = new JMenuItem("Show Information");
 		changeInfo = new JMenuItem("Edit Information");
 		
 		profileOptions.add(showInfo);
 		profileOptions.add(changeInfo);
-		
 		showInfo.addActionListener(new MenuListener());
 		changeInfo.addActionListener(new MenuListener());		
-		menuBar = new JMenuBar();
-		//signOut.addActionListener(new MenuListener());
-		menuBar.add(profileOptions);
+
+		signOut = new JMenu("Sign Out");
 		exit = new JMenuItem("Exit");
+		
 		lookup = new JMenu("Lookup");
 		memberLookup = new JMenuItem("Member Lookup");
-		exit.addActionListener(new MenuListener());
 		memberLookup.addActionListener(new MenuListener());
+		lookup.add(memberLookup);
+		feed = new JPanel();
+		user = new ArrayList<JLabel>();
+		content = new ArrayList<JTextArea>();
+		likes = new ArrayList<JPanel>();
+		
+		exit.addActionListener(new MenuListener());
+		for(int i=0; i<10; i++) {
+			Post post = new StatusUpdate();
+			post.setContent("test" + Integer.toString(i));
+			Musician m = new Musician();
+			m.setRealName(Integer.toString(i));
+			post.setOwner(m);
+			String numLikes = Integer.toString(post.getLikes());
+			JLabel labelUser = new JLabel(post.getOwner().getRealName());
+			JTextArea contentArea = new JTextArea(post.getContent());
+			JPanel likePanel = new JPanel();
+			JLabel likeLabel = new JLabel(numLikes);
+			JCheckBox click = new JCheckBox();
+			user.add(labelUser);
+			content.add(contentArea);
+			likePanel.add(click);
+			likePanel.add(likeLabel);
+			likePanel.add(new JSeparator());
+			likes.add(likePanel);
+			
+		}
+		
+		for(int i = 0; i<user.size(); i++) {
+			feed.add(user.get(i));
+			feed.add(content.get(i));
+			feed.add(likes.get(i));
+			feed.add(likes.get(i));
+			//feed.add(new JSeparator());
+		}
+		GridLayout gl = new GridLayout(0,1);
+		feed.setLayout(gl);
+		add(feed);
+		
+		
 		
 		signOut.add(exit);
-		lookup.add(memberLookup);
+		
+		menuBar.add(profileOptions);
+		menuBar.add(posts);
 		menuBar.add(lookup);
 		menuBar.add(signOut);
 		setJMenuBar(menuBar);
@@ -70,45 +133,31 @@ public class MainHub extends JFrame{
 		{
 			JMenuItem source = (JMenuItem)(e.getSource());
 			if(source.equals(exit)) {
-				session.saveData();
+				Hub.saveData(session);
 				setVisible(false);
 				dispose();
 				new WelcomeScreen();
 			}
-			if(source.equals(showInfo)) {
+			else if(source.equals(showInfo)) {
 				handleShowInfo();
 			}
-			if(source.equals(changeInfo)) {
+			else if(source.equals(changeInfo)) {
 				handleChangeInfo();
 			}
 			else if(source.equals(memberLookup)) {
-				//handle lookup
-				lookupFrame = new JFrame();
-				lookupFrame.setSize(500,150);
-				lookupFrame.setLayout(new FlowLayout());
-				JLabel lookupDir = new JLabel("Please enter a username to lookup: ");
-				lookupName = new JTextField();
-				lookupName.setColumns(15);
-				JPanel buttonPanel = new JPanel();
-				buttonPanel.setLayout(new FlowLayout());
-				searchLookup = new JButton("Search");
-				searchLookup.addActionListener(new searchButton());
-				cancelLookup = new JButton("Cancel");
-				cancelLookup.addActionListener(new cancelButton());
-				buttonPanel.add(searchLookup);
-				buttonPanel.add(cancelLookup);
-				JPanel view = new JPanel();
-				
-				view.add(lookupDir);
-				view.add(lookupName);
-				lookupFrame.add(view);
-				lookupFrame.add(buttonPanel);
-				
-				lookupFrame.setVisible(true);
+				handleMemberLookup();
 			}
+			else if(source.equals(status)) {
+				handleStatusUpdate();
+			}
+			else if(source.equals(meetup)) {
+				handleMeetup();
+			}
+			
 		}
 	
 	}
+	//handles search button for lookup
 	private class searchButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String lookup = lookupName.getText();
@@ -134,7 +183,7 @@ public class MainHub extends JFrame{
 			
 		}
 	}
-	
+	//cancel button for the lookup frame
 	private class cancelButton implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			lookupFrame.setVisible(false);
@@ -292,5 +341,38 @@ public class MainHub extends JFrame{
 				}
 			}
 		}
+	}
+	private void handleMemberLookup() {
+		lookupFrame = new JFrame();
+		lookupFrame.setSize(500,150);
+		lookupFrame.setLayout(new FlowLayout());
+		JLabel lookupDir = new JLabel("Please enter a username to lookup: ");
+		lookupName = new JTextField();
+		lookupName.setColumns(15);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout());
+		searchLookup = new JButton("Search");
+		searchLookup.addActionListener(new searchButton());
+		cancelLookup = new JButton("Cancel");
+		cancelLookup.addActionListener(new cancelButton());
+		buttonPanel.add(searchLookup);
+		buttonPanel.add(cancelLookup);
+		JPanel view = new JPanel();
+		
+		view.add(lookupDir);
+		view.add(lookupName);
+		lookupFrame.add(view);
+		lookupFrame.add(buttonPanel);
+		
+		lookupFrame.setVisible(true);
+	}
+	private void handleStatusUpdate() {
+		String input = JOptionPane.showInputDialog(
+                null, "What do you have to say?");
+		((Musician) signedIn).createStatusUpdate(input, session);
+	}
+	private void handleMeetup() {
+		JFrame meetupFrame = new JFrame("Meetup");
+		
 	}
 }
