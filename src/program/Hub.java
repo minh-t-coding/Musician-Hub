@@ -10,17 +10,17 @@ import java.io.*;
 public class Hub implements Serializable{
 	
 	private static final long serialVersionUID = 2169290004287039387L;
-	public static ArrayList<SuperUser> allUsers;
-	public static ArrayList<Post> allPosts;
+	public ArrayList<SuperUser> allUsers;
+	public  ArrayList<Post> allPosts;
 	
 	public Hub() {
 		allUsers = new ArrayList<SuperUser>();
 		allPosts = new ArrayList<Post>();
 	}
-	public static void addPost(Post p) {
+	public void addPost(Post p) {
 		allPosts.add(p);
 	}
-	public static void addUser(SuperUser u) {
+	public void addUser(SuperUser u) {
 		allUsers.add(u);
 	}
 	public SuperUser signIn(){
@@ -48,6 +48,7 @@ public class Hub implements Serializable{
 		System.out.println("Username does not exist.");
 		return null;
 	}
+	/*
 	public SuperUser createAccount() throws FileNotFoundException {
 		System.out.println("Please specify what type of account is going to be created ('m' for musician, 'c' for "
 				+ "company): \n");
@@ -89,8 +90,9 @@ public class Hub implements Serializable{
 		return null;
 		
 	}
-	public static Boolean checkAvailability(String user){
-		for(SuperUser u : allUsers) {
+	*/
+	public Boolean checkAvailability(String user, Hub hub){
+		for(SuperUser u : hub.allUsers) {
 			if(user.equals(u.getUsername())) {
 				return false;
 			}

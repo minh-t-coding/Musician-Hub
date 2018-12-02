@@ -15,7 +15,6 @@ public class Driver {
 		
 		new WelcomeScreen();
 		
-		
 		//while(true) {
 		/*
 		Hub newHub = new Hub();

@@ -200,6 +200,6 @@ public class MainHub extends JFrame{
 	private void handleStatusUpdate() {
 		String input = JOptionPane.showInputDialog(
                 null, "What do you have to say?");
-		((Musician) signedIn).createStatusUpdate(input);
+		((Musician) signedIn).createStatusUpdate(input, session);
 	}
 }

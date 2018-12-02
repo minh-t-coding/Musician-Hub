@@ -38,12 +38,12 @@ public class Musician extends SuperUser{
 		instrumentsPlayed.add(i);
 	}
 	
-	public void createStatusUpdate(String input){
+	public void createStatusUpdate(String input, Hub hub){
 		StatusUpdate update = new StatusUpdate();
 		update.setContent(input);
 		update.setOwner(this);
 		this.AddPost(update);
-		Hub.addPost(update);
+		hub.addPost(update);
 	}
 	
 	public void createMeetUp(){

@@ -91,7 +91,7 @@ public class CreateAccountScreen extends JFrame{
 			String username = userInput.getText();
 			String password = passInput.getText();
 			String realName = realNameInput.getText();
-			if(hub.checkAvailability(username)) {
+			if(hub.checkAvailability(username, hub)) {
 				if(musician.isSelected()) {
 					Musician account = new Musician();
 					account.setUsername(username);
