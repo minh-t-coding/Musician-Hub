@@ -105,13 +105,27 @@ public class Hub {
 		*/
 		for (SuperUser u : allUsers) {
 			//System.out.println(u.getUsername());//debug
-			if(u.getUsername().startsWith(user)) {
+			if(u.getUsername().equals(user)) {
 				return u;
 			}
 		}
 		return null;
 	}
-	
+	public ArrayList<SuperUser> findLikeUsers(String like){
+		ArrayList<SuperUser> likeUsers = new ArrayList<SuperUser>();
+		for (SuperUser u : allUsers) {
+			//System.out.println(u.getUsername());//debug
+			if(u.getUsername().startsWith(like)) {
+				likeUsers.add(u);
+			}
+		}
+		if(likeUsers.size() > 0) {
+			return likeUsers;
+		}
+		else {
+			return null;
+		}
+	}
 	public void loadData() {
 		FileInputStream fileIn = null;
 		ObjectInputStream objIn = null;
