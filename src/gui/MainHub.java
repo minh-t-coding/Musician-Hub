@@ -80,45 +80,15 @@ public class MainHub extends JFrame{
 
 		signOut = new JMenu("Sign Out");
 		exit = new JMenuItem("Exit");
-		
+
+		exit.addActionListener(new MenuListener());
 		lookup = new JMenu("Lookup");
 		memberLookup = new JMenuItem("Member Lookup");
 		memberLookup.addActionListener(new MenuListener());
 		lookup.add(memberLookup);
-		feed = new JPanel();
-		user = new ArrayList<JLabel>();
-		content = new ArrayList<JTextArea>();
-		likes = new ArrayList<JPanel>();
 		
-		exit.addActionListener(new MenuListener());
-		for(int i=0; i<10; i++) {
-			Post post = new StatusUpdate();
-			post.setContent("test" + Integer.toString(i));
-			Musician m = new Musician();
-			m.setRealName(Integer.toString(i));
-			post.setOwner(m);
-			String numLikes = Integer.toString(post.getLikes());
-			JLabel labelUser = new JLabel(post.getOwner().getRealName());
-			JTextArea contentArea = new JTextArea(post.getContent());
-			JPanel likePanel = new JPanel();
-			JLabel likeLabel = new JLabel(numLikes);
-			JCheckBox click = new JCheckBox();
-			user.add(labelUser);
-			content.add(contentArea);
-			likePanel.add(click);
-			likePanel.add(likeLabel);
-			likePanel.add(new JSeparator());
-			likes.add(likePanel);
-			
-		}
+		populatePosts();
 		
-		for(int i = 0; i<user.size(); i++) {
-			feed.add(user.get(i));
-			feed.add(content.get(i));
-			feed.add(likes.get(i));
-			feed.add(likes.get(i));
-			//feed.add(new JSeparator());
-		}
 		GridLayout gl = new GridLayout(0,1);
 		feed.setLayout(gl);
 		add(feed);
@@ -375,6 +345,7 @@ public class MainHub extends JFrame{
 		String input = JOptionPane.showInputDialog(
                 null, "What do you have to say?");
 		((Musician) signedIn).createStatusUpdate(input, session);
+		populatePosts();
 	}
 	private void handleMeetup() {
 		meetupFrame = new JFrame("Meetup");
@@ -440,6 +411,39 @@ public class MainHub extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			meetupFrame.setVisible(false);
 			meetupFrame.dispose();
+		}
+	}
+	
+	private void populatePosts() {
+		feed = new JPanel();
+		user = new ArrayList<JLabel>();
+		content = new ArrayList<JTextArea>();
+		likes = new ArrayList<JPanel>();
+		
+		
+		Hub loadPosts = Hub.loadData();
+		for(Post post: loadPosts.allPosts) {
+			String numLikes = Integer.toString(post.getLikes());
+			JLabel labelUser = new JLabel(post.getOwner().getRealName());
+			JTextArea contentArea = new JTextArea(post.getContent());
+			JPanel likePanel = new JPanel();
+			JLabel likeLabel = new JLabel(numLikes);
+			JCheckBox click = new JCheckBox();
+			user.add(labelUser);
+			content.add(contentArea);
+			likePanel.add(click);
+			likePanel.add(likeLabel);
+			likePanel.add(new JSeparator());
+			likes.add(likePanel);
+			
+		}
+		
+		for(int i = 0; i<user.size(); i++) {
+			feed.add(user.get(i));
+			feed.add(content.get(i));
+			feed.add(likes.get(i));
+			feed.add(likes.get(i));
+			//feed.add(new JSeparator());
 		}
 	}
 }
