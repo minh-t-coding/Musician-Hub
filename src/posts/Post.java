@@ -3,11 +3,10 @@ import java.io.Serializable;
 
 import users.*;
 
-public abstract class Post implements Serializable{
+public abstract class Post{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8925430732324858777L;
 	protected SuperUser owner;
 	protected Boolean inappropriate;
 	protected String content;

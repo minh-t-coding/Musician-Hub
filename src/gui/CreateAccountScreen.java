@@ -99,6 +99,8 @@ public class CreateAccountScreen extends JFrame{
 					account.setRealName(realName);
 					hub.addUser(account);
 					new MainHub(hub, account);
+					setVisible(false);
+					dispose();
 				}
 				else {
 					Company account = new Company();
@@ -107,6 +109,8 @@ public class CreateAccountScreen extends JFrame{
 					account.setRealName(realName);
 					hub.addUser(account);
 					new MainHub(hub, account);
+					setVisible(false);
+					dispose();
 				}
 			}else {
 				JOptionPane.showMessageDialog(null, "Username is already taken." ,

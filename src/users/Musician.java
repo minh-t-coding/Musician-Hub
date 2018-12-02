@@ -38,12 +38,9 @@ public class Musician extends SuperUser{
 		instrumentsPlayed.add(i);
 	}
 	
-	public void createStatusUpdate(){
+	public void createStatusUpdate(String input){
 		StatusUpdate update = new StatusUpdate();
-		System.out.println("Status Update: \n");
-		Scanner scanned = new Scanner (System.in);
-		String status = scanned.nextLine();
-		update.setContent(status);
+		update.setContent(input);
 		update.setOwner(this);
 		this.AddPost(update);
 		Hub.addPost(update);

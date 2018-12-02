@@ -7,8 +7,9 @@ import users.*;
 
 import java.io.*;
 
-public class Hub {
+public class Hub implements Serializable{
 	
+	private static final long serialVersionUID = 2169290004287039387L;
 	public static ArrayList<SuperUser> allUsers;
 	public static ArrayList<Post> allPosts;
 	
@@ -126,29 +127,19 @@ public class Hub {
 			return null;
 		}
 	}
-	public void loadData() {
+	public static Hub loadData() {
 		FileInputStream fileIn = null;
 		ObjectInputStream objIn = null;
-		
+		Hub newHub = new Hub();
 		try {
-			File f = new File("Users.ser");
+			File f = new File("Hub.ser");
 			if(f.exists() && !f.isDirectory()) { 
-				fileIn = new FileInputStream("Users.ser");
+				fileIn = new FileInputStream("Hub.ser");
 				objIn = new ObjectInputStream(fileIn);
-				allUsers = (ArrayList<SuperUser>) objIn.readObject();
+				newHub = (Hub) objIn.readObject();
 				fileIn.close();
 				objIn.close();
 			}
-			f = new File("Posts.ser");
-			
-			if(f.exists() && !f.isDirectory()) { 
-				fileIn = new FileInputStream("Posts.ser");
-				objIn = new ObjectInputStream(fileIn);
-				allPosts = (ArrayList<Post>) objIn.readObject();
-				fileIn.close();
-				objIn.close();
-			}
-			
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
@@ -157,23 +148,18 @@ public class Hub {
 		catch(ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
+		return newHub;
 	}
-	public void saveData() {
+	public static void saveData(Hub newHub) {
 		try {
 			FileOutputStream fileOut = null;
 			ObjectOutputStream objOut = null;
-			if(!allUsers.isEmpty()) {
-				fileOut = new FileOutputStream("Users.ser");
-				objOut = new ObjectOutputStream(fileOut);
-				objOut.writeObject(allUsers);
-				fileOut.close();
-			}
-			if(!allPosts.isEmpty()) {
-				fileOut = new FileOutputStream("Posts.ser");
-				objOut.writeObject(allPosts);
-				objOut.close();
-				fileOut.close();
-			}
+			
+			fileOut = new FileOutputStream("Hub.ser");
+			objOut = new ObjectOutputStream(fileOut);
+			objOut.writeObject(newHub);
+			fileOut.close();
+			
 		}
 		catch(IOException ex){
 			ex.printStackTrace();

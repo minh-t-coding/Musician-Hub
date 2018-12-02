@@ -4,11 +4,10 @@ import posts.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public abstract class SuperUser implements Serializable{
+public abstract class SuperUser{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4286721299698077473L;
 	protected String username;
 	protected String password;
 	protected String realName;
