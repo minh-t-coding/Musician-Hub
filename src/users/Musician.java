@@ -9,12 +9,14 @@ import java.io.*;
 import java.time.*;
 
 public class Musician extends SuperUser{
+	private static final long serialVersionUID = 3912635045226041129L;
 	private String musicGenre;
 	private ArrayList<Instrument> instrumentsPlayed;
 	//maybe? private ArrayList<Musician> friendsList;
 	
 	public Musician() {
 		musicGenre = "None";
+		instrumentsPlayed = new ArrayList<Instrument>();
 	}
 	
 	public Musician(String username, String password) {
@@ -38,6 +40,10 @@ public class Musician extends SuperUser{
 		instrumentsPlayed.add(i);
 	}
 	
+	public void removeInstrument(Instrument i) {
+		instrumentsPlayed.remove(i);
+	}
+	
 	public void createStatusUpdate(String input, Hub hub){
 		StatusUpdate update = new StatusUpdate();
 		update.setContent(input);
@@ -46,13 +52,13 @@ public class Musician extends SuperUser{
 		hub.addPost(update);
 	}
 	
-	public void createMeetUp(String input, Hub hub){
+	public void createMeetUp(String input, String date, String location, Hub hub){
 		MeetUp update = new MeetUp();
 		//date, location, info
 		update.setContent(input);
 		update.setOwner(this);
-		//update.setDate(details.split(",")[0]);
-		//update.setLocation(details.split(",")[1]);
+		update.setDate(date);
+		update.setLocation(location);
 		this.AddPost(update);
 		hub.addPost(update);
 	}
