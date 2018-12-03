@@ -1,8 +1,13 @@
 package users;
+import java.io.*;
 
 import java.io.Serializable;
 
 public class Instrument implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5897489381990088831L;
 	private String name;
 	private float yearsPlayed;
 	
