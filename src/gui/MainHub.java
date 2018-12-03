@@ -86,12 +86,12 @@ public class MainHub extends JFrame{
 		memberLookup = new JMenuItem("Member Lookup");
 		memberLookup.addActionListener(new MenuListener());
 		lookup.add(memberLookup);
-		
-		populatePosts();
-		
+		feed = new JPanel();
 		GridLayout gl = new GridLayout(0,1);
 		feed.setLayout(gl);
 		add(feed);
+		populatePosts();
+		
 		
 		
 		
@@ -102,6 +102,8 @@ public class MainHub extends JFrame{
 		menuBar.add(lookup);
 		menuBar.add(signOut);
 		setJMenuBar(menuBar);
+		
+		
 	}
 	private class MenuListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) //this is the method MenuListener must implement, as it comes from the ActionListener interface.
@@ -471,7 +473,7 @@ public class MainHub extends JFrame{
 	}
 	
 	private void populatePosts() {
-		feed = new JPanel();
+		feed.removeAll();
 		user = new ArrayList<JLabel>();
 		content = new ArrayList<JTextArea>();
 		likes = new ArrayList<JPanel>();
@@ -499,7 +501,10 @@ public class MainHub extends JFrame{
 			feed.add(content.get(i));
 			feed.add(likes.get(i));
 			feed.add(likes.get(i));
-			//feed.add(new JSeparator());
+			feed.add(new JSeparator());
 		}
+		feed.validate();
+        feed.repaint();
+		
 	}
 }
