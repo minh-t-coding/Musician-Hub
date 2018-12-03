@@ -98,6 +98,7 @@ public class CreateAccountScreen extends JFrame{
 					account.setPassword(password);
 					account.setRealName(realName);
 					hub.addUser(account);
+					Hub.saveData(hub);
 					new MainHub(hub, account);
 					setVisible(false);
 					dispose();
@@ -108,6 +109,7 @@ public class CreateAccountScreen extends JFrame{
 					account.setPassword(password);
 					account.setRealName(realName);
 					hub.addUser(account);
+					Hub.saveData(hub);
 					new MainHub(hub, account);
 					setVisible(false);
 					dispose();
