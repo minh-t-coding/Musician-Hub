@@ -9,12 +9,14 @@ import java.io.*;
 import java.time.*;
 
 public class Musician extends SuperUser{
+	private static final long serialVersionUID = 3912635045226041129L;
 	private String musicGenre;
 	private ArrayList<Instrument> instrumentsPlayed;
 	//maybe? private ArrayList<Musician> friendsList;
 	
 	public Musician() {
 		musicGenre = "None";
+		instrumentsPlayed = new ArrayList<Instrument>();
 	}
 	
 	public Musician(String username, String password) {

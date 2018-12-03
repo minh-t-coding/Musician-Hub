@@ -192,10 +192,20 @@ public class MainHub extends JFrame{
 	}
 	
 	private void handleShowInfo() {
+		System.out.println("Username: " + signedIn.getUsername());
+		System.out.println("Name: " + signedIn.getRealName());
 		
+		if (signedIn instanceof Musician || signedIn instanceof Admin) {
+			System.out.println("Preferred Genre: " + ((Musician)signedIn).getMusicGenre());
+			for (Instrument ins : ((Musician)signedIn).getInstrumentsPlayed()) {
+				System.out.println("Instrument: " + ins.getName());
+				System.out.println("Years played: " + ins.getYearsPlayed());
+			}
+		}
 	}
 	
 	private void handleChangeInfo() {
+		JTextField genreField = null;
 		JPanel info = new JPanel();
 		info.setLayout(new GridBagLayout());
 		
@@ -233,7 +243,7 @@ public class MainHub extends JFrame{
 		info.add(realNameField,c);
 		
 		if (signedIn instanceof Musician || signedIn instanceof Admin) {
-			JTextField genreField = new JTextField(10);
+			genreField = new JTextField(10);
 			JLabel genreLabel = new JLabel("Music Genre: ");
 			genreLabel.setLabelFor(genreField);
 			
@@ -255,14 +265,51 @@ public class MainHub extends JFrame{
 		}
 		
 		int result = JOptionPane.showConfirmDialog(null, info, "Edit Information", JOptionPane.PLAIN_MESSAGE);
+		if (result == JOptionPane.OK_OPTION) {
+			String usernameString = usernameField.getText();
+			String passwordString = String.valueOf(passwordField.getPassword());
+			String realNameString = realNameField.getText();
+			
+			
+			if (usernameString != null && !usernameString.trim().equals("")) {
+				signedIn.setUsername(usernameString);
+			}
+			if (passwordString != null && !passwordString.trim().equals("")) {
+				signedIn.setPassword(passwordString);
+			}
+			if (realNameString != null && !realNameString.trim().equals("")) {
+				signedIn.setRealName(realNameString);
+			}
+			
+			if (signedIn instanceof Musician || signedIn instanceof Admin) {
+				String genreString = genreField.getText();
+				if (genreString != null && !genreString.trim().equals("")) {
+					((Musician)signedIn).setMusicGenre(genreString);
+				}
+			}
+		}
 	}
 	
 	public boolean isNumeric(String s) {  
 	    return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
 	} 
-	
+	public void printInstruments(Musician m) {
+		for (Instrument ins : m.getInstrumentsPlayed()) {
+			System.out.println(ins.getName());
+			System.out.println(ins.getYearsPlayed());
+		}
+	}
+	public boolean instrumentAlreadyIn(String ins) {
+		for (Instrument in : ((Musician)signedIn).getInstrumentsPlayed()) {
+			if (ins.toLowerCase().equals(in.getName().toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	private class addInstrumentButton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			printInstruments((Musician)signedIn);
 			JPanel popUp = new JPanel();
 			JTextField instrumentField = new JTextField();
 			JTextField yearsField = new JTextField();
@@ -293,7 +340,16 @@ public class MainHub extends JFrame{
 						} else if (Integer.parseInt(years) < 0) {
 							JOptionPane.showMessageDialog(null, "Years played cannot be negative!",
 									"ERROR: Input years played", JOptionPane.ERROR_MESSAGE);
-						} else {
+						} 
+						else if (instrumentAlreadyIn(nameStr)) {
+							for (Instrument in : ((Musician)signedIn).getInstrumentsPlayed()) {
+								if (nameStr.toLowerCase().equals(in.getName().toLowerCase())) {
+									in.setYearsPlayed(Float.parseFloat(years));
+									break;
+								}
+							}
+						}
+						else {
 							Instrument newInstrument = new Instrument();
 							newInstrument.setName(nameStr);
 							newInstrument.setYearsPlayed(Float.parseFloat(years));
@@ -326,7 +382,7 @@ public class MainHub extends JFrame{
 					} else {
 						Instrument toDelete = null;
 						for (Instrument ins : ((Musician) signedIn).getInstrumentsPlayed()) {
-							if (ins.getName().equals(instStr)) {
+							if ((ins.getName()).toLowerCase().equals(instStr.toLowerCase())) {
 								toDelete = ins;
 								((Musician) signedIn).removeInstrument(toDelete);
 								break;

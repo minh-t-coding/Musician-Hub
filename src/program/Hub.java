@@ -11,7 +11,7 @@ public class Hub implements Serializable{
 	
 	private static final long serialVersionUID = 2169290004287039387L;
 	public ArrayList<SuperUser> allUsers;
-	public  ArrayList<Post> allPosts;
+	public ArrayList<Post> allPosts;
 	
 	public Hub() {
 		allUsers = new ArrayList<SuperUser>();
@@ -145,6 +145,7 @@ public class Hub implements Serializable{
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
+			return new Hub();
 			
 		}
 		catch(ClassNotFoundException ex) {

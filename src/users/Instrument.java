@@ -1,6 +1,8 @@
 package users;
 
-public class Instrument {
+import java.io.Serializable;
+
+public class Instrument implements Serializable{
 	private String name;
 	private float yearsPlayed;
 	
