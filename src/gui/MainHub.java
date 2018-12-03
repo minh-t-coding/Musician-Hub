@@ -403,6 +403,7 @@ public class MainHub extends JFrame{
 		String input = JOptionPane.showInputDialog(
                 null, "What do you have to say?");
 		((Musician) signedIn).createStatusUpdate(input, session);
+		Hub.saveData(session);
 		populatePosts();
 	}
 	private void handleMeetup() {
