@@ -463,6 +463,7 @@ public class MainHub extends JFrame{
 			((Musician) signedIn).createMeetUp(info, date, location, session);
 			meetupFrame.setVisible(false);
 			meetupFrame.dispose();
+			populatePosts();
 		}
 	}
 	private class cancelListener implements ActionListener{
