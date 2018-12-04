@@ -3,17 +3,21 @@ package posts;
 import java.util.*;
 
 public class StatusUpdate extends Post{
-	private ArrayList<Post> comments; //list of comments from other users
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 796262775301956155L;
+	private ArrayList<Comment> comments; //list of comments from other users
 	
 	public StatusUpdate() {
-		comments = null;
+		comments = new ArrayList<Comment>();
 	}
 
-	public ArrayList<Post> getComments() {
-		return comments;
+	public ArrayList<Comment> getComments() {
+		return this.comments;
 	}
 
-	public void addComment(Post comment) {
+	public void addComment(Comment comment) {
 		this.comments.add(comment);
 	}
 	
