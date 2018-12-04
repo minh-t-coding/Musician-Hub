@@ -419,6 +419,12 @@ public class MainHub extends JFrame{
 	private void handleStatusUpdate() {
 		String input = JOptionPane.showInputDialog(
                 null, "What do you have to say?");
+		while(input.equals("")) {
+			JOptionPane.showMessageDialog(null, "Please enter something!" ,
+					"Error", JOptionPane.ERROR_MESSAGE);
+			input = JOptionPane.showInputDialog(
+	                null, "What do you have to say?");
+		}
 		((Musician) signedIn).createStatusUpdate(input, session);
 		Hub.saveData(session);
 		setVisible(false);
@@ -482,6 +488,30 @@ public class MainHub extends JFrame{
 			String date = dateText.getText();
 			String location = locText.getText();
 			String info = meetupInfo.getText(); 
+			Boolean error = false;
+			
+			if(date.equals("")) {//error checking
+				JOptionPane.showMessageDialog(null, "Please enter date!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				error = true;
+			}if(location.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter location!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}if(info.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter info!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}
+			if(error) {
+				meetupFrame.setVisible(false);
+				meetupFrame.dispose();
+				handleMeetup();
+				return;
+			}
+			
 			((Musician) signedIn).createMeetUp(info, date, location, session);
 			meetupFrame.setVisible(false);
 			meetupFrame.dispose();
@@ -547,7 +577,29 @@ public class MainHub extends JFrame{
 			String ad = adText.getText();
 			String genre = genreText.getText();
 			String link = linkText.getText();
+			Boolean error = false;
 			
+			if(ad.equals("")) {//error checking
+				JOptionPane.showMessageDialog(null, "Please enter date!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				error = true;
+			}if(genre.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter location!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}if(link.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter info!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}
+			if(error) {
+				adFrame.setVisible(false);
+				adFrame.dispose();
+				handleAdvertisement();
+				return;
+			}
 			((Company) signedIn).createAdvertisement(ad, genre, link, session);
 			
 			adFrame.setVisible(false);
@@ -663,4 +715,5 @@ public class MainHub extends JFrame{
         feed.repaint();
 		add(new JScrollPane(feed));
 	}
+	
 }
