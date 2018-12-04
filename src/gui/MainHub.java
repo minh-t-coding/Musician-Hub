@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -184,7 +187,57 @@ public class MainHub extends JFrame{
 		}
 	}
 	
+	public class JTextAreaOutputStream extends OutputStream {
+	    private final JTextArea destination;
+
+	    public JTextAreaOutputStream (JTextArea destination)
+	    {
+	        if (destination == null)
+	            throw new IllegalArgumentException ("Destination is null");
+
+	        this.destination = destination;
+	    }
+
+	    @Override
+	    public void write(byte[] buffer, int offset, int length) throws IOException
+	    {
+	        final String text = new String (buffer, offset, length);
+	        SwingUtilities.invokeLater(new Runnable ()
+	            {
+	                @Override
+	                public void run() 
+	                {
+	                    destination.append (text);
+	                }
+	            });
+	    }
+
+	    @Override
+	    public void write(int b) throws IOException
+	    {
+	        write (new byte [] {(byte)b}, 0, 1);
+	    }
+	}
 	private void handleShowInfo() {
+		JTextArea textArea = new JTextArea (10,20);
+
+        textArea.setEditable (false);
+
+        JFrame frame = new JFrame ("User Information");
+        //frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        Container contentPane = frame.getContentPane ();
+        contentPane.setLayout (new BorderLayout ());
+        contentPane.add (
+            new JScrollPane (
+                textArea, 
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED),
+            BorderLayout.CENTER);
+        frame.pack ();
+        frame.setVisible (true);
+
+        JTextAreaOutputStream out = new JTextAreaOutputStream (textArea);
+        System.setOut (new PrintStream (out));
 		System.out.println("Username: " + signedIn.getUsername());
 		System.out.println("Name: " + signedIn.getRealName());
 		
@@ -286,12 +339,14 @@ public class MainHub extends JFrame{
 	public boolean isNumeric(String s) {  
 	    return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
 	} 
-	public void printInstruments(Musician m) {
+	
+	/*public void printInstruments(Musician m) {
 		for (Instrument ins : m.getInstrumentsPlayed()) {
 			System.out.println(ins.getName());
 			System.out.println(ins.getYearsPlayed());
 		}
-	}
+	}*/
+	
 	public boolean instrumentAlreadyIn(String ins) {
 		for (Instrument in : ((Musician)signedIn).getInstrumentsPlayed()) {
 			if (ins.toLowerCase().equals(in.getName().toLowerCase())) {
@@ -302,7 +357,7 @@ public class MainHub extends JFrame{
 	}
 	private class addInstrumentButton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			printInstruments((Musician)signedIn);
+			//printInstruments((Musician)signedIn);
 			JPanel popUp = new JPanel();
 			JTextField instrumentField = new JTextField();
 			JTextField yearsField = new JTextField();
