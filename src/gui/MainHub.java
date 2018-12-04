@@ -80,7 +80,7 @@ public class MainHub extends JFrame{
 		}
 		else if(signedIn instanceof Company){
 			ad = new JMenuItem("Advertisement");
-			meetup.addActionListener(new MenuListener());
+			ad.addActionListener(new MenuListener());
 			posts.add(ad);
 		}
 		showInfo = new JMenuItem("Show Information");
@@ -543,6 +543,10 @@ public class MainHub extends JFrame{
 			String genre = genreText.getText();
 			String link = linkText.getText();
 			
+			((Company) signedIn).createAdvertisement(ad, genre, link, session);
+			
+			adFrame.setVisible(false);
+			adFrame.dispose();
 			Hub.saveData(session);
 			populatePosts();
 		}
