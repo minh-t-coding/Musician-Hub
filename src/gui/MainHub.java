@@ -475,6 +475,12 @@ public class MainHub extends JFrame{
 	private void handleStatusUpdate() {
 		String input = JOptionPane.showInputDialog(
                 null, "What do you have to say?");
+		while(input.equals("")) {
+			JOptionPane.showMessageDialog(null, "Please enter something!" ,
+					"Error", JOptionPane.ERROR_MESSAGE);
+			input = JOptionPane.showInputDialog(
+	                null, "What do you have to say?");
+		}
 		((Musician) signedIn).createStatusUpdate(input, session);
 		Hub.saveData(session);
 		setVisible(false);
@@ -538,6 +544,30 @@ public class MainHub extends JFrame{
 			String date = dateText.getText();
 			String location = locText.getText();
 			String info = meetupInfo.getText(); 
+			Boolean error = false;
+			
+			if(date.equals("")) {//error checking
+				JOptionPane.showMessageDialog(null, "Please enter date!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				error = true;
+			}if(location.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter location!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}if(info.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter info!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}
+			if(error) {
+				meetupFrame.setVisible(false);
+				meetupFrame.dispose();
+				handleMeetup();
+				return;
+			}
+			
 			((Musician) signedIn).createMeetUp(info, date, location, session);
 			meetupFrame.setVisible(false);
 			meetupFrame.dispose();
@@ -603,7 +633,29 @@ public class MainHub extends JFrame{
 			String ad = adText.getText();
 			String genre = genreText.getText();
 			String link = linkText.getText();
+			Boolean error = false;
 			
+			if(ad.equals("")) {//error checking
+				JOptionPane.showMessageDialog(null, "Please enter date!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				error = true;
+			}if(genre.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter location!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}if(link.equals("")){
+				JOptionPane.showMessageDialog(null, "Please enter info!" ,
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
+				error = true;
+			}
+			if(error) {
+				adFrame.setVisible(false);
+				adFrame.dispose();
+				handleAdvertisement();
+				return;
+			}
 			((Company) signedIn).createAdvertisement(ad, genre, link, session);
 			
 			adFrame.setVisible(false);
@@ -631,6 +683,7 @@ public class MainHub extends JFrame{
 		likes = new ArrayList<JPanel>();
 		comments = new ArrayList<JPanel>();
 		type = new ArrayList<String>();
+		c = new ArrayList<JLabel>();
 
 		
 		Hub loadPosts = Hub.loadData();
@@ -650,13 +703,15 @@ public class MainHub extends JFrame{
 			likes.add(likePanel);
 
 			JButton addComment = new JButton("Comment");
+			addComment.addActionListener(new commentButtonListener(post, signedIn));
 			if(post instanceof StatusUpdate) {
 				type.add("StatusUpdate");
 				JPanel comPan = new JPanel();
-				JLabel comment = new JLabel();
+				comPan.setLayout(new BoxLayout(comPan, BoxLayout.Y_AXIS));
 				comPan.add(addComment);
 				if(!(((StatusUpdate)post).getComments().isEmpty())) {
 					for(Comment cmt: ((StatusUpdate)post).getComments()) {
+						JLabel comment = new JLabel();
 						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
 						c.add(comment);
 					}
@@ -676,7 +731,7 @@ public class MainHub extends JFrame{
 			else if(post instanceof MeetUp) {
 				type.add("MeetUp");
 				JPanel comPan = new JPanel();
-				JLabel comment = new JLabel();
+				comPan.setLayout(new BoxLayout(comPan, BoxLayout.Y_AXIS));
 				JLabel dt = new JLabel("Date: " + ((MeetUp) post).getDate() + " Location: " + ((MeetUp)post).getLocation());
 				dateTime.add(dt);
 				JLabel cg = new JLabel("Going?");
@@ -698,6 +753,7 @@ public class MainHub extends JFrame{
 				comPan.add(addComment);
 				if(!(((MeetUp)post).getComments().isEmpty())){
 					for(Post cmt: ((MeetUp)post).getComments()) {
+						JLabel comment = new JLabel();
 						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
 						c.add(comment);
 					}
@@ -747,6 +803,37 @@ public class MainHub extends JFrame{
         feed.repaint();
 		add(new JScrollPane(feed));
 	}
+
+	private class commentButtonListener implements ActionListener{
+		private Post p;
+		private SuperUser u;
+		
+		public commentButtonListener(Post post, SuperUser user) {
+			p = post;
+			u = user;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Hub s = Hub.loadData();
+			
+			for(Post post : s.allPosts) {
+				if(post.getContent().equals(p.getContent())) {
+					String comment = JOptionPane.showInputDialog(
+			                null, "Comment on "+ post.getOwner().getUsername() + "\'s post");
+					Comment c = new Comment();
+					c.setContent(comment);
+					c.setOwner(u);
+					if(post instanceof StatusUpdate) {
+						((StatusUpdate)post).addComment(c);
+					}
+					else {
+						((MeetUp)post).addComments(c);
+					}
+				}
+			}
+			Hub.saveData(s);
+			new MainHub(s, signedIn);
+
 	
 	
 	private class newLike implements ActionListener{
@@ -847,7 +934,7 @@ public class MainHub extends JFrame{
 					"People Attending Meet Up", 
 					JOptionPane.PLAIN_MESSAGE);
 				
-			
+
 		}
 	}
 }
