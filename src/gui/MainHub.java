@@ -27,15 +27,16 @@ public class MainHub extends JFrame{
 	private JPanel feed;
 	private JScrollPane scrollPane;
 	private ArrayList<JLabel> user;
+	private ArrayList<JLabel> genre;
 	private ArrayList<JLabel> dateTime;
 	private ArrayList<JPanel> canGo;
 	private ArrayList<JTextArea> content;
+	private ArrayList<JLabel> link;
 	private ArrayList<JPanel> likes;
 	private ArrayList<JPanel> comments;
 	private ArrayList<JLabel> c;
 	private JMenu posts;
 	private ArrayList<String> type;
-	
 	
 	private JTextField lookupName;
 	private JButton searchLookup;
@@ -567,9 +568,11 @@ public class MainHub extends JFrame{
 	private void populatePosts() {
 		feed.removeAll();
 		user = new ArrayList<JLabel>();
+		genre = new ArrayList<JLabel>();
 		dateTime = new ArrayList<JLabel>();
 		canGo = new ArrayList<JPanel>();
 		content = new ArrayList<JTextArea>();
+		link = new ArrayList<JLabel>();
 		likes = new ArrayList<JPanel>();
 		comments = new ArrayList<JPanel>();
 		type = new ArrayList<String>();
@@ -581,11 +584,12 @@ public class MainHub extends JFrame{
 			JLabel labelUser = new JLabel(post.getOwner().getRealName());
 			user.add(labelUser);
 			JTextArea contentArea = new JTextArea(post.getContent());
+			contentArea.setEditable(false);
 			content.add(contentArea);
 			JPanel likePanel = new JPanel();
 			JLabel likeLabel = new JLabel(numLikes);
 			JCheckBox click = new JCheckBox();
-			click.addActionListener(new newLike(post));
+			click.addActionListener(new newLike(post, session));
 			likePanel.add(click);
 			likePanel.add(likeLabel);
 			likes.add(likePanel);
@@ -607,6 +611,8 @@ public class MainHub extends JFrame{
 					}
 				}
 				
+					genre.add(new JLabel());
+					link.add(new JLabel());
 					dateTime.add(new JLabel());
 					comments.add(comPan);
 					canGo.add(new JPanel());
@@ -620,7 +626,14 @@ public class MainHub extends JFrame{
 				dateTime.add(dt);
 				JLabel cg = new JLabel("Going?");
 				JCheckBox clk = new JCheckBox();
+				for(Musician m : ((MeetUp)post).getMusicians()) {
+					if(m.getUsername().equals(signedIn.getUsername())) {
+					clk.setSelected(true);
+					}
+				}
+				clk.addActionListener(new canGoChecked(post, session, signedIn));
 				JButton whosGoing = new JButton("See who's going");
+				whosGoing.addActionListener(new seeCanGo(post));
 				JPanel meetUpAttendees = new JPanel();
 				meetUpAttendees.add(cg);
 				meetUpAttendees.add(clk);
@@ -638,10 +651,19 @@ public class MainHub extends JFrame{
 						comPan.add(new JSeparator());
 					}
 				}
+				genre.add(new JLabel());
+				link.add(new JLabel());
 				comments.add(comPan);
 			}
 			else if(post instanceof Advertisement) {
-				
+				type.add("Advertisement");
+				JLabel gen = new JLabel(((Advertisement) post).getGenre());
+				JLabel l = new JLabel(((Advertisement) post).getLink());
+				genre.add(gen);
+				link.add(l);
+				dateTime.add(new JLabel());
+				canGo.add(new JPanel());
+				comments.add(new JPanel());
 			}
 			
 			
@@ -653,7 +675,13 @@ public class MainHub extends JFrame{
 				feed.add(dateTime.get(i));
 				feed.add(canGo.get(i));
 			}
+			if(type.get(i) == "Advertisement") {
+				feed.add(genre.get(i));
+			}
 			feed.add(content.get(i));
+			if(type.get(i) == "Advertisement") {
+				feed.add(link.get(i));
+			}
 			feed.add(likes.get(i));
 			if(type.get(i) != "Advertisement") {
 				feed.add(comments.get(i));
@@ -668,21 +696,101 @@ public class MainHub extends JFrame{
 	
 	private class newLike implements ActionListener{
 		private Post p;
+		private Hub s;
 		
-		public newLike(Post post) {
+		public newLike(Post post, Hub sesh) {
 			p = post;
-		}
-		
-		public Post getPost() {
-			return this.p;
+			s = sesh;
 		}
 		
 		public void actionPerformed(ActionEvent e) 
 		{
 			JCheckBox likePost = (JCheckBox)e.getSource();
 			if(likePost.isSelected()) {
-				this.getPost().addLike();
+				for(Post post : s.allPosts) {
+					if(post.getContent().equals(p.getContent())) {
+						post.addLike();
+						Hub.saveData(s);
+						setVisible(false);
+						dispose();
+						new MainHub(session, signedIn);
+					}
+				}
 			}
+			else {
+				for(Post post : s.allPosts) {
+					if(post.getContent().equals(p.getContent())) {
+						post.removeLike();
+						Hub.saveData(s);
+						setVisible(false);
+						dispose();
+						new MainHub(session, signedIn);
+					}
+				}
+			}
+				
+			
+		}
+	}
+	
+	private class canGoChecked implements ActionListener{
+		private Post p;
+		private Hub s;
+		private SuperUser u;
+		
+		public canGoChecked(Post post, Hub sesh, SuperUser user) {
+			p = post;
+			s = sesh;
+			u = user;
+		}
+		
+		public void actionPerformed(ActionEvent e) 
+		{
+			JCheckBox canGoBox = (JCheckBox)e.getSource();
+			if(canGoBox.isSelected()) {
+				for(Post post : s.allPosts) {
+					if((post.getContent().equals(p.getContent()) && (post instanceof MeetUp))) {
+						((MeetUp)post).addMusician(((Musician)u));
+						Hub.saveData(s);
+					}
+				}
+			}
+			else {
+				for(Post post : s.allPosts) {
+					if((post.getContent().equals(p.getContent()) && (post instanceof MeetUp))) {
+						((MeetUp)post).removeMusician((Musician)u);
+						Hub.saveData(s);
+					}
+				}
+			}
+				
+			
+		}
+	}
+
+	private class seeCanGo implements ActionListener{
+		private Post p;
+		
+		public seeCanGo(Post post) {
+			p = post;
+		}
+		
+		
+		public void actionPerformed(ActionEvent e) 
+		{
+			String t = "";
+			Hub newHub = Hub.loadData();
+			for(Post post : newHub.allPosts) {
+				if(post.getContent().equals(p.getContent())) {
+					for(Musician m :((MeetUp)post).getMusicians()) {
+						t = t + m.getRealName() + "(" + m.getUsername() + ")\n";
+					}
+				}
+			}
+			Hub.saveData(newHub);
+			JOptionPane.showMessageDialog(null, t,
+					"People Attending Meet Up", 
+					JOptionPane.PLAIN_MESSAGE);
 				
 			
 		}
