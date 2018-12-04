@@ -642,6 +642,7 @@ public class MainHub extends JFrame{
 			likes.add(likePanel);
 
 			JButton addComment = new JButton("Comment");
+			addComment.addActionListener(new commentButtonListener(post));
 			if(post instanceof StatusUpdate) {
 				type.add("StatusUpdate");
 				JPanel comPan = new JPanel();
@@ -715,5 +716,31 @@ public class MainHub extends JFrame{
         feed.repaint();
 		add(new JScrollPane(feed));
 	}
-	
+	private class commentButtonListener implements ActionListener{
+		private Post p;
+		
+		public commentButtonListener(Post post) {
+			p = post;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Hub s = Hub.loadData();
+			
+			for(Post post : s.allPosts) {
+				if(post.getContent().equals(p.getContent())) {
+					String comment = JOptionPane.showInputDialog(
+			                null, "Comment on "+ post.getOwner().getUsername() + "\'s post");
+					Comment c = new Comment();
+					c.setContent(comment);
+					if(post instanceof StatusUpdate) {
+						((StatusUpdate)post).addComment(c);
+					}
+					else {
+						((MeetUp)post).addComments(c);
+					}
+				}
+			}
+			Hub.saveData(s);
+		}
+	}
 }
