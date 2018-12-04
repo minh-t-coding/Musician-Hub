@@ -66,6 +66,7 @@ public class MainHub extends JFrame{
 		setVisible(true);
 	}
 	public void buildGUI() {
+		
 		menuBar = new JMenuBar();
 				
 		profileOptions = new JMenu("Profile");
@@ -80,7 +81,7 @@ public class MainHub extends JFrame{
 		}
 		else if(signedIn instanceof Company){
 			ad = new JMenuItem("Advertisement");
-			meetup.addActionListener(new MenuListener());
+			ad.addActionListener(new MenuListener());
 			posts.add(ad);
 		}
 		showInfo = new JMenuItem("Show Information");
@@ -420,7 +421,9 @@ public class MainHub extends JFrame{
                 null, "What do you have to say?");
 		((Musician) signedIn).createStatusUpdate(input, session);
 		Hub.saveData(session);
-		populatePosts();
+		setVisible(false);
+		dispose();
+		new MainHub(session, signedIn);
 	}
 	private void handleMeetup() {
 		meetupFrame = new JFrame("Meetup");
@@ -483,7 +486,9 @@ public class MainHub extends JFrame{
 			meetupFrame.setVisible(false);
 			meetupFrame.dispose();
 			Hub.saveData(session);
-			populatePosts();
+			setVisible(false);
+			dispose();
+			new MainHub(session, signedIn);
 		}
 	}
 	private class cancelListener implements ActionListener{
@@ -543,8 +548,14 @@ public class MainHub extends JFrame{
 			String genre = genreText.getText();
 			String link = linkText.getText();
 			
+			((Company) signedIn).createAdvertisement(ad, genre, link, session);
+			
+			adFrame.setVisible(false);
+			adFrame.dispose();
 			Hub.saveData(session);
-			populatePosts();
+			setVisible(false);
+			dispose();
+			new MainHub(session, signedIn);
 		}
 	}
 	private class cancel2Listener implements ActionListener{
