@@ -585,6 +585,7 @@ public class MainHub extends JFrame{
 			JPanel likePanel = new JPanel();
 			JLabel likeLabel = new JLabel(numLikes);
 			JCheckBox click = new JCheckBox();
+			click.addActionListener(new newLike(post));
 			likePanel.add(click);
 			likePanel.add(likeLabel);
 			likes.add(likePanel);
@@ -661,5 +662,29 @@ public class MainHub extends JFrame{
 		}
 		feed.validate();
         feed.repaint();
+		add(new JScrollPane(feed));
+	}
+	
+	
+	private class newLike implements ActionListener{
+		private Post p;
+		
+		public newLike(Post post) {
+			p = post;
+		}
+		
+		public Post getPost() {
+			return this.p;
+		}
+		
+		public void actionPerformed(ActionEvent e) 
+		{
+			JCheckBox likePost = (JCheckBox)e.getSource();
+			if(likePost.isSelected()) {
+				this.getPost().addLike();
+			}
+				
+			
+		}
 	}
 }
