@@ -23,11 +23,19 @@ public class MainHub extends JFrame{
 	private JMenu lookup;
 	private JMenuItem exit;
 	private JMenuItem memberLookup;
+	
 	private JPanel feed;
+	private JScrollPane scrollPane;
 	private ArrayList<JLabel> user;
+	private ArrayList<JLabel> dateTime;
+	private ArrayList<JPanel> canGo;
 	private ArrayList<JTextArea> content;
 	private ArrayList<JPanel> likes;
+	private ArrayList<JPanel> comments;
+	private ArrayList<JLabel> c;
 	private JMenu posts;
+	private ArrayList<String> type;
+	
 	
 	private JTextField lookupName;
 	private JButton searchLookup;
@@ -461,6 +469,7 @@ public class MainHub extends JFrame{
 		mainArea.add(meetupInfo);
 		meetupFrame.add(mainArea);
 		meetupFrame.setVisible(true);
+		
 	}
 	
 	private class meetupListener implements ActionListener{
@@ -547,36 +556,90 @@ public class MainHub extends JFrame{
 	private void populatePosts() {
 		feed.removeAll();
 		user = new ArrayList<JLabel>();
+		dateTime = new ArrayList<JLabel>();
+		canGo = new ArrayList<JPanel>();
 		content = new ArrayList<JTextArea>();
 		likes = new ArrayList<JPanel>();
+		comments = new ArrayList<JPanel>();
+		type = new ArrayList<String>();
 		
 		
 		Hub loadPosts = Hub.loadData();
 		for(Post post: loadPosts.allPosts) {
 			String numLikes = Integer.toString(post.getLikes());
 			JLabel labelUser = new JLabel(post.getOwner().getRealName());
+			user.add(labelUser);
 			JTextArea contentArea = new JTextArea(post.getContent());
+			content.add(contentArea);
 			JPanel likePanel = new JPanel();
 			JLabel likeLabel = new JLabel(numLikes);
 			JCheckBox click = new JCheckBox();
-			user.add(labelUser);
-			content.add(contentArea);
 			likePanel.add(click);
 			likePanel.add(likeLabel);
-			likePanel.add(new JSeparator());
 			likes.add(likePanel);
+			if(post instanceof StatusUpdate) {
+				type.add("StatusUpdate");
+				JPanel comPan = new JPanel();
+				JLabel comment = new JLabel();
+				if(!(((StatusUpdate)post).getComments().isEmpty())) {
+					for(Comment cmt: ((StatusUpdate)post).getComments()) {
+						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
+						c.add(comment);
+					}
+				}
+					dateTime.add(new JLabel());
+					comments.add(comPan);
+					canGo.add(new JPanel());
+			}
+			
+			else if(post instanceof MeetUp) {
+				type.add("MeetUp");
+				JPanel comPan = new JPanel();
+				JLabel comment = new JLabel();
+				JLabel dt = new JLabel("Date: " + ((MeetUp) post).getDate() + " Location: " + ((MeetUp)post).getLocation());
+				dateTime.add(dt);
+				JLabel cg = new JLabel("Going?");
+				JCheckBox clk = new JCheckBox();
+				JButton whosGoing = new JButton("See who's going");
+				JPanel meetUpAttendees = new JPanel();
+				meetUpAttendees.add(cg);
+				meetUpAttendees.add(clk);
+				meetUpAttendees.add(whosGoing);
+				canGo.add(meetUpAttendees);
+				if(!(((MeetUp)post).getComments().isEmpty())){
+					for(Post cmt: ((MeetUp)post).getComments()) {
+						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
+						c.add(comment);
+					}
+					for(JLabel jlbl: c) {
+						comPan.add(jlbl);
+						comPan.add(new JSeparator());
+					}
+				}
+				comments.add(comPan);
+			}
+			else if(post instanceof Advertisement) {
+				
+			}
+			
 			
 		}
 		
 		for(int i = 0; i<user.size(); i++) {
 			feed.add(user.get(i));
+			if(type.get(i) == "MeetUp") {
+				feed.add(dateTime.get(i));
+				feed.add(canGo.get(i));
+			}
 			feed.add(content.get(i));
 			feed.add(likes.get(i));
-			feed.add(likes.get(i));
+			if(type.get(i) != "Advertisement") {
+				feed.add(comments.get(i));
+			}
 			feed.add(new JSeparator());
 		}
 		feed.validate();
         feed.repaint();
-		
+		add(new JScrollPane(feed));
 	}
 }
