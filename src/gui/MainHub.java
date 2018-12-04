@@ -661,6 +661,5 @@ public class MainHub extends JFrame{
 		}
 		feed.validate();
         feed.repaint();
-		add(new JScrollPane(feed));
 	}
 }
