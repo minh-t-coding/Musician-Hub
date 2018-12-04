@@ -625,6 +625,7 @@ public class MainHub extends JFrame{
 		likes = new ArrayList<JPanel>();
 		comments = new ArrayList<JPanel>();
 		type = new ArrayList<String>();
+		c = new ArrayList<JLabel>();
 
 		
 		Hub loadPosts = Hub.loadData();
@@ -642,14 +643,15 @@ public class MainHub extends JFrame{
 			likes.add(likePanel);
 
 			JButton addComment = new JButton("Comment");
-			addComment.addActionListener(new commentButtonListener(post));
+			addComment.addActionListener(new commentButtonListener(post, signedIn));
 			if(post instanceof StatusUpdate) {
 				type.add("StatusUpdate");
 				JPanel comPan = new JPanel();
-				JLabel comment = new JLabel();
+				comPan.setLayout(new BoxLayout(comPan, BoxLayout.Y_AXIS));
 				comPan.add(addComment);
 				if(!(((StatusUpdate)post).getComments().isEmpty())) {
 					for(Comment cmt: ((StatusUpdate)post).getComments()) {
+						JLabel comment = new JLabel();
 						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
 						c.add(comment);
 					}
@@ -667,7 +669,7 @@ public class MainHub extends JFrame{
 			else if(post instanceof MeetUp) {
 				type.add("MeetUp");
 				JPanel comPan = new JPanel();
-				JLabel comment = new JLabel();
+				comPan.setLayout(new BoxLayout(comPan, BoxLayout.Y_AXIS));
 				JLabel dt = new JLabel("Date: " + ((MeetUp) post).getDate() + " Location: " + ((MeetUp)post).getLocation());
 				dateTime.add(dt);
 				JLabel cg = new JLabel("Going?");
@@ -682,6 +684,7 @@ public class MainHub extends JFrame{
 				comPan.add(addComment);
 				if(!(((MeetUp)post).getComments().isEmpty())){
 					for(Post cmt: ((MeetUp)post).getComments()) {
+						JLabel comment = new JLabel();
 						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
 						c.add(comment);
 					}
@@ -718,9 +721,11 @@ public class MainHub extends JFrame{
 	}
 	private class commentButtonListener implements ActionListener{
 		private Post p;
+		private SuperUser u;
 		
-		public commentButtonListener(Post post) {
+		public commentButtonListener(Post post, SuperUser user) {
 			p = post;
+			u = user;
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -732,6 +737,7 @@ public class MainHub extends JFrame{
 			                null, "Comment on "+ post.getOwner().getUsername() + "\'s post");
 					Comment c = new Comment();
 					c.setContent(comment);
+					c.setOwner(u);
 					if(post instanceof StatusUpdate) {
 						((StatusUpdate)post).addComment(c);
 					}
@@ -741,6 +747,7 @@ public class MainHub extends JFrame{
 				}
 			}
 			Hub.saveData(s);
+			new MainHub(s, signedIn);
 		}
 	}
 }
