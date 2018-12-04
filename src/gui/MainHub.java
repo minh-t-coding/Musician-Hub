@@ -66,6 +66,7 @@ public class MainHub extends JFrame{
 		setVisible(true);
 	}
 	public void buildGUI() {
+		
 		menuBar = new JMenuBar();
 				
 		profileOptions = new JMenu("Profile");
@@ -420,7 +421,9 @@ public class MainHub extends JFrame{
                 null, "What do you have to say?");
 		((Musician) signedIn).createStatusUpdate(input, session);
 		Hub.saveData(session);
-		populatePosts();
+		setVisible(false);
+		dispose();
+		new MainHub(session, signedIn);
 	}
 	private void handleMeetup() {
 		meetupFrame = new JFrame("Meetup");
@@ -483,7 +486,9 @@ public class MainHub extends JFrame{
 			meetupFrame.setVisible(false);
 			meetupFrame.dispose();
 			Hub.saveData(session);
-			populatePosts();
+			setVisible(false);
+			dispose();
+			new MainHub(session, signedIn);
 		}
 	}
 	private class cancelListener implements ActionListener{
@@ -548,7 +553,9 @@ public class MainHub extends JFrame{
 			adFrame.setVisible(false);
 			adFrame.dispose();
 			Hub.saveData(session);
-			populatePosts();
+			setVisible(false);
+			dispose();
+			new MainHub(session, signedIn);
 		}
 	}
 	private class cancel2Listener implements ActionListener{
