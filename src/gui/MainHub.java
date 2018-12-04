@@ -562,7 +562,7 @@ public class MainHub extends JFrame{
 		likes = new ArrayList<JPanel>();
 		comments = new ArrayList<JPanel>();
 		type = new ArrayList<String>();
-		
+
 		
 		Hub loadPosts = Hub.loadData();
 		for(Post post: loadPosts.allPosts) {
@@ -577,16 +577,24 @@ public class MainHub extends JFrame{
 			likePanel.add(click);
 			likePanel.add(likeLabel);
 			likes.add(likePanel);
+
+			JButton addComment = new JButton("Comment");
 			if(post instanceof StatusUpdate) {
 				type.add("StatusUpdate");
 				JPanel comPan = new JPanel();
 				JLabel comment = new JLabel();
+				comPan.add(addComment);
 				if(!(((StatusUpdate)post).getComments().isEmpty())) {
 					for(Comment cmt: ((StatusUpdate)post).getComments()) {
 						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
 						c.add(comment);
 					}
+					for(JLabel jlbl: c) {
+						comPan.add(jlbl);
+						comPan.add(new JSeparator());
+					}
 				}
+				
 					dateTime.add(new JLabel());
 					comments.add(comPan);
 					canGo.add(new JPanel());
@@ -605,7 +613,9 @@ public class MainHub extends JFrame{
 				meetUpAttendees.add(cg);
 				meetUpAttendees.add(clk);
 				meetUpAttendees.add(whosGoing);
+
 				canGo.add(meetUpAttendees);
+				comPan.add(addComment);
 				if(!(((MeetUp)post).getComments().isEmpty())){
 					for(Post cmt: ((MeetUp)post).getComments()) {
 						comment.setText(cmt.getOwner().getRealName() + ": " + cmt.getContent());
