@@ -683,11 +683,12 @@ public class MainHub extends JFrame{
 		likes = new ArrayList<JPanel>();
 		comments = new ArrayList<JPanel>();
 		type = new ArrayList<String>();
-		c = new ArrayList<JLabel>();
+		
 
 		
 		Hub loadPosts = Hub.loadData();
 		for(Post post: loadPosts.allPosts) {
+			c = new ArrayList<JLabel>();
 			String numLikes = Integer.toString(post.getLikes());
 			JLabel labelUser = new JLabel(post.getOwner().getRealName());
 			user.add(labelUser);
@@ -736,11 +737,12 @@ public class MainHub extends JFrame{
 				dateTime.add(dt);
 				JLabel cg = new JLabel("Going?");
 				JCheckBox clk = new JCheckBox();
+				/*
 				for(Musician m : ((MeetUp)post).getMusicians()) {
 					if(m.getUsername().equals(signedIn.getUsername())) {
 					clk.setSelected(true);
 					}
-				}
+				}*/
 				clk.addActionListener(new canGoChecked(post, session, signedIn));
 				JButton whosGoing = new JButton("See who's going");
 				whosGoing.addActionListener(new seeCanGo(post));
@@ -832,8 +834,11 @@ public class MainHub extends JFrame{
 				}
 			}
 			Hub.saveData(s);
+			setVisible(false);
+			dispose();
 			new MainHub(s, signedIn);
-
+		}
+	}
 	
 	
 	private class newLike implements ActionListener{
@@ -938,3 +943,4 @@ public class MainHub extends JFrame{
 		}
 	}
 }
+
