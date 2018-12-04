@@ -51,6 +51,10 @@ public class MainHub extends JFrame{
 	private JTextField locText;
 	private JTextField meetupInfo;
 	
+	private JFrame adFrame;
+	private JTextField adText;
+	private JTextField genreText;
+	private JTextField linkText;
 	
 	public MainHub(Hub hub, SuperUser signedInUser){
 		super("Musicians Hub");
@@ -138,6 +142,9 @@ public class MainHub extends JFrame{
 			}
 			else if(source.equals(meetup)) {
 				handleMeetup();
+			}
+			else if(source.equals(ad)) {
+				handleAdvertisement();
 			}
 			
 		}
@@ -464,6 +471,7 @@ public class MainHub extends JFrame{
 		meetupFrame.setVisible(true);
 		
 	}
+	
 	private class meetupListener implements ActionListener{
 
 		@Override
@@ -484,7 +492,67 @@ public class MainHub extends JFrame{
 			meetupFrame.dispose();
 		}
 	}
-	
+	private void handleAdvertisement() {
+		adFrame = new JFrame("Advertisement");
+		adFrame.setSize(400, 400);
+		JPanel mainArea = new JPanel();
+		mainArea.setLayout(new BoxLayout(mainArea, BoxLayout.Y_AXIS));
+		JPanel infoField = new JPanel();
+		infoField.setLayout(new FlowLayout());
+		JLabel info = new JLabel("Please enter advertisement info:");
+		adText = new JTextField();
+		adText.setColumns(20);
+		JPanel linkField = new JPanel();
+		linkField.setLayout(new FlowLayout());
+		JPanel genreField = new JPanel();
+		genreField.setLayout(new FlowLayout());
+		JLabel genre = new JLabel("Genre of music: ");
+		genreText = new JTextField();
+		genreText.setColumns(20);
+		JLabel link = new JLabel("Link: ");
+		linkText = new JTextField();
+		linkText.setColumns(20);
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout());
+		JButton submit = new JButton("Submit");
+		submit.addActionListener(new adListener());
+		JButton cancel = new JButton("Cancel");
+		cancel.addActionListener(new cancel2Listener());
+		
+		infoField.add(info);
+		infoField.add(adText);
+		genreField.add(genre);
+		genreField.add(genreText);
+		linkField.add(link);
+		linkField.add(linkText);
+		buttonPanel.add(submit);
+		buttonPanel.add(cancel);
+		mainArea.add(infoField);
+		mainArea.add(genreField);
+		mainArea.add(linkField);
+		mainArea.add(buttonPanel);
+		adFrame.add(mainArea);
+		adFrame.setVisible(true);
+	}
+	private class adListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String ad = adText.getText();
+			String genre = genreText.getText();
+			String link = linkText.getText();
+			
+			Hub.saveData(session);
+			populatePosts();
+		}
+	}
+	private class cancel2Listener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			adFrame.setVisible(false);
+			adFrame.dispose();
+		}
+	}
 	private void populatePosts() {
 		feed.removeAll();
 		user = new ArrayList<JLabel>();
