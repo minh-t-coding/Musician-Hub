@@ -17,7 +17,7 @@ public class MeetUp extends Post{
 	public MeetUp() {
 		location = "";
 		comments = new ArrayList<Comment>();
-		canGo = null;
+		canGo = new ArrayList<Musician>();
 		date = "";
 	}
 
@@ -43,6 +43,10 @@ public class MeetUp extends Post{
 
 	public void addMusician(Musician m) {
 		this.canGo.add(m);
+	}
+	
+	public void removeMusician(Musician m) {
+		this.canGo.remove(m);
 	}
 
 	public String getDate() {
