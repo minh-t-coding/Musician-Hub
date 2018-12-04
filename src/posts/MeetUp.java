@@ -5,14 +5,18 @@ import java.util.*;
 import users.*;
 
 public class MeetUp extends Post{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4505519322292027156L;
 	private String location; //where the meetup will be
 	private String date;     //when the meetup will go on
-	private ArrayList<Post> comments; //comments by other users
+	private ArrayList<Comment> comments; //comments by other users
 	private ArrayList<Musician> canGo; //list of other users that said that they can go 
 	
 	public MeetUp() {
 		location = "";
-		comments = null;
+		comments = new ArrayList<Comment>();
 		canGo = null;
 		date = "";
 	}
@@ -25,11 +29,11 @@ public class MeetUp extends Post{
 		this.location = location;
 	}
 
-	public ArrayList<Post> getComments() {
+	public ArrayList<Comment> getComments() {
 		return comments;
 	}
 
-	public void addComments(Post comment) {
+	public void addComments(Comment comment) {
 		this.comments.add(comment);
 	}
 
